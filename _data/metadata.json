@@ -1,8 +1,8 @@
 {
-	"title": "Your comic name here",
-	"base": "https://example.com",
-	"description": "Your comic description here",
-	"author": "Your Name",
+	"title": "Anno Arcana",
+	"base": "https://annoarcana.com",
+	"description": "This world had been like yours for all of its history, devoid of any and all arcane energies. Fifteen years ago, a deal was struck and a price was paid, and magic began to ferment within the world. Now that seed has fully bloomed, forcing every nation into a rapid scramble to gather as many magical creatures and exotic mystics to their side as they can. A new arms race, and a new era: Anno Arcana.",
+	"author": "Kate Drwecka",
 	"authorEmail": "katedrwecka@gmail.com",
 	"language": "en"
 }
