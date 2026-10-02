@@ -29,11 +29,10 @@ module.exports = function(eleventyConfig) {
 			return `${utc[2]} ${utc[1]}, ${utc[3]}`;
 		});
 		eleventyConfig.addAsyncFilter("chapters", async function(collections) { 
-			return Object.keys(collections).filter(function (propertyName) {
-				if (propertyName.indexOf("chapter") === 0){
-					return propertyName;
-				}
-			});
+			// Sort chapters numerically so chapter10 comes after chapter9
+			return Object.keys(collections)
+				.filter((propertyName) => /^chapter\d+$/.test(propertyName))
+				.sort((a, b) => parseInt(a.slice(7)) - parseInt(b.slice(7)));
 		});		
 }
 

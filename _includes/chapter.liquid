@@ -10,7 +10,7 @@ the page."
     <div class="chapter-container">
         <img class="chapter-img" src="{{ collection[chapter][0].data.images[0] }}" alt="Thumbnail for Chapter">
         <div class="chapter-text">
-            <h2>Chapter {{chapter | slice: -1, 1}}</h2>
+            <h2>Chapter {{ chapter | remove_first: "chapter" }}</h2>
             {% for item in collection[chapter] %}
               <div class="chapter">
                 <h3>
