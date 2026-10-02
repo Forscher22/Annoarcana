@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ metadata.description }}">
+    <script>
+      // Invite and password-reset emails link to the home page; send those
+      // links on to the admin dashboard, which knows how to handle them.
+      if (/(invite|recovery|confirmation)_token=/.test(location.hash)) {
+        location.replace("/admin/" + location.hash);
+      }
+    </script>
     <!--
     For data that affects the whole site (say, metadata that describes it), we
     can add global data to 11ty's data folder! Feel free to expand the included
@@ -35,30 +43,6 @@
     (https://www.11ty.dev/docs/layouts/)
     {% endcomment %}
     <main>
-      <!-- Delete this message -->
-      <div class="subPage paperDiv">
-        <h2>Hold up!</h2>
-        <p>This site isn't
-          <em>actually</em>
-          using
-          <a href="https://geno7.neocities.org/">Geno7's</a>
-          fantastic
-          <a href="https://rarebit.neocities.org/">Rarebit</a>
-          template. Rather, it's using a similar template that was built using
-          <a href="https://www.11ty.dev/">Eleventy</a>, a static site generator! Check out the
-          <a href="https://github.com/katedee/eleventy-webcomic">GitHub</a>
-          for more info!</p>
-        <p>If you're reading this after successfully setting up the template locally, there's a few things left for you to do:</p>
-        <ul>
-          <li>Update <code>_data/metadata.js</code> with your webcomic info, and author info. This is important for generating your RSS feed.</li>
-          <li>(Optional, kind of advanced) Edit <code>eleventy.config.js</code> with your <a href="https://www.11ty.dev/docs/config/">configuration preferences</a>.</li>
-          <li>(Optional, some extra work) Add comments, following <a href="https://webcomics.fyi/templates/adding-comments.html">instructions found here</a></li>
-          <li>Delete this message from <code>_includes/layouts/base.liquid</code>.</li>
-          <li>(Optional) Adjust <code>robots.txt</code> to your preferences (thank you to <a href="https://github.com/the-rashons/eleventy-rarebit-template/pull/1">niborous</a>)</li>
-        </ul>
-        <p>MASSIVE credit to <a href="https://github.com/the-rashons/eleventy-rarebit-template">the-rashons</a> who did the bulk of this first. I just forked their repo and add some things to spruce it up a bit!</p>
-      </div>
-      <!-- Stop deleting -->
 
       {{ content }}
     </main>

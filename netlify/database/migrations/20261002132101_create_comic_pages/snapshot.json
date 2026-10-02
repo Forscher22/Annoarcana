@@ -1,0 +1,168 @@
+{
+  "version": "8",
+  "dialect": "postgres",
+  "id": "5426ed6a-0708-4512-830e-0ce603fc854e",
+  "prevIds": [
+    "00000000-0000-0000-0000-000000000000"
+  ],
+  "ddl": [
+    {
+      "isRlsEnabled": false,
+      "name": "comic_pages",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "comic_pages"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "page_number",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "comic_pages"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "1",
+      "generated": null,
+      "identity": null,
+      "name": "chapter",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "comic_pages"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "''",
+      "generated": null,
+      "identity": null,
+      "name": "title",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "comic_pages"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "''",
+      "generated": null,
+      "identity": null,
+      "name": "alt",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "comic_pages"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "''",
+      "generated": null,
+      "identity": null,
+      "name": "notes",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "comic_pages"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "image_key",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "comic_pages"
+    },
+    {
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "name": "spread",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "comic_pages"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "posted_on",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "comic_pages"
+    },
+    {
+      "type": "timestamp",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "comic_pages"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "comic_pages_pkey",
+      "schema": "public",
+      "table": "comic_pages",
+      "entityType": "pks"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "page_number"
+      ],
+      "nullsNotDistinct": false,
+      "name": "comic_pages_page_number_key",
+      "schema": "public",
+      "table": "comic_pages",
+      "entityType": "uniques"
+    }
+  ],
+  "renames": []
+}

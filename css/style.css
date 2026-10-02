@@ -66,7 +66,9 @@ img {
   * If you just want to swap some colours, likely this is all you have to touch.
   **/
   /* universal background color */
-  --bg-color: #f1ece4;
+  --bg-color: #1a2238;
+  /* text and link colour for things sitting directly on the background */
+  --on-bg-color: #f1ece4;
   /* the colour of links */
   --link-color: #222;
   /* link colours when hovered over */
@@ -93,6 +95,16 @@ a:hover {
   color: var(--link-color-hover);
 }
 
+/* the header and footer sit on the dark background, so use light text */
+header a,
+footer a {
+  color: var(--on-bg-color);
+}
+header a:hover,
+footer a:hover {
+  color: var(--link-color-hover);
+}
+
 /* HEADER */
 
 header {
@@ -112,7 +124,7 @@ header nav {
   width: 98%;
   margin-top: 1rem;
   text-align: center;
-  border: solid #4f4f47;
+  border: solid var(--on-bg-color);
   border-width: 1px 0;
   padding: 10px;
 }
@@ -120,7 +132,7 @@ header nav {
 /* FOOTER */
 
 footer {
-  color: var(--text-color);
+  color: var(--on-bg-color);
   margin-top: 2rem;
   margin-bottom: 1rem;
   display: flex;

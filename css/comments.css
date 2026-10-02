@@ -1,205 +1,159 @@
+/* Reader comments under each comic page (see _includes/comments.liquid) */
+
 .comments-wrapper {
-    /**
-     * By now you should be a bit familiar with CSS variables from the main site styles.
-     * Rather than declare these on the root, we've set it to the more local comments, to help avoid any name clashes.
-     * (https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) 
-     */
-    --comment-title-font: 'IM Fell English', serif;
-    --comment-text-font: 'Lato', sans-serif;
-    --comment-text-color: #222;
-    /* bg colour of the inputs */
-    --input-bg-color: #ececec;
-    --button-color: #da5437;
-    --button-color-hover: #b54a32;
-    --button-text-color: #fff;
-    --author-badge-color: #797979;
+  margin: 3rem auto 0;
+  padding: 1% 3% 3%;
+  font-family: "Lato", sans-serif;
+  font-size: 1rem;
+  color: var(--text-color);
 }
 
-/**
-   * This class will hide something visually on the page, but leave it for screen readers to read. We use it to visually hide the form labels.
-   */
-.visually-hidden,
-.visually-hidden-focusable:not(:focus):not(:focus-within) {
-    border: 0 !important;
-    clip: rect(0, 0, 0, 0) !important;
-    height: 1px !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    white-space: nowrap !important;
-    width: 1px !important;
+.comments-wrapper h2 {
+  margin-bottom: 1rem;
 }
 
-.visually-hidden:not(caption),
-.visually-hidden-focusable:not(:focus):not(:focus-within):not(caption) {
-    position: absolute !important;
+.comments-count {
+  font-size: 0.7em;
+  color: #787872;
 }
 
-/* the container that holds the form and comments together */
-.comments-wrapper {
-    padding: 1% 3% 3%;
-    margin: 5% auto;
+.comments-list {
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
 }
 
-/* Form general */
-#commentsForm {
-    height: 100%;
-    font-family: var(--comment-text-font);
-    font-size: 16px;
-    color: var(--comment-text-color);
-    width: 100%;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #cacaca;
-    padding-bottom: 3rem;
+.comment {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid #e6dfd3;
+}
+.comment:last-child {
+  border-bottom: none;
 }
 
-.comment-reply-info:hover {
-    cursor: pointer;
+.comment-author {
+  border-left: 3px solid var(--link-color-hover);
+  padding-left: 0.9rem;
+  background: #faf6f0;
 }
 
-/* Submit button */
-#commentsForm button {
-    padding: 0.7rem;
-    font-family: var(--comment-title-font);
-    text-decoration: none;
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: bold;
-    color: var(--button-text-color);
-    background-color: var(--button-color);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    outline: none;
-    border: none;
-    border-radius: 5px;
-    width: 100%;
+.comment-new {
+  animation: comment-in 0.4s ease both;
 }
 
-#commentsForm button:hover {
-    background-color: var(--button-color-hover);
+.comment-meta {
+  margin: 0 0 0.3rem;
+  font-size: 0.85rem;
+  color: #787872;
+}
+.comment-meta strong {
+  color: var(--text-color);
+  font-size: 1rem;
 }
 
-#commentsForm button:disabled {
-    opacity: 60%;
+.comment-badge {
+  display: inline-block;
+  padding: 0.05rem 0.45rem;
+  border-radius: 2px;
+  background: var(--link-color-hover);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: 0.1em;
 }
 
-/* Inputs */
-#commentsForm input,
-#commentsForm textarea {
-    width: 100%;
-    border: none;
-    border-radius: 5px;
-    padding: 0.5rem;
-    background:var(--input-bg-color);
-    margin-bottom: 0.5rem;
+.comment-body {
+  margin: 0;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
-#commentsForm textarea {
-    min-height: 200px;
-    resize: vertical;
+.comments-status {
+  font-style: italic;
+  color: #787872;
 }
 
-.textarea-container {
-    position: relative;
+.comments-form {
+  display: grid;
+  gap: 0.8rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #4f4f47;
+}
+.comments-form h3 {
+  margin: 0;
+  font-family: "IM Fell English", serif;
+  font-weight: 400;
+  font-size: 1.4rem;
+}
+.comments-form label {
+  display: grid;
+  gap: 0.3rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.comments-form input,
+.comments-form textarea {
+  font: inherit;
+  font-weight: 400;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #d6cfc3;
+  border-radius: 2px;
+  background: #faf7f2;
+  color: var(--text-color);
+}
+.comments-form input:focus,
+.comments-form textarea:focus {
+  outline: 2px solid var(--link-color-hover);
+  outline-offset: 1px;
+  background: #fff;
+}
+.comments-form textarea {
+  resize: vertical;
+}
+.comments-form button {
+  justify-self: start;
+  font: 700 1rem "Lato", sans-serif;
+  color: #fff;
+  background: var(--bg-color);
+  border: none;
+  border-radius: 2px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.comments-form button:hover {
+  background: var(--link-color-hover);
+}
+.comments-form button:disabled {
+  opacity: 0.6;
+  cursor: progress;
 }
 
-/* emoji button */
-.emoji-btn {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    font-size: 2rem;
-    width: 25px;
-    height:25px;
-    line-height: 0.75;
-    transition: color 0.3s ease;
-    mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 512 512"><path d="M437.02 74.98C388.667 26.629 324.38 0 256 0S123.333 26.629 74.98 74.98C26.629 123.333 0 187.62 0 256s26.629 132.668 74.98 181.02C123.333 485.371 187.62 512 256 512s132.667-26.629 181.02-74.98C485.371 388.668 512 324.38 512 256s-26.629-132.667-74.98-181.02zM256 472c-119.103 0-216-96.897-216-216S136.897 40 256 40s216 96.897 216 216-96.897 216-216 216z"/><path d="M368.993 285.776c-.072.214-7.298 21.626-25.02 42.393C321.419 354.599 292.628 368 258.4 368c-34.475 0-64.195-13.561-88.333-40.303-18.92-20.962-27.272-42.54-27.33-42.691l-37.475 13.99c.42 1.122 10.533 27.792 34.013 54.273C171.022 389.074 212.215 408 258.4 408c46.412 0 86.904-19.076 117.099-55.166 22.318-26.675 31.165-53.55 31.531-54.681l-38.037-12.377z"/><circle cx="168" cy="180.12" r="32"/><circle cx="344" cy="180.12" r="32"/></svg>');
-    -webkit-mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 512 512"><path d="M437.02 74.98C388.667 26.629 324.38 0 256 0S123.333 26.629 74.98 74.98C26.629 123.333 0 187.62 0 256s26.629 132.668 74.98 181.02C123.333 485.371 187.62 512 256 512s132.667-26.629 181.02-74.98C485.371 388.668 512 324.38 512 256s-26.629-132.667-74.98-181.02zM256 472c-119.103 0-216-96.897-216-216S136.897 40 256 40s216 96.897 216 216-96.897 216-216 216z"/><path d="M368.993 285.776c-.072.214-7.298 21.626-25.02 42.393C321.419 354.599 292.628 368 258.4 368c-34.475 0-64.195-13.561-88.333-40.303-18.92-20.962-27.272-42.54-27.33-42.691l-37.475 13.99c.42 1.122 10.533 27.792 34.013 54.273C171.022 389.074 212.215 408 258.4 408c46.412 0 86.904-19.076 117.099-55.166 22.318-26.675 31.165-53.55 31.531-54.681l-38.037-12.377z"/><circle cx="168" cy="180.12" r="32"/><circle cx="344" cy="180.12" r="32"/></svg>');
-    background-size: 25px;
-    background-color: var(--button-color);
+/* Hidden spam trap */
+.comments-trap {
+  position: absolute !important;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
-.emoji-btn:hover {
-    cursor: pointer;
-    background-color: var(--button-color-hover);
+.comments-error {
+  margin: 0;
+  min-height: 1.2em;
+  color: #b33a22;
+  font-size: 0.9rem;
 }
 
-/* Comment section */
-.comment-div {
-    margin: 1rem 0;
-    word-wrap: break-word;
-    font-family: var(--comment-text-font);
+@keyframes comment-in {
+  from { opacity: 0; transform: translateY(6px); }
 }
 
-.comment-div .comment-div {
-    margin-left: 1.75rem;
-}
-
-.comment-content-wrap {
-    padding: 1rem 2rem;
-    box-shadow: 0 0 2px 2px rgba(0,0,0,.1);
-    border-radius: 5px;
-}
-
-.comment-name,
-.comment-footer {
-    font-family: var(--comment-title-font);
-}
-
-.comment-name {
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.comment-date {
-    color: #4f4f47;
-    font-size: 0.9rem;
-    margin-top: -5px;
-    display: block;
-}
-
-.author-badge {
-    color: var(--author-badge-color);
-    font-size: 0.9rem;
-}
-
-.comment-content-wrap p {
-    margin: .5rem 0 1.5rem;
-}
-
-.replying-to {
-    color: #4f4f47;
-    font-size: 0.9rem;
-}
-
-.replying-to:hover {
-    color: #787872;
-    cursor: pointer;
-}
-
-.comment-footer {
-    font-size: 0.9rem;
-}
-
-.comment-reply-button,
-.toggle-replies {
-    color: var(--button-color);
-    transition: color 0.3s ease;
-}
-
-.comment-reply-button svg {
-    width: 11px;
-    height: auto;
-    margin-top: -5px;
-    fill: var(--button-color);
-}
-
-.comment-reply-button:hover,
-.toggle-replies:hover {
-    color: var(--button-color-hover);
-    cursor: pointer;
-}
-
-.toggle-replies {
-    margin-left: 2rem;
+@media (prefers-reduced-motion: reduce) {
+  .comment-new {
+    animation: none;
+  }
 }

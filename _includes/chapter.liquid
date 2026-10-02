@@ -8,9 +8,11 @@ the page."
 {% if chapters %}
   {% for chapter in chapters %}
     <div class="chapter-container">
-        <img class="chapter-img" src="{{ collection[chapter][0].data.images[0] }}" alt="Thumbnail for Chapter">
+        {%- assign thumb = collection[chapter][0].data.images[0] %}
+        {%# Pages uploaded via the dashboard aren't local files, so skip image optimizing for them %}
+        <img class="chapter-img" src="{{ thumb }}" alt="Thumbnail for Chapter"{% if thumb contains "/comic-uploads/" %} eleventy:ignore{% endif %}>
         <div class="chapter-text">
-            <h2>Chapter {{chapter | slice: -1, 1}}</h2>
+            <h2>Chapter {{ chapter | remove_first: "chapter" }}</h2>
             {% for item in collection[chapter] %}
               <div class="chapter">
                 <h3>
@@ -26,7 +28,7 @@ the page."
     <div class="chapter">
       {%# If `thumbnails` is true, display the page's thumbnail %}
       {% if thumbnails %}
-        <img src="{{ item.data.images[0] }}" width="100" alt="Thumbnail for {{ item.data.title }}">
+        <img src="{{ item.data.images[0] }}" width="100" alt="Thumbnail for {{ item.data.title }}"{% if item.data.images[0] contains "/comic-uploads/" %} eleventy:ignore{% endif %}>
       {% endif %}
       <h3>
         <a href="{{ item.url }}">{{ item.data.title }}</a>

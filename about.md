@@ -2,12 +2,8 @@
 title: About
 layout: layouts/page.liquid
 ---
-This is an example of how to use the **Rarebit** template. It uses a public domain comic strip called **Teena** that ran in newspapers from 1944 to 1963.
+This world had been like yours for all of its history. Devoid of any and all arcane energies.
 
-The author, **Hilda Terry**, became the first woman allowed to join the National Cartoonists Society, upon which she lobbied for other women cartoonists to join, such as **Mopsy** author **Gladys Parker**.
+This changed 15 years ago when a deal was struck and a price was paid. Soon, the magic began to ferment within this world.
 
-![Image of Hilda Terry](/img/hildaterry.png)
-
-She also held a firm belief that she was a reincarnation of **Dorcas Good**, a child imprisoned after being accused of practicing witchcraft in the 1692 Salem witch trials.
-
-Say what you will, but the lady's got range!
+This seed of magic has now fully bloomed, forcing this world into a rapid scramble to gather as many magical creatures and exotic mystics on their side as they can. Starting a new arms race, and a new era, ***Anno Arcana***.

@@ -1,36 +1,22 @@
-<div class="paperDiv comments-wrapper">
-    <h2>Add a comment</h2>
-    <form id="commentsForm" onsubmit="return postComment()">
-        <p id="comment-reply-info"></p>
-        <label for="comment-name" class="visually-hidden">Name:</label>
-        <input type="text" placeholder="Name" id="commentName" required>
-        <div class="textarea-container">
-            <label for="comment-comment" class="visually-hidden">Comment:</label>
-            <textarea id="comment-comment" placeholder="Write your comment..." onInput="this.parentNode.dataset.replicatedValue = this.value" required></textarea>
-            <span class="emoji-btn"><span class="visually-hidden">Choose an emoji</span></span>
-            <div id="emojiSelect"></div>
-        </div>
-        <input type="text" id="comment-posturl" style="display:none;" value={{ pageUrl }}>
+{% comment %}
+Reader comments for a comic page. They're loaded and posted by
+/js/comments.js, so new comments show up without rebuilding the site.
+{% endcomment %}
+<section class="paperDiv comments-wrapper" data-comments data-page="{{ number }}" aria-labelledby="comments-heading">
+  <h2 id="comments-heading">Comments <span class="comments-count" data-comments-count></span></h2>
 
-        <input type="text" id="comment-replies" style="display:none;">
-        <button id="comment-submit" type="submit">Post Comment</button>
-    </form>
+  <ol class="comments-list" data-comments-list>
+    <li class="comments-status">Loading comments&hellip;</li>
+  </ol>
 
-    <h2 id="commentsInfo">Loading comments...</h2>
-    <div id="comments"></div>
-    <button id="loadMoreComments" onclick="loadMoreComments()">Load More Comments</button>
-</div>
-<script src="/js/comments.js" page-url={{ pageUrl }}></script>
-<script src="/js/vanillaEmojiPicker.js"></script>
-<script>
-    new EmojiPicker({
-        trigger: [
-            {
-                selector: '.emoji-btn',
-                insertInto: ['#comment-comment'] 
-            }
-        ],
-        closeButton: true,
-        specialButtons: '#007BFF' 
-    });
-</script>
+  <form class="comments-form" data-comments-form>
+    <h3>Leave a comment</h3>
+    <label>Name <input type="text" name="name" maxlength="60" autocomplete="nickname" required></label>
+    <label>Comment <textarea name="body" rows="4" maxlength="2000" required></textarea></label>
+    {%- comment %} Hidden from people; bots that fill it in are ignored {% endcomment %}
+    <label class="comments-trap" aria-hidden="true">Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+    <p class="comments-error" role="alert" data-comments-error></p>
+    <button type="submit">Post comment</button>
+  </form>
+</section>
+<script src="/js/comments.js" defer></script>

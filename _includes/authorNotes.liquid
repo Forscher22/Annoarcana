@@ -1,0 +1,14 @@
+{% comment %}
+The author notes box under each comic page. Notes written in the Studio
+(stored in `pageNotes`) take priority over notes written in the page's file.
+{% endcomment %}
+{%- assign studioNotes = pageNotes[number] -%}
+<div class="authorNotes paperDiv">
+  <h1>{{ title }}</h1>
+  <p class="authorNotes-date">posted on {{ date | utcDate }}</p>
+  {%- if studioNotes %}
+    {{ studioNotes | markdown }}
+  {%- elsif content != "" %}
+    {{ content }}
+  {%- endif %}
+</div>

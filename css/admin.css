@@ -1,0 +1,487 @@
+/* Styles for the /admin/ dashboard ("The Studio"). Builds on style.css. */
+
+.studio {
+  --ink: #1a2238;
+  --ink-soft: #4f5670;
+  --accent: #da5437;
+  --paper-line: #e6dfd3;
+  color: var(--text-color);
+  font-family: "Lato", sans-serif;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 15% -10%, rgba(218, 84, 55, 0.14), transparent 55%),
+    radial-gradient(ellipse at 100% 110%, rgba(241, 236, 228, 0.07), transparent 50%),
+    var(--bg-color);
+}
+
+.studio [hidden] {
+  display: none !important;
+}
+
+/* Header: banner on the left, title slanting in on the right */
+.studio-header {
+  display: grid;
+  grid-template-columns: minmax(0, 22rem) 1fr auto;
+  align-items: end;
+  gap: 1.5rem;
+  width: min(72rem, 94%);
+  margin: 2rem auto 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(241, 236, 228, 0.35);
+  color: var(--on-bg-color);
+}
+
+.studio-banner img {
+  display: block;
+  border-radius: 2px;
+  box-shadow: 0 10px 30px rgba(5, 8, 20, 0.55);
+  transform: rotate(-1.5deg);
+  transition: transform 0.3s ease;
+}
+.studio-banner:hover img {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.studio-heading h1 {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  line-height: 0.9;
+  margin: 0;
+}
+.studio-kicker {
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  color: var(--accent);
+  margin: 0 0 0.3rem;
+  letter-spacing: 0.05em;
+}
+
+.studio-session {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  font-size: 0.9rem;
+}
+.studio-session .link-button {
+  color: var(--on-bg-color);
+}
+
+.studio-main {
+  width: min(72rem, 94%);
+  margin: 3rem auto 4rem;
+}
+
+.studio-loading {
+  color: var(--on-bg-color);
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  text-align: center;
+  animation: breathe 1.6s ease-in-out infinite;
+}
+
+/* Paper cards */
+.studio-card {
+  width: auto;
+  padding: 1.5rem 2rem 2rem;
+  animation: settle 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.studio-card h2 {
+  margin-top: 0;
+  font-size: 1.9rem;
+}
+.studio-narrow {
+  max-width: 28rem;
+  margin: 2rem auto;
+}
+
+/* The desk: upload form overlapping slightly into the page list */
+.studio-desk {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+}
+.studio-upload {
+  transform: rotate(-0.6deg);
+  box-shadow: 0 18px 40px rgba(5, 8, 20, 0.5);
+}
+
+/* Form controls */
+.studio form {
+  display: grid;
+  gap: 1rem;
+}
+.studio label {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.studio .optional {
+  font-weight: 400;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+.studio input[type="text"],
+.studio input[type="email"],
+.studio input[type="password"],
+.studio input[type="number"],
+.studio input[type="date"],
+.studio textarea {
+  font: inherit;
+  font-weight: 400;
+  color: var(--ink);
+  background: #faf7f2;
+  border: 1px solid var(--paper-line);
+  border-bottom: 2px solid var(--ink-soft);
+  padding: 0.55rem 0.7rem;
+  border-radius: 2px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.studio input:focus,
+.studio textarea:focus {
+  outline: none;
+  background: #fff;
+  border-bottom-color: var(--accent);
+}
+.studio textarea {
+  resize: vertical;
+}
+.studio label.check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 400;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: 0.8rem;
+}
+
+/* Image picker */
+.drop-zone {
+  position: relative;
+  display: grid !important;
+  place-items: center;
+  min-height: 11rem;
+  border: 2px dashed var(--ink-soft);
+  border-radius: 3px;
+  background: repeating-linear-gradient(-45deg, #faf7f2 0 12px, #f3eee6 12px 24px);
+  cursor: pointer;
+  text-align: center;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.drop-zone:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.drop-zone input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.drop-hint {
+  font-weight: 400;
+  color: var(--ink-soft);
+  pointer-events: none;
+}
+.drop-hint strong {
+  color: var(--ink);
+  font-family: "IM Fell English", serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+.drop-preview {
+  max-height: 22rem;
+  width: auto;
+  margin: 1rem 0;
+  box-shadow: 0 6px 18px rgba(26, 34, 56, 0.3);
+  pointer-events: none;
+}
+.has-image .drop-hint {
+  display: none;
+}
+
+/* Buttons */
+.ink-button {
+  justify-self: start;
+  font: 700 1rem "Lato", sans-serif;
+  color: #fff;
+  background: var(--ink);
+  border: none;
+  padding: 0.75rem 1.6rem;
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--accent);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.ink-button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--accent);
+}
+.ink-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--accent);
+}
+.ink-button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.ink-button:focus-visible,
+.link-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.ink-button-ghost {
+  color: var(--on-bg-color);
+  background: transparent;
+  border: 1px solid var(--on-bg-color);
+}
+
+.link-button {
+  justify-self: start;
+  font: inherit;
+  font-size: 0.9rem;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.link-button:hover {
+  color: var(--accent);
+}
+.link-button.danger:hover {
+  color: #b33a22;
+}
+
+.form-error {
+  margin: 0;
+  min-height: 1.2em;
+  color: #b33a22;
+  font-size: 0.92rem;
+}
+
+/* Page list */
+.studio-pages {
+  color: var(--on-bg-color);
+}
+.pages-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.pages-head h2 {
+  margin: 0 0 1rem;
+  font-size: 1.9rem;
+}
+
+.studio-notice {
+  background: rgba(241, 236, 228, 0.08);
+  border-left: 3px solid var(--accent);
+  padding: 0.7rem 1rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.page-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+.page-item {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0.8rem;
+  background: rgba(241, 236, 228, 0.06);
+  border: 1px solid rgba(241, 236, 228, 0.12);
+  border-radius: 3px;
+  animation: settle 0.4s ease both;
+  transition: background 0.2s, transform 0.2s;
+}
+.page-item:hover {
+  background: rgba(241, 236, 228, 0.11);
+  transform: translateX(4px);
+}
+.page-item img {
+  width: 60px;
+  height: 80px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 2px;
+}
+.page-item.is-pending {
+  border-style: dashed;
+  border-color: var(--accent);
+}
+.page-meta {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.page-meta strong {
+  font-family: "IM Fell English", serif;
+  font-weight: 400;
+  font-size: 1.15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.page-sub {
+  font-size: 0.82rem;
+  opacity: 0.75;
+}
+.page-actions {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.page-actions a,
+.page-actions .link-button {
+  color: var(--on-bg-color);
+}
+.page-actions a:hover,
+.page-actions .link-button:hover {
+  color: var(--accent);
+}
+.page-tag {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+.page-empty {
+  font-family: "IM Fell English", serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  opacity: 0.8;
+  padding: 2rem 0;
+}
+.page-skeleton {
+  height: 98px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, rgba(241, 236, 228, 0.05), rgba(241, 236, 228, 0.12), rgba(241, 236, 228, 0.05));
+  background-size: 200% 100%;
+  animation: shimmer 1.3s linear infinite;
+}
+
+@keyframes settle {
+  from { opacity: 0; transform: translateY(10px); }
+}
+@keyframes breathe {
+  50% { opacity: 0.45; }
+}
+@keyframes shimmer {
+  to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .studio *,
+  .studio *::before,
+  .studio *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .studio-header {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .studio-session {
+    align-items: flex-start;
+  }
+  .studio-desk {
+    grid-template-columns: 1fr;
+  }
+  .studio-upload {
+    transform: none;
+  }
+  .field-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .field-row label:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+.studio-switch {
+  margin: 1.2rem 0 0;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+/* Author notes editor */
+.notes-dialog {
+  width: min(36rem, 92vw);
+  border: none;
+  border-radius: 2px;
+  padding: 1.5rem 2rem 2rem;
+  background: var(--content-bg);
+  color: var(--text-color);
+  box-shadow: 0 24px 60px rgba(5, 8, 20, 0.6);
+}
+.notes-dialog h2 {
+  margin-top: 0;
+}
+.notes-dialog::backdrop {
+  background: rgba(10, 14, 28, 0.7);
+}
+.dialog-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* Recent comments */
+.comments-head {
+  margin-top: 2.5rem;
+}
+.studio-comments {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+.studio-comment {
+  position: relative;
+  padding: 0.7rem 0.9rem 0.8rem;
+  background: rgba(241, 236, 228, 0.06);
+  border: 1px solid rgba(241, 236, 228, 0.12);
+  border-radius: 3px;
+}
+.studio-comment p {
+  margin: 0;
+}
+.studio-comment-meta {
+  font-size: 0.82rem;
+  opacity: 0.85;
+  padding-right: 4rem;
+}
+.studio-comment-meta a {
+  color: var(--on-bg-color);
+}
+.studio-comment-body {
+  margin-top: 0.3rem !important;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.studio-comment .link-button {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.9rem;
+  color: var(--on-bg-color);
+}

@@ -18,15 +18,6 @@ individual collections to use within templates.
 <div class="comic{% if latest.data.spread %} double-page{% endif %}">
   {% render 'comic.liquid', collection: collections.comic, page: latest.page, images: latest.data.images, alt: latest.data.alt %}
 </div>
-{%# If we have author notes, include them %}
-{% unless latest.content == "" %}
-  <div class="authorNotes paperDiv">
-    <h1>{{ latest.data.title }}</h1>
-    <p class="authorNotes-date">posted on {{ latest.date | utcDate }}</p>
-    {{ latest.content }}
-  </div>
-{% endunless %}
-
-{% comment %} 
-{% render 'comments.liquid' pageUrl: latest.url %}
-{% endcomment %}
+{%- assign number = latest.page.fileSlug | plus: 0 %}
+{% render 'authorNotes.liquid', title: latest.data.title, date: latest.date, content: latest.content, number: number, pageNotes: pageNotes %}
+{% render 'comments.liquid', number: number %}
