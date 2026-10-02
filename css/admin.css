@@ -416,3 +416,9 @@
     grid-column: 1 / -1;
   }
 }
+
+.studio-switch {
+  margin: 1.2rem 0 0;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}

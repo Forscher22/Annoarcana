@@ -7,6 +7,7 @@ import {
   login,
   logout,
   requestPasswordRecovery,
+  signup,
   updateUser,
 } from "@netlify/identity";
 
@@ -101,6 +102,38 @@ $("[data-form=login]").addEventListener("submit", async (event) => {
     setError(form, error.status === 401 ? "That email and password don't match." : error.message);
   } finally {
     setBusy(form, false, "Log in");
+  }
+});
+
+$("[data-action=show-signup]").addEventListener("click", () => show("signup"));
+$("[data-action=show-login]").addEventListener("click", () => show("login"));
+
+$("[data-form=signup]").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  setError(form);
+  setBusy(form, true, "Creating…");
+  try {
+    const user = await signup(form.email.value, form.password.value);
+    if (user.confirmedAt) {
+      form.reset();
+      return await enter();
+    }
+    $("[data-slot=signup-email]").textContent = form.email.value;
+    form.reset();
+    show("check-email");
+  } catch (error) {
+    // The identity function turns away emails that aren't on the admin list
+    setError(
+      form,
+      error.status === 401 || error.status === 403
+        ? "That email isn't set up as an admin for this comic."
+        : error.status === 422
+          ? "That email already has an account. Try logging in instead."
+          : error.message,
+    );
+  } finally {
+    setBusy(form, false, "Create account");
   }
 });
 

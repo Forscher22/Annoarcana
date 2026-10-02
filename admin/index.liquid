@@ -44,6 +44,26 @@ eleventyExcludeFromCollections: true
           <button type="submit" class="ink-button">Log in</button>
           <button type="button" class="link-button" data-action="forgot">Forgot your password?</button>
         </form>
+        <p class="studio-switch">First time here? <button type="button" class="link-button" data-action="show-signup">Create your account</button></p>
+      </section>
+
+      <!-- Create an account (only admin emails are accepted) -->
+      <section class="paperDiv studio-card studio-narrow" data-view="signup" hidden>
+        <h2>Create your account</h2>
+        <p>Use the email address that's been set up as the comic's admin. We'll email you a link to confirm it.</p>
+        <form data-form="signup">
+          <label>Email <input type="email" name="email" autocomplete="username" required></label>
+          <label>Password <input type="password" name="password" autocomplete="new-password" minlength="8" required></label>
+          <p class="form-error" role="alert"></p>
+          <button type="submit" class="ink-button">Create account</button>
+        </form>
+        <p class="studio-switch">Already have an account? <button type="button" class="link-button" data-action="show-login">Log in</button></p>
+      </section>
+
+      <!-- Waiting on the confirmation email -->
+      <section class="paperDiv studio-card studio-narrow" data-view="check-email" hidden>
+        <h2>Check your email</h2>
+        <p>We sent a confirmation link to <strong data-slot="signup-email"></strong>. Click it and you'll come straight back here, logged in.</p>
       </section>
 
       <!-- Set a password after an invite or a reset email -->
