@@ -2,7 +2,7 @@ import type { User, UserLoginEvent, UserSignupEvent, UserValidateEvent } from "@
 
 // Email addresses that are allowed an account and get the `admin` role,
 // which lets them post pages from the /admin/ dashboard.
-const ADMIN_EMAILS = ["forscher22@gmail.com"];
+const ADMIN_EMAILS = ["forscher22@gmail.com", "okamiviking@gmail.com"];
 
 const isAdminEmail = (user: User) => ADMIN_EMAILS.includes(user.email?.toLowerCase() ?? "");
 
