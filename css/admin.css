@@ -422,3 +422,66 @@
   font-size: 0.9rem;
   color: var(--ink-soft);
 }
+
+/* Author notes editor */
+.notes-dialog {
+  width: min(36rem, 92vw);
+  border: none;
+  border-radius: 2px;
+  padding: 1.5rem 2rem 2rem;
+  background: var(--content-bg);
+  color: var(--text-color);
+  box-shadow: 0 24px 60px rgba(5, 8, 20, 0.6);
+}
+.notes-dialog h2 {
+  margin-top: 0;
+}
+.notes-dialog::backdrop {
+  background: rgba(10, 14, 28, 0.7);
+}
+.dialog-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* Recent comments */
+.comments-head {
+  margin-top: 2.5rem;
+}
+.studio-comments {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+.studio-comment {
+  position: relative;
+  padding: 0.7rem 0.9rem 0.8rem;
+  background: rgba(241, 236, 228, 0.06);
+  border: 1px solid rgba(241, 236, 228, 0.12);
+  border-radius: 3px;
+}
+.studio-comment p {
+  margin: 0;
+}
+.studio-comment-meta {
+  font-size: 0.82rem;
+  opacity: 0.85;
+  padding-right: 4rem;
+}
+.studio-comment-meta a {
+  color: var(--on-bg-color);
+}
+.studio-comment-body {
+  margin-top: 0.3rem !important;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.studio-comment .link-button {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.9rem;
+  color: var(--on-bg-color);
+}

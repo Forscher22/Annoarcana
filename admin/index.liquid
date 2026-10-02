@@ -124,8 +124,28 @@ eleventyExcludeFromCollections: true
           </div>
           <p class="studio-notice" data-slot="notice" hidden></p>
           <ol class="page-list" data-slot="pages"></ol>
+
+          <div class="pages-head comments-head">
+            <h2>Recent comments</h2>
+          </div>
+          <ol class="studio-comments" data-slot="comments"></ol>
         </section>
       </div>
+
+      <!-- Author notes editor -->
+      <dialog class="notes-dialog" data-slot="notes-dialog">
+        <form data-form="notes" method="dialog">
+          <h2 data-slot="notes-heading">Author notes</h2>
+          <label>Notes <span class="optional">shown under the page; Markdown works. Leave blank for no notes.</span>
+            <textarea name="notes" rows="9"></textarea>
+          </label>
+          <p class="form-error" role="alert"></p>
+          <div class="dialog-actions">
+            <button type="submit" class="ink-button" value="save">Save notes</button>
+            <button type="button" class="link-button" data-action="close-notes">Cancel</button>
+          </div>
+        </form>
+      </dialog>
     </main>
   </body>
 </html>

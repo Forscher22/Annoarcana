@@ -20,15 +20,6 @@ Liquid file within the template.
 <div class="comic{% if spread %} double-page{% endif %}">
   {% render 'comic.liquid', collection: collections.comic, page: page, images: images, alt: alt, date: date %}
 </div>
-{%# If we have author notes, include them %}
-<div class="authorNotes paperDiv">
-  {% unless content == "" %}
-      <h1>{{ title }}</h1>
-      <p class="authorNotes-date">posted on {{ date | utcDate }}</p>
-      {{ content }}
-  {% endunless %}
-</div>
-{% comment %} 
-{% render 'comments.liquid' pageUrl: page.url %}
-{% endcomment %}
-
+{%- assign number = page.fileSlug | plus: 0 %}
+{% render 'authorNotes.liquid', title: title, date: date, content: content, number: number, pageNotes: pageNotes %}
+{% render 'comments.liquid', number: number %}

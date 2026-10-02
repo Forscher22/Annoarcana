@@ -30,6 +30,18 @@ async function getDashboardPages() {
 	}
 }
 
+// Author notes written in the Studio for Markdown-file pages, keyed by page number
+async function getStudioNotes() {
+	try {
+		const { getDatabase } = await import("@netlify/database");
+		const rows = await getDatabase().sql`SELECT page_number, notes FROM page_notes`;
+		return Object.fromEntries(rows.filter((r) => r.notes).map((r) => [r.page_number, r.notes]));
+	} catch (error) {
+		console.warn(`[comic] Skipping Studio notes: ${error.message}`);
+		return {};
+	}
+}
+
 module.exports = async function(eleventyConfig) {
 		// Copy `img` and `css` folders to output
 		eleventyConfig.addPassthroughCopy("img");
@@ -62,6 +74,12 @@ module.exports = async function(eleventyConfig) {
 				templateEngineOverride: "md",
 			});
 		}
+
+		eleventyConfig.addGlobalData("pageNotes", await getStudioNotes());
+
+		// Renders Studio notes; raw HTML is turned off so notes can't break the page
+		const notesMarkdown = require("markdown-it")({ html: false, linkify: true, breaks: true });
+		eleventyConfig.addFilter("markdown", (value) => notesMarkdown.render(String(value ?? "")));
 
 		// Bundle the dashboard script (it uses the @netlify/identity package)
 		eleventyConfig.on("eleventy.before", async ({ directories }) => {

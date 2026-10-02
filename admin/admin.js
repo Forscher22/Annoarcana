@@ -86,7 +86,7 @@ async function enter() {
   $(".studio-user").textContent = user.email;
   if (!user.roles?.includes("admin")) return show("no-role");
   show("dashboard");
-  await loadPages();
+  await Promise.all([loadPages(), loadComments()]);
 }
 
 $("[data-form=login]").addEventListener("submit", async (event) => {
@@ -253,6 +253,14 @@ function renderPages({ pages, buildHookConfigured }, published) {
       (page.pending ? " · publishing…" : "");
 
     const actions = $(".page-actions", item);
+    if (!page.pending) {
+      const notes = document.createElement("button");
+      notes.type = "button";
+      notes.className = "link-button";
+      notes.textContent = "Notes";
+      notes.addEventListener("click", () => openNotes(page));
+      actions.append(notes);
+    }
     if (page.url) {
       const view = document.createElement("a");
       view.href = page.url;
@@ -274,6 +282,101 @@ function renderPages({ pages, buildHookConfigured }, published) {
       actions.append(tag);
     }
     list.append(item);
+  }
+}
+
+// ---------- Author notes ----------
+
+const notesDialog = $("[data-slot=notes-dialog]");
+const notesForm = $("[data-form=notes]");
+let notesPage = null;
+
+async function openNotes(page) {
+  notesPage = page;
+  setError(notesForm);
+  $("[data-slot=notes-heading]").textContent = `Author notes for ${page.title || `Page ${page.number}`}`;
+  notesForm.notes.value = "";
+  notesForm.notes.disabled = true;
+  notesDialog.showModal();
+  try {
+    const { notes } = await api(`/api/page-notes/${page.number}`);
+    // Pages that are files may already have notes written in the file
+    notesForm.notes.value = notes ?? "";
+    if (notes === null && page.source === "file") {
+      notesForm.notes.placeholder = "Any notes already in this page's file show until you save new ones here.";
+    }
+  } catch (error) {
+    setError(notesForm, error.message);
+  } finally {
+    notesForm.notes.disabled = false;
+    notesForm.notes.focus();
+  }
+}
+
+$("[data-action=close-notes]").addEventListener("click", () => notesDialog.close());
+
+notesForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  setError(notesForm);
+  setBusy(notesForm, true, "Saving…");
+  try {
+    const { rebuilding } = await api(`/api/page-notes/${notesPage.number}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ notes: notesForm.notes.value }),
+    });
+    notesDialog.close();
+    notice(
+      rebuilding
+        ? `Notes saved for page ${notesPage.number}. The site updates in a minute or two.`
+        : `Notes saved for page ${notesPage.number}. They appear on the site after the next deploy.`,
+    );
+  } catch (error) {
+    setError(notesForm, error.message);
+  } finally {
+    setBusy(notesForm, false, "Save notes");
+  }
+});
+
+// ---------- Comments ----------
+
+async function loadComments() {
+  const list = $("[data-slot=comments]");
+  list.innerHTML = '<li class="page-skeleton"></li>'.repeat(2);
+  try {
+    const { comments } = await api("/api/comments?recent");
+    list.innerHTML = "";
+    if (!comments.length) {
+      list.innerHTML = '<li class="page-empty">No comments yet.</li>';
+      return;
+    }
+    for (const comment of comments) {
+      const item = document.createElement("li");
+      item.className = "studio-comment";
+      item.innerHTML = `
+        <p class="studio-comment-meta"><strong></strong> on <a></a> · <time></time></p>
+        <p class="studio-comment-body"></p>
+        <button type="button" class="link-button danger">Delete</button>`;
+      $("strong", item).textContent = comment.name + (comment.isAuthor ? " (you)" : "");
+      const link = $("a", item);
+      link.href = `/comic/${String(comment.pageNumber).padStart(2, "0")}/#comments-heading`;
+      link.textContent = `Page ${comment.pageNumber}`;
+      $("time", item).textContent = new Date(comment.createdAt).toLocaleString();
+      $(".studio-comment-body", item).textContent = comment.body;
+      $("button", item).addEventListener("click", async () => {
+        if (!confirm(`Delete this comment from ${comment.name}?`)) return;
+        try {
+          await api(`/api/comments/${comment.id}`, { method: "DELETE" });
+          item.remove();
+        } catch (error) {
+          notice(error.message);
+        }
+      });
+      list.append(item);
+    }
+  } catch (error) {
+    list.innerHTML = "";
+    notice(error.message);
   }
 }
 
