@@ -3,6 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+      // Invite and password-reset emails link to the home page; send those
+      // links on to the admin dashboard, which knows how to handle them.
+      if (/(invite|recovery|confirmation)_token=/.test(location.hash)) {
+        location.replace("/admin/" + location.hash);
+      }
+    </script>
     <!--
     For data that affects the whole site (say, metadata that describes it), we
     can add global data to 11ty's data folder! Feel free to expand the included

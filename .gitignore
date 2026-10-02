@@ -2,3 +2,5 @@ node_modules
 _site
 .DS_Store
 .cache
+# Local Netlify folder
+.netlify

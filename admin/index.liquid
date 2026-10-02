@@ -1,0 +1,111 @@
+---
+permalink: /admin/
+eleventyExcludeFromCollections: true
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Studio | {{ metadata.title }}</title>
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <script type="module" src="/admin/admin.js"></script>
+  </head>
+  <body class="studio">
+    <header class="studio-header">
+      <a href="/" class="studio-banner"><img src="/img/banner.png" alt="Back to the comic"></a>
+      <div class="studio-heading">
+        <p class="studio-kicker">Behind the curtain</p>
+        <h1>The Studio</h1>
+      </div>
+      <div class="studio-session" hidden>
+        <span class="studio-user"></span>
+        <button type="button" class="link-button" data-action="logout">Log out</button>
+      </div>
+    </header>
+
+    <main class="studio-main">
+      <p class="studio-loading" data-view="loading">Opening the studio&hellip;</p>
+
+      <!-- Log in -->
+      <section class="paperDiv studio-card studio-narrow" data-view="login" hidden>
+        <h2>Log in</h2>
+        <p>Only the comic's admins can post pages here.</p>
+        <form data-form="login">
+          <label>Email <input type="email" name="email" autocomplete="username" required></label>
+          <label>Password <input type="password" name="password" autocomplete="current-password" required></label>
+          <p class="form-error" role="alert"></p>
+          <button type="submit" class="ink-button">Log in</button>
+          <button type="button" class="link-button" data-action="forgot">Forgot your password?</button>
+        </form>
+      </section>
+
+      <!-- Set a password after an invite or a reset email -->
+      <section class="paperDiv studio-card studio-narrow" data-view="set-password" hidden>
+        <h2 data-slot="password-heading">Choose a password</h2>
+        <form data-form="set-password">
+          <label>New password <input type="password" name="password" autocomplete="new-password" minlength="8" required></label>
+          <p class="form-error" role="alert"></p>
+          <button type="submit" class="ink-button">Save password</button>
+        </form>
+      </section>
+
+      <!-- Logged in without the admin role -->
+      <section class="paperDiv studio-card studio-narrow" data-view="no-role" hidden>
+        <h2>Almost there</h2>
+        <p>You're logged in, but your account doesn't have the <strong>admin</strong> role yet.
+          In the Netlify dashboard, open <strong>Identity</strong>, click your account, add the role
+          <code>admin</code>, then log out and back in here.</p>
+      </section>
+
+      <!-- Dashboard -->
+      <div class="studio-desk" data-view="dashboard" hidden>
+        <section class="paperDiv studio-card studio-upload">
+          <h2>Post a new page</h2>
+          <form data-form="upload">
+            <label class="drop-zone">
+              <input type="file" name="image" accept="image/png,image/jpeg,image/webp,image/gif" required>
+              <img class="drop-preview" alt="" hidden>
+              <span class="drop-hint"><strong>Choose the page image</strong><br>PNG, JPG, WebP or GIF</span>
+            </label>
+
+            <div class="field-row">
+              <label>Page number <input type="number" name="pageNumber" min="1" required></label>
+              <label>Chapter <input type="number" name="chapter" min="1" value="1" required></label>
+              <label>Posting date <input type="date" name="postedOn" required></label>
+            </div>
+
+            <label>Title <span class="optional">optional; leave blank to show "Page 12"</span>
+              <input type="text" name="title" maxlength="200">
+            </label>
+            <label>Image description <span class="optional">read aloud by screen readers</span>
+              <textarea name="alt" rows="3" placeholder="Describe what happens on the page, including any narration or dialogue."></textarea>
+            </label>
+            <label>Author notes <span class="optional">optional; Markdown works</span>
+              <textarea name="notes" rows="4"></textarea>
+            </label>
+            <label class="check"><input type="checkbox" name="spread"> This is a two-page spread (shows a little wider)</label>
+
+            <p class="form-error" role="alert"></p>
+            <button type="submit" class="ink-button">Post page</button>
+          </form>
+        </section>
+
+        <section class="studio-pages">
+          <div class="pages-head">
+            <h2>Pages</h2>
+            <button type="button" class="ink-button ink-button-ghost" data-action="publish">Publish now</button>
+          </div>
+          <p class="studio-notice" data-slot="notice" hidden></p>
+          <ol class="page-list" data-slot="pages"></ol>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
