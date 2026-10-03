@@ -106,6 +106,15 @@
   transform: rotate(-0.6deg);
   box-shadow: 0 18px 40px rgba(5, 8, 20, 0.5);
 }
+/* News editor sits under the desk, across both columns */
+.studio-news {
+  grid-column: 1 / -1;
+  width: auto;
+  box-shadow: 0 18px 40px rgba(5, 8, 20, 0.5);
+}
+.studio-news .pages-head {
+  margin-top: 2rem;
+}
 
 /* Form controls */
 .studio form {
@@ -128,6 +137,7 @@
 .studio input[type="password"],
 .studio input[type="number"],
 .studio input[type="date"],
+.studio select,
 .studio textarea {
   font: inherit;
   font-weight: 400;

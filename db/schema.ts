@@ -38,3 +38,35 @@ export const pageNotes = pgTable("page_notes", {
   notes: text().notNull(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
+
+// News posts written in the Studio and shown on the /news/ page.
+export const newsPosts = pgTable("news_posts", {
+  id: serial().primaryKey(),
+  title: text().notNull(),
+  body: text().notNull().default(""),
+  // YYYY-MM-DD, shown as the post's date
+  postedOn: text("posted_on").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Text for the site's simple pages (About, Support, Links, and the intro on
+// Characters), written in the Studio. The page's own file is used until a
+// section has been saved here.
+export const siteSections = pgTable("site_sections", {
+  slug: text().primaryKey(),
+  body: text().notNull().default(""),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Characters shown on the /characters/ page, managed in the Studio.
+export const characters = pgTable("characters", {
+  id: serial().primaryKey(),
+  name: text().notNull(),
+  description: text().notNull().default(""),
+  // Site path of the picture, e.g. /img/characters/vasilisa.jpg or /comic-uploads/<key>
+  image: text().notNull().default(""),
+  // Upload key in the `comic-pages` blob store, when the picture was uploaded in the Studio
+  imageKey: text("image_key"),
+  position: integer().notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});

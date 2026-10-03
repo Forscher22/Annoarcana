@@ -6,7 +6,14 @@ You may have noticed that both this file and `strip.liquid` both use
 `base.liquid` as a layout, despite being layouts themselves. There's nothing
 actually wrong with that; I'm just pointing it out to say it's intentional!
 (https://www.11ty.dev/docs/layout-chaining/)
+
+Pages with a `section` in their front matter (About, Support, Links) show the
+text written for them in the Studio, falling back to the page's own file.
 {% endcomment %}<div class="subPage paperDiv">
   <h1>{{ title }}</h1>
+  {%- if section %}
+  {{ sections[section] | markdown }}
+  {%- else %}
   {{ content }}
+  {%- endif %}
 </div>

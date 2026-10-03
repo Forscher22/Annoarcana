@@ -2,53 +2,27 @@
 title: Characters
 layout: layouts/page.liquid
 ---
-<p>All of these sub pages are just supposed to be examples of what you could do, you're definitely encouraged to mess
-  around with them and come up with something better</p>
+{% comment %}
+Characters and the intro text above them are edited in the Studio (/admin/)
+and stored in Netlify Database. They're pulled in at build time as the
+`characters` and `sections` global data (see eleventy.config.js).
+{% endcomment %}
+{{ sections.characters | markdown }}
 <div class="characters">
-
-  <!-- Vasilisa -->
+{%- if characters == null %}
+  <p>The character list couldn't be loaded right now.</p>
+{%- endif %}
+{%- for character in characters %}
   <div class="character">
-    <img src="/img/characters/vasilisa.jpg" alt="Vasilisa" class="clearfix rightPic" />
+    {%- if character.image != "" %}
+    <img src="{{ character.image }}" alt="{{ character.name | escape }}" class="clearfix rightPic" loading="lazy" eleventy:ignore />
+    {%- else %}
+    <div></div>
+    {%- endif %}
     <div>
-      <h2>Vasilisa</h2>
-      <p>Vasilisa dreams of running away and starting a new, boring life. She's just an average girl — not a witch!</p>
+      <h2>{{ character.name | escape }}</h2>
+      {{ character.description | markdown }}
     </div>
   </div>
-  
-  <!-- Jakub -->
-  <div class="character">
-    <img src="/img/characters/jakub.jpg" alt="Jakub" class="clearfix rightPic" />
-    <div>
-      <h2>Jakub</h2>
-      <p>Childhood and best friend to Vasilisa.</p>
-    </div>
-  </div>
-
-  <!-- Mateusz -->
-  <div class="character">
-    <img src="/img/characters/mateusz.jpg" alt="Mateusz" class="clearfix rightPic" />
-    <div>
-      <h2>???</h2>
-      <p>Who the hell does he think he is???</p>
-    </div>
-  </div>
-
-  <!-- Aleks -->
-  <div class="character">
-    <img src="/img/characters/aleks.jpg" alt="Aleks" class="clearfix rightPic" />
-    <div>
-      <h2>Aleks / Aleksandra</h2>
-      <p>A mysterious and perhaps too charming rogue.</p>
-    </div>
-  </div>
-
-  <!-- Motanka -->
-  <div class="character">
-    <img src="/img/characters/motanka.jpg" alt="Motanka" class="clearfix rightPic" />
-    <div>
-      <h2>Motanka</h2>
-      <p>A gift from Vasilisa's mother. Just??? A doll???</p>
-    </div>
-  </div>
-
+{%- endfor %}
 </div>

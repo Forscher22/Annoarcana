@@ -15,6 +15,10 @@ individual collections to use within templates.
 
 {%# If you want the first comic instead of the latest, set `last` to `first` %}
 {% assign latest = collections.comic | last %}
+{% assign firstPage = collections.comic | first %}
+{%- if firstPage %}
+<p class="startHere"><a class="startHere-button" href="{{ firstPage.url }}">Start here &rarr;</a></p>
+{%- endif %}
 <div class="comic{% if latest.data.spread %} double-page{% endif %}">
   {% render 'comic.liquid', collection: collections.comic, page: latest.page, images: latest.data.images, alt: latest.data.alt %}
 </div>
