@@ -19,7 +19,7 @@ If you want to remove one of the navigation buttons, just remove one of the
 <div id="comicPage" class="paperDiv">
   {% for panel in images %}
     {% if next %}<a href="{{ next.url }}">{% endif %}
-      <img src="{{ panel }}" alt="{{ alt }}" eleventy:ignore>
+      <img src="{{ panel }}" alt="{{ alt }}"{% if hover %} title="{{ hover | escape }}"{% endif %} eleventy:ignore>
     {% if next %}</a>{% endif %}   
   {% endfor %}
 </div>
