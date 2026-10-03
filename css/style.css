@@ -228,6 +228,17 @@ footer p {
   width: 90px;
 }
 
+/* Discord invite at the bottom of the author notes */
+.authorNotes-discord {
+  margin: 1.25rem 0 0;
+}
+.authorNotes-discord a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+
 /* bookmark button between the nav arrows and the comic page */
 .bookmark {
   display: flex;
