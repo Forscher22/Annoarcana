@@ -31,14 +31,20 @@ we're on the first page of the comic, we don't need to show that button.
 
 <script>
   function keyNav() {
+    const next = {{ next.url | default: "" | json }};
+    const previous = {{ previous.url | default: "" | json }};
     document.addEventListener("keydown", (e) => {
-      if (e.key == 'ArrowRight') { //right arrow goes to next page
-        window.location.href ="{{ next.url }}";
-      } else if (e.key == "ArrowLeft") { //left arrow goes to previous page
-        window.location.href ="{{ previous.url }}";
-      } 
+      // Leave arrow keys alone while someone is typing (e.g. a comment) or
+      // using a shortcut, and don't reload when there's no page to go to
+      const target = e.target;
+      if (target.closest && target.closest("input, textarea, select, [contenteditable]")) return;
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+      if (e.key == 'ArrowRight' && next) { //right arrow goes to next page
+        window.location.href = next;
+      } else if (e.key == "ArrowLeft" && previous) { //left arrow goes to previous page
+        window.location.href = previous;
+      }
     });
   }
-
   keyNav();
 </script>

@@ -42,6 +42,60 @@ async function getStudioNotes() {
 	}
 }
 
+// News posts written in the Studio, newest first
+async function getNewsPosts() {
+	try {
+		const { getDatabase } = await import("@netlify/database");
+		return await getDatabase().sql`SELECT * FROM news_posts ORDER BY posted_on DESC, id DESC`;
+	} catch (error) {
+		console.warn(`[comic] Skipping news posts: ${error.message}`);
+		return [];
+	}
+}
+
+/**
+ * Simple pages whose text can be edited in the Studio. Until a section is
+ * saved there, its text comes from the file listed here (front matter removed).
+ */
+const SECTION_FILES = {
+	about: "about.md",
+	characters: "_includes/sections/characters-intro.md",
+	support: "support.md",
+	links: "links.md",
+};
+
+function getSectionDefaults() {
+	return Object.fromEntries(
+		Object.entries(SECTION_FILES).map(([slug, file]) => {
+			const text = fs.readFileSync(path.join(__dirname, file), "utf8");
+			return [slug, text.replace(/^---[\s\S]*?\n---\s*\n?/, "").trim()];
+		}),
+	);
+}
+
+async function getSiteSections() {
+	try {
+		const { getDatabase } = await import("@netlify/database");
+		const rows = await getDatabase().sql`SELECT slug, body FROM site_sections`;
+		return Object.fromEntries(rows.map((r) => [r.slug, r.body]));
+	} catch (error) {
+		console.warn(`[comic] Skipping Studio page text: ${error.message}`);
+		return {};
+	}
+}
+
+// Characters managed in the Studio. Returns null if the database can't be
+// reached, so the page can say so instead of looking empty.
+async function getCharacters() {
+	try {
+		const { getDatabase } = await import("@netlify/database");
+		return await getDatabase().sql`SELECT * FROM characters ORDER BY position, id`;
+	} catch (error) {
+		console.warn(`[comic] Skipping characters: ${error.message}`);
+		return null;
+	}
+}
+
 module.exports = async function(eleventyConfig) {
 		// Copy `img` and `css` folders to output
 		eleventyConfig.addPassthroughCopy("img");
@@ -76,6 +130,11 @@ module.exports = async function(eleventyConfig) {
 		}
 
 		eleventyConfig.addGlobalData("pageNotes", await getStudioNotes());
+		eleventyConfig.addGlobalData("news", await getNewsPosts());
+		const sectionDefaults = getSectionDefaults();
+		eleventyConfig.addGlobalData("sectionDefaults", sectionDefaults);
+		eleventyConfig.addGlobalData("sections", { ...sectionDefaults, ...(await getSiteSections()) });
+		eleventyConfig.addGlobalData("characters", await getCharacters());
 
 		// Renders Studio notes; raw HTML is turned off so notes can't break the page
 		const notesMarkdown = require("markdown-it")({ html: false, linkify: true, breaks: true });

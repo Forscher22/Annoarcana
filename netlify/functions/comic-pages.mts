@@ -2,7 +2,7 @@ import type { Config } from "@netlify/functions";
 import { getStore } from "@netlify/blobs";
 import { asc, eq } from "drizzle-orm";
 import { db } from "../../db/index.js";
-import { comicPages } from "../../db/schema.js";
+import { comicPages, comments } from "../../db/schema.js";
 import { requireAdmin, triggerRebuild } from "../../lib/admin-auth.js";
 
 const IMAGE_TYPES: Record<string, string> = {
@@ -93,6 +93,83 @@ export default async (req: Request) => {
 
     const rebuilding = await triggerRebuild();
     return Response.json({ page, rebuilding }, { status: 201 });
+  }
+
+  if (req.method === "PATCH" && id) {
+    const [existing] = await db
+      .select()
+      .from(comicPages)
+      .where(eq(comicPages.id, parseInt(id, 10)));
+    if (!existing) {
+      return Response.json({ error: "That page no longer exists." }, { status: 404 });
+    }
+
+    const form = await req.formData();
+    const image = form.get("image");
+    const pageNumber = parseInt(String(form.get("pageNumber") ?? ""), 10);
+    const chapter = parseInt(String(form.get("chapter") ?? "1"), 10);
+    const postedOn = String(form.get("postedOn") ?? "");
+    const newImage = image instanceof File && image.size > 0 ? image : null;
+
+    if (newImage && !IMAGE_TYPES[newImage.type]) {
+      return Response.json({ error: "The image must be a PNG, JPG, WebP or GIF." }, { status: 400 });
+    }
+    if (!Number.isInteger(pageNumber) || pageNumber < 1) {
+      return Response.json({ error: "Page number must be a whole number of 1 or more." }, { status: 400 });
+    }
+    if (!Number.isInteger(chapter) || chapter < 1) {
+      return Response.json({ error: "Chapter must be a whole number of 1 or more." }, { status: 400 });
+    }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(postedOn)) {
+      return Response.json({ error: "Please pick a posting date." }, { status: 400 });
+    }
+
+    if (pageNumber !== existing.pageNumber) {
+      const [taken] = await db
+        .select({ id: comicPages.id })
+        .from(comicPages)
+        .where(eq(comicPages.pageNumber, pageNumber));
+      if (taken || (await filePageNumbers(url.origin)).has(pageNumber)) {
+        return Response.json({ error: `Page ${pageNumber} already exists.` }, { status: 409 });
+      }
+    }
+
+    const store = getStore("comic-pages");
+    let imageKey = existing.imageKey;
+    if (newImage) {
+      imageKey = `${crypto.randomUUID()}.${IMAGE_TYPES[newImage.type]}`;
+      await store.set(imageKey, await newImage.arrayBuffer(), {
+        metadata: { contentType: newImage.type },
+      });
+    }
+
+    const [page] = await db
+      .update(comicPages)
+      .set({
+        pageNumber,
+        chapter,
+        postedOn,
+        imageKey,
+        title: String(form.get("title") ?? "").trim(),
+        alt: String(form.get("alt") ?? "").trim(),
+        notes: String(form.get("notes") ?? "").trim(),
+        spread: form.get("spread") === "on",
+      })
+      .where(eq(comicPages.id, existing.id))
+      .returning();
+
+    // Comments are attached by page number, so they move with a renumbered page
+    if (pageNumber !== existing.pageNumber) {
+      await db
+        .update(comments)
+        .set({ pageNumber })
+        .where(eq(comments.pageNumber, existing.pageNumber));
+    }
+
+    if (newImage) await store.delete(existing.imageKey);
+
+    const rebuilding = await triggerRebuild();
+    return Response.json({ page, rebuilding });
   }
 
   if (req.method === "DELETE" && id) {

@@ -114,6 +114,7 @@ eleventyExcludeFromCollections: true
 
             <p class="form-error" role="alert"></p>
             <button type="submit" class="ink-button">Post page</button>
+            <button type="button" class="link-button" data-action="cancel-edit" hidden>Cancel editing</button>
           </form>
         </section>
 
@@ -129,6 +130,75 @@ eleventyExcludeFromCollections: true
             <h2>Recent comments</h2>
           </div>
           <ol class="studio-comments" data-slot="comments"></ol>
+        </section>
+
+        <section class="paperDiv studio-card studio-news">
+          <h2 data-slot="news-heading">Write a news post</h2>
+          <form data-form="news">
+            <div class="field-row">
+              <label>Title <input type="text" name="title" maxlength="200" required></label>
+              <label>Date <input type="date" name="postedOn" required></label>
+            </div>
+            <label>Post <span class="optional">Markdown works</span>
+              <textarea name="body" rows="6"></textarea>
+            </label>
+            <p class="form-error" role="alert"></p>
+            <button type="submit" class="ink-button">Post news</button>
+            <button type="button" class="link-button" data-action="cancel-news-edit" hidden>Cancel editing</button>
+          </form>
+
+          <div class="pages-head">
+            <h2>News posts</h2>
+            <a href="/news/">View news page</a>
+          </div>
+          <ol class="page-list" data-slot="news"></ol>
+        </section>
+
+        <section class="paperDiv studio-card studio-news">
+          <h2>Edit site pages</h2>
+          <form data-form="section">
+            <label>Page
+              <select name="slug">
+                <option value="about">About</option>
+                <option value="characters">Characters (intro text above the list)</option>
+                <option value="support">Support</option>
+                <option value="links">Links</option>
+              </select>
+            </label>
+            <label>Text <span class="optional">Markdown works: **bold**, *italics*, [link text](https://…), ## headings, - lists</span>
+              <textarea name="body" rows="10"></textarea>
+            </label>
+            <p class="form-error" role="alert"></p>
+            <button type="submit" class="ink-button">Save page</button>
+          </form>
+        </section>
+
+        <section class="paperDiv studio-card studio-news">
+          <h2 data-slot="character-heading">Add a character</h2>
+          <form data-form="character">
+            <label class="drop-zone">
+              <input type="file" name="image" accept="image/png,image/jpeg,image/webp,image/gif">
+              <img class="drop-preview" alt="" hidden>
+              <span class="drop-hint"><strong>Choose a picture</strong><br>optional; PNG, JPG, WebP or GIF</span>
+            </label>
+            <div class="field-row">
+              <label>Name <input type="text" name="name" maxlength="200" required></label>
+              <label>Order <span class="optional">lower shows first</span> <input type="number" name="position" value="0" required></label>
+            </div>
+            <label>Description <span class="optional">Markdown works</span>
+              <textarea name="description" rows="4"></textarea>
+            </label>
+            <label class="check" data-slot="remove-image" hidden><input type="checkbox" name="removeImage"> Remove the current picture</label>
+            <p class="form-error" role="alert"></p>
+            <button type="submit" class="ink-button">Add character</button>
+            <button type="button" class="link-button" data-action="cancel-character-edit" hidden>Cancel editing</button>
+          </form>
+
+          <div class="pages-head">
+            <h2>Characters</h2>
+            <a href="/characters/">View characters page</a>
+          </div>
+          <ol class="page-list" data-slot="characters"></ol>
         </section>
       </div>
 

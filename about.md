@@ -1,6 +1,7 @@
 ---
 title: About
 layout: layouts/page.liquid
+section: about
 ---
 This world had been like yours for all of its history. Devoid of any and all arcane energies.
 

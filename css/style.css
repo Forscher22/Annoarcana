@@ -119,6 +119,14 @@ header {
   margin: 2rem auto 0 auto;
 }
 
+/* ComicAd banner between the logo and the nav bar */
+.header-ad {
+  margin-top: 1rem;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+}
+
 header nav {
   font-size: 20px;
   width: 98%;
@@ -127,6 +135,17 @@ header nav {
   border: solid var(--on-bg-color);
   border-width: 1px 0;
   padding: 10px;
+}
+
+/* social emblems (e.g. Bluesky) in the nav bar */
+header nav .nav-social {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 0;
+}
+
+header nav .nav-social svg {
+  display: block;
 }
 
 /* FOOTER */
@@ -228,6 +247,31 @@ footer p {
   margin-bottom: 1rem;
 }
 
+/* "Start here" button on the home page */
+.startHere {
+  text-align: center;
+  margin: 1.5rem auto 2rem;
+}
+
+.startHere-button {
+  display: inline-block;
+  padding: 0.6rem 1.6rem;
+  background: var(--content-bg);
+  color: var(--link-color);
+  font-family: "IM Fell English", serif;
+  font-size: 1.4rem;
+  text-decoration: none;
+  border: 2px solid var(--link-color);
+  border-radius: 4px;
+}
+
+.startHere-button:hover,
+.startHere-button:focus-visible {
+  background: var(--link-color-hover);
+  border-color: var(--link-color-hover);
+  color: var(--content-bg);
+}
+
 /* SUBPAGES */
 
 .subPage {
@@ -235,6 +279,23 @@ footer p {
   max-width: 98%;
   margin: 3rem auto 0;
   padding: 1rem 3rem 2rem;
+}
+
+/* news page */
+.newsPost + .newsPost {
+  border-top: 1px solid #ddd;
+  margin-top: 1.5rem;
+  padding-top: 0.5rem;
+}
+
+.newsPost h2 {
+  margin-bottom: 0;
+}
+
+.newsPost-date {
+  color: #4f4f47;
+  font-size: 0.9rem;
+  margin-top: 0;
 }
 
 
@@ -313,3 +374,17 @@ footer p {
   }
 }
 
+
+/*
+ * Netlify's "Powered by Netlify" badge. Netlify adds it to the page itself (it
+ * isn't in this site's code), as a floating iframe in the bottom-right corner.
+ * This moves it out of the corner to the very end of the page, under the
+ * footer, and makes it ignore clicks. If Netlify renames the frame, this
+ * stops applying and the badge goes back to its usual floating spot.
+ */
+#nl-badge-frame {
+  display: block;
+  position: static !important;
+  margin: 0 0 0 auto !important;
+  pointer-events: none !important;
+}
