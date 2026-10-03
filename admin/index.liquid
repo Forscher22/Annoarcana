@@ -97,7 +97,13 @@ eleventyExcludeFromCollections: true
 
             <div class="field-row">
               <label>Page number <input type="number" name="pageNumber" min="1" required></label>
-              <label>Chapter <input type="number" name="chapter" min="1" value="1" required></label>
+              <label>Chapter
+                <select name="chapter" required>
+                  {%- for ch in chapterNames %}
+                  <option value="{{ ch.number }}"{% if ch.number == 1 %} selected{% endif %}>{{ ch.name }}</option>
+                  {%- endfor %}
+                </select>
+              </label>
               <label>Posting date <input type="date" name="postedOn" required></label>
             </div>
 

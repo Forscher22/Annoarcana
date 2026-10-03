@@ -57,8 +57,8 @@ export default async (req: Request) => {
     if (!Number.isInteger(pageNumber) || pageNumber < 1) {
       return Response.json({ error: "Page number must be a whole number of 1 or more." }, { status: 400 });
     }
-    if (!Number.isInteger(chapter) || chapter < 1) {
-      return Response.json({ error: "Chapter must be a whole number of 1 or more." }, { status: 400 });
+    if (!Number.isInteger(chapter) || chapter < 0) {
+      return Response.json({ error: "Chapter must be a whole number of 0 or more." }, { status: 400 });
     }
     if (!/^\d{4}-\d{2}-\d{2}$/.test(postedOn)) {
       return Response.json({ error: "Please pick a posting date." }, { status: 400 });
@@ -117,8 +117,8 @@ export default async (req: Request) => {
     if (!Number.isInteger(pageNumber) || pageNumber < 1) {
       return Response.json({ error: "Page number must be a whole number of 1 or more." }, { status: 400 });
     }
-    if (!Number.isInteger(chapter) || chapter < 1) {
-      return Response.json({ error: "Chapter must be a whole number of 1 or more." }, { status: 400 });
+    if (!Number.isInteger(chapter) || chapter < 0) {
+      return Response.json({ error: "Chapter must be a whole number of 0 or more." }, { status: 400 });
     }
     if (!/^\d{4}-\d{2}-\d{2}$/.test(postedOn)) {
       return Response.json({ error: "Please pick a posting date." }, { status: 400 });

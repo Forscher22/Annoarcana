@@ -1,0 +1,18 @@
+---json
+{
+  "permalink": "sitemap.xml",
+  "eleventyExcludeFromCollections": true
+}
+---
+<?xml version="1.0" encoding="utf-8"?>
+{#- Lists every page on the site so search engines can find them all #}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {%- for item in collections.all %}
+  {%- if item.url and not item.data.noindex %}
+  <url>
+    <loc>{{ item.url | htmlBaseUrl(metadata.base) }}</loc>
+    <lastmod>{{ item.date | dateToRfc3339 }}</lastmod>
+  </url>
+  {%- endif %}
+  {%- endfor %}
+</urlset>
