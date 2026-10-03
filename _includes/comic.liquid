@@ -3,14 +3,23 @@ If you want to remove one of the navigation buttons, just remove one of the
 `render` tags!
 {% endcomment %}
 
+{% assign current = collection | getCollectionItem: page %}
 {% assign next = collection | getNextCollectionItem: page %}
+
+{% render 'comicNav.liquid', collection: collection, page: page %}
+
+{%- comment %} Bookmark button; the saving is handled by `js/bookmark.js` {% endcomment %}
+<div class="bookmark" data-bookmark data-url="{{ current.url }}" data-title="{{ current.data.title | default: 'Page' | escape }}">
+  <button type="button" class="bookmark-save">&#9734; Bookmark this page</button>
+  <a class="bookmark-go" hidden></a>
+  <button type="button" class="bookmark-clear" hidden>Remove bookmark</button>
+</div>
+<script src="/js/bookmark.js" defer></script>
 
 <div id="comicPage" class="paperDiv">
   {% for panel in images %}
     {% if next %}<a href="{{ next.url }}">{% endif %}
-      <img src="{{ panel }}" alt="{{ alt }}" eleventy:ignore>
+      <img src="{{ panel }}" alt="{{ alt }}"{% if hover %} title="{{ hover | escape }}"{% endif %} eleventy:ignore>
     {% if next %}</a>{% endif %}   
   {% endfor %}
 </div>
-
-{% render 'comicNav.liquid', collection: collection, page: page %}

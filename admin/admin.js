@@ -255,7 +255,7 @@ function renderPages({ pages, buildHookConfigured }, published) {
       <div class="page-actions"></div>`;
     $("strong", item).textContent = page.title || `Page ${String(page.number).padStart(2, "0")}`;
     $(".page-sub", item).textContent =
-      `Page ${page.number} · Chapter ${page.chapter} · ${page.date}` +
+      `Page ${page.number} · ${chapterName(page.chapter)} · ${page.date}` +
       (page.pending ? " · publishing…" : "");
 
     const actions = $(".page-actions", item);
@@ -442,6 +442,12 @@ const cancelEdit = $("[data-action=cancel-edit]");
 
 function submitLabel() {
   return editingPage ? "Save changes" : "Post page";
+}
+
+// Chapter names come from the upload form's chapter dropdown
+function chapterName(number) {
+  const option = [...uploadForm.chapter.options].find((o) => o.value === String(number));
+  return option ? option.textContent : `Chapter ${number}`;
 }
 
 function startEdit(row) {

@@ -6,22 +6,42 @@ the page."
 {% endcomment %}
 
 {% if chapters %}
-  {% for chapter in chapters %}
-    <div class="chapter-container">
-        {%- assign thumb = collection[chapter][0].data.images[0] %}
+  {%- comment %}
+  Chapters are listed in the order of `_data/chapterNames.json`. A page's
+  chapter number (its `chapterN` tag) decides which chapter it belongs to.
+  {% endcomment %}
+  <nav class="chapterNav" id="chapters" aria-label="Chapters">
+    <h2>Chapters</h2>
+    <ol>
+      {%- for ch in chapterNames %}
+        {%- assign key = "chapter" | append: ch.number %}
+        <li>
+          {%- if collection[key] %}<a href="#{{ key }}">{{ ch.name }}</a>
+          {%- else %}<span>{{ ch.name }}</span> <span class="chapterNav-soon">(coming soon)</span>{% endif -%}
+        </li>
+      {%- endfor %}
+    </ol>
+  </nav>
+  {% for ch in chapterNames %}
+    {%- assign key = "chapter" | append: ch.number %}
+    {%- if collection[key] %}
+    <div class="chapter-container" id="{{ key }}">
+        {%- assign thumb = collection[key][0].data.images[0] %}
         {%# Pages uploaded via the dashboard aren't local files, so skip image optimizing for them %}
-        <img class="chapter-img" src="{{ thumb }}" alt="Thumbnail for Chapter"{% if thumb contains "/comic-uploads/" %} eleventy:ignore{% endif %}>
+        <img class="chapter-img" src="{{ thumb }}" alt="Thumbnail for {{ ch.name }}"{% if thumb contains "/comic-uploads/" %} eleventy:ignore{% endif %}>
         <div class="chapter-text">
-            <h2>Chapter {{ chapter | remove_first: "chapter" }}</h2>
-            {% for item in collection[chapter] %}
+            <h2>{{ ch.name }}</h2>
+            {% for item in collection[key] %}
               <div class="chapter">
                 <h3>
                   <a href="{{ item.url }}">{{ item.data.title }}</a>
                 </h3>
               </div>
             {% endfor %}
+            <p class="chapter-top"><a href="#chapters">&uarr; Back to chapters</a></p>
         </div>
     </div>
+    {%- endif %}
   {% endfor %}
 {% else %}
   {% for item in collection.comic %}

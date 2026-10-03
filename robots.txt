@@ -77,3 +77,6 @@ Disallow: /
 # Note: This will prevent reverse image searches from finding the page. 
 User-agent: *
 Disallow: /img/
+
+# Where search engines can find a list of every page on the site
+Sitemap: https://annoarcana.com/sitemap.xml
