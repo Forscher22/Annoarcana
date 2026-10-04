@@ -215,7 +215,10 @@ function renderPages({ pages, buildHookConfigured }, published) {
 
   // Suggest the next page number and the latest chapter for the upload form
   const form = $("[data-form=upload]");
-  const last = all[all.length - 1];
+  // Pages numbered 1000+ sit between regular pages (e.g. interludes), so
+  // they don't count towards the next page number
+  const regular = all.filter((p) => p.number < 1000);
+  const last = regular[regular.length - 1];
   if (!editingPage) {
     form.pageNumber.value = last ? last.number + 1 : 1;
     form.chapter.value = last ? last.chapter : 1;

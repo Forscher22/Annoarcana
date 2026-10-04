@@ -10,7 +10,7 @@ suggest the next page number and show what's already on the site.
 {%- for item in collections.comic %}
   {%- assign chapter = item.data.tags | where_exp: "tag", "tag contains 'chapter'" | first | remove_first: "chapter" %}
   {
-    "number": {{ item.page.fileSlug | plus: 0 }},
+    "number": {{ item.data.pageNumber | default: item.page.fileSlug | plus: 0 }},
     "url": {{ item.url | json }},
     "title": {{ item.data.title | json }},
     "chapter": {{ chapter | default: 1 | plus: 0 }},
