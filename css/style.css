@@ -137,17 +137,6 @@ header nav {
   padding: 10px;
 }
 
-/* social emblems (e.g. Bluesky) in the nav bar */
-header nav .nav-social {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 0;
-}
-
-header nav .nav-social svg {
-  display: block;
-}
-
 /* FOOTER */
 
 footer {
@@ -185,6 +174,101 @@ footer p {
 #comicPage img {
   display: block;
   margin: 0 auto;
+}
+
+/* comic side emblems (Bluesky, X, Patreon, Ko-fi); markup in comicSocials.liquid */
+.comic-stage {
+  position: relative;
+}
+
+/* By default the emblems are a row between the author notes and the comments */
+.comic-socials--side {
+  display: none;
+}
+
+.comic-socials--row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  width: var(--pg-width);
+  margin: 3rem auto 0;
+}
+
+.comic-socials-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.comic-social {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  width: 7rem;
+  color: var(--on-bg-color);
+  text-align: center;
+  text-decoration: none;
+}
+
+.comic-social-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  color: #fff;
+  transition: transform 0.15s ease;
+}
+
+.comic-social-badge svg {
+  width: 55%;
+  height: 55%;
+}
+
+.comic-social:hover .comic-social-badge,
+.comic-social:focus-visible .comic-social-badge {
+  transform: scale(1.1);
+}
+
+.comic-social:hover .comic-social-label {
+  color: var(--link-color-hover);
+}
+
+.comic-social-bluesky .comic-social-badge { background: #1185fe; }
+.comic-social-x .comic-social-badge { background: #000; }
+.comic-social-patreon .comic-social-badge { background: #ff424d; }
+.comic-social-kofi .comic-social-badge { background: #ff5e5b; }
+
+/* With room to spare, the emblems sit in the margins on either side of the
+   page instead (double-page spreads are too wide for this, so keep the row) */
+@media screen and (min-width: 82rem) {
+  .comic:not(.double-page) .comic-socials--side {
+    display: block;
+  }
+
+  .comic-socials--row:not(.comic-socials--spread) {
+    display: none;
+  }
+
+  .comic-socials--side .comic-socials-group {
+    position: absolute;
+    top: 5rem;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .comic-socials--side .comic-socials-left {
+    right: calc(50% + var(--pg-width) / 2 + 1rem);
+  }
+
+  .comic-socials--side .comic-socials-right {
+    left: calc(50% + var(--pg-width) / 2 + 1rem);
+  }
 }
 
 /* Don't remove this bit though */
@@ -275,7 +359,7 @@ footer p {
 
 /* style author notes */
 .authorNotes {
-  margin: auto;
+  margin: 3.5rem auto 0;
   width: var(--pg-width);
   font-size: 1.125rem;
   padding: 1% 3% 3%;
@@ -299,6 +383,72 @@ footer p {
   max-width: 98%;
   margin: 3rem auto 0;
   padding: 1rem 3rem 2rem;
+}
+
+/* site link emblems on the Links and Support pages
+   (readElsewhere.liquid and supportLinks.liquid) */
+.readElsewhere,
+.supportLinks {
+  margin-top: 2rem;
+}
+
+.readElsewhere-caption {
+  font-size: 1.125rem;
+}
+
+.siteLinks-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: 1.5rem;
+}
+
+.siteLinks-list a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.siteLinks-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.75rem;
+  color: #fff;
+  transition: transform 0.15s ease;
+}
+
+.siteLinks-badge svg {
+  width: 60%;
+  height: 60%;
+}
+
+.siteLinks-webtoon { background: #00d564; }
+.siteLinks-itch { background: #fa5c5c; }
+.siteLinks-patreon { background: #ff424d; }
+.siteLinks-kofi { background: #ff5e5b; }
+
+.siteLinks-note {
+  margin-top: -0.35rem;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.siteLinks-list a:hover .siteLinks-badge,
+.siteLinks-list a:focus-visible .siteLinks-badge {
+  transform: scale(1.1);
+}
+
+.siteLinks-list a:hover .siteLinks-name {
+  color: var(--link-color-hover);
 }
 
 /* news page */
@@ -408,6 +558,12 @@ footer p {
 
   #comicPage {
     padding: 20px 0;
+  }
+
+  /* a little more room inside the text boxes on small screens */
+  .authorNotes,
+  .comments-wrapper {
+    padding: 1rem 1.25rem 1.5rem;
   }
 
   .character,

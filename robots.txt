@@ -15,10 +15,8 @@
 # You can then set "Disallow" Directives, one per row.
 # Lines that start with a '#' are ignored.
 # 
-# By default, this file excludes all Bots from crawling images (the ones in the
-# "img"-folder) and excludes common AI models completely.
-# Please note that preventing search engines from crawling the "/img" folder
-# will also prevent them from finding the page via a reverse image search. 
+# This file lets search engines crawl the whole site, including images, and
+# excludes common AI models completely.
 # 
 # You may adjust your preferences.
 #
@@ -73,10 +71,10 @@ Disallow: /
 # Every other robot.
 #################################
 
-# Disallow the crawling of images.
-# Note: This will prevent reverse image searches from finding the page. 
+# Images are left crawlable so comic pages can show up in image search.
+# To hide them again, add "Disallow: /img/" below the User-agent line.
 User-agent: *
-Disallow: /img/
+Allow: /
 
 # Where search engines can find a list of every page on the site
 Sitemap: https://annoarcana.com/sitemap.xml
