@@ -16,10 +16,13 @@ If you want to remove one of the navigation buttons, just remove one of the
 </div>
 <script src="/js/bookmark.js" defer></script>
 
+<div class="comic-stage">
 <div id="comicPage" class="paperDiv">
   {% for panel in images %}
     {% if next %}<a href="{{ next.url }}">{% endif %}
       <img src="{{ panel }}" alt="{{ alt }}"{% if hover %} title="{{ hover | escape }}"{% endif %} eleventy:ignore>
     {% if next %}</a>{% endif %}   
   {% endfor %}
+</div>
+{% render 'comicSocials.liquid', placement: 'side' %}
 </div>
