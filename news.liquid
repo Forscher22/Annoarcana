@@ -9,6 +9,9 @@ They're pulled in at build time as the `news` global data (see eleventy.config.j
 {% endcomment %}
 {%- if news.size > 0 %}
   {%- for post in news %}
+  {%- unless forloop.first %}
+  <div class="fox-divider" aria-hidden="true"><span class="fox-mark"></span></div>
+  {%- endunless %}
   <article class="newsPost">
     <h2>{{ post.title }}</h2>
     <p class="newsPost-date">posted on {{ post.posted_on | utcDate }}</p>

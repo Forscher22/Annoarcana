@@ -85,6 +85,14 @@ img {
 
 body {
   background-color: var(--bg-color);
+  /**
+   * "Stardust" by Atle Mo (CC BY-SA 3.0) over a faint teal glow, the colour of
+   * Javi's magic. The glow stays put behind the comic while the page scrolls.
+   */
+  background-image:
+    url("/img/textures/stardust.png"),
+    radial-gradient(ellipse 95% 80% at 50% 45%, rgba(64, 200, 185, 0.14), transparent 75%);
+  background-attachment: scroll, fixed;
 }
 
 /* link colors */
@@ -119,12 +127,42 @@ header {
   margin: 2rem auto 0 auto;
 }
 
-/* ComicAd banner between the logo and the nav bar */
-.header-ad {
+/* logo, with the update schedule written under the title */
+.banner {
+  position: relative;
+  display: block;
+  /* needs an explicit width: container sizing ignores the image's own size */
+  width: 100%;
+  max-width: 1122px;
+  container-type: inline-size;
+}
+.banner picture,
+.banner img {
+  display: block;
+  width: 100%;
+}
+.banner-schedule {
+  position: absolute;
+  /* centred under "Anno Arcana" on the right of the banner */
+  left: 80.5%;
+  top: 62%;
+  transform: translateX(-50%) rotate(-3deg);
+  white-space: nowrap;
+  font-size: 5cqw;
+  color: #f4e2d0;
+  text-shadow: 0 0 0.4em rgba(0, 0, 0, 0.9), 0 0 0.15em rgba(0, 0, 0, 0.9);
+}
+
+/* ComicAd banners: one below the nav bar, one right below the comic */
+.header-ad,
+.comic-ad {
   margin-top: 1rem;
   text-align: center;
   max-width: 100%;
   overflow: hidden;
+}
+.comic-ad {
+  margin: 1rem auto 0;
 }
 
 header nav {
@@ -148,6 +186,9 @@ footer {
   align-items: center;
   width: 100%;
   font-size: 12px;
+}
+.footer-credit {
+  opacity: 0.7;
 }
 
 footer p {
@@ -590,4 +631,50 @@ footer p {
   position: static !important;
   margin: 0 0 0 auto !important;
   pointer-events: none !important;
+}
+
+/* fox emblems ("fox" by Caro Asercion, "fox-tail" by Delapouite, game-icons.net,
+   CC BY 3.0). Drawn as masks so they take the surrounding text colour. */
+.fox-mark {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  background-color: currentColor;
+  -webkit-mask: url("/img/icons/fox.svg") center / contain no-repeat;
+  mask: url("/img/icons/fox.svg") center / contain no-repeat;
+  opacity: 0.6;
+}
+.fox-mark.fox-tail {
+  -webkit-mask-image: url("/img/icons/fox-tail.svg");
+  mask-image: url("/img/icons/fox-tail.svg");
+}
+.footer-fox {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 0.25rem;
+}
+/* a small fox with a fading line either side, between sections */
+.fox-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 2rem 0 1rem;
+}
+.fox-divider::before,
+.fox-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to var(--fade, right), currentColor, transparent);
+  opacity: 0.35;
+}
+.fox-divider::before {
+  --fade: left;
+}
+.authorNotes-tail {
+  display: block;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin: 0.75rem auto 0;
+  opacity: 0.4;
 }
