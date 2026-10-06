@@ -91,7 +91,7 @@ body {
    */
   background-image:
     url("/img/textures/stardust.png"),
-    radial-gradient(ellipse 70% 60% at 50% 45%, rgba(64, 200, 185, 0.14), transparent 70%);
+    radial-gradient(ellipse 95% 80% at 50% 45%, rgba(64, 200, 185, 0.14), transparent 75%);
   background-attachment: scroll, fixed;
 }
 
