@@ -123,13 +123,15 @@ header {
 .banner {
   position: relative;
   display: block;
-  max-width: 100%;
+  /* needs an explicit width: container sizing ignores the image's own size */
+  width: 100%;
+  max-width: 1122px;
   container-type: inline-size;
 }
 .banner picture,
 .banner img {
   display: block;
-  max-width: 100%;
+  width: 100%;
 }
 .banner-schedule {
   position: absolute;
