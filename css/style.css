@@ -632,3 +632,49 @@ footer p {
   margin: 0 0 0 auto !important;
   pointer-events: none !important;
 }
+
+/* fox emblems ("fox" by Caro Asercion, "fox-tail" by Delapouite, game-icons.net,
+   CC BY 3.0). Drawn as masks so they take the surrounding text colour. */
+.fox-mark {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  background-color: currentColor;
+  -webkit-mask: url("/img/icons/fox.svg") center / contain no-repeat;
+  mask: url("/img/icons/fox.svg") center / contain no-repeat;
+  opacity: 0.6;
+}
+.fox-mark.fox-tail {
+  -webkit-mask-image: url("/img/icons/fox-tail.svg");
+  mask-image: url("/img/icons/fox-tail.svg");
+}
+.footer-fox {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 0.25rem;
+}
+/* a small fox with a fading line either side, between sections */
+.fox-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 2rem 0 1rem;
+}
+.fox-divider::before,
+.fox-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to var(--fade, right), currentColor, transparent);
+  opacity: 0.35;
+}
+.fox-divider::before {
+  --fade: left;
+}
+.authorNotes-tail {
+  display: block;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin: 0.75rem auto 0;
+  opacity: 0.4;
+}
