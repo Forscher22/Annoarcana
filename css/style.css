@@ -119,6 +119,30 @@ header {
   margin: 2rem auto 0 auto;
 }
 
+/* logo, with the update schedule written under the title */
+.banner {
+  position: relative;
+  display: block;
+  max-width: 100%;
+  container-type: inline-size;
+}
+.banner picture,
+.banner img {
+  display: block;
+  max-width: 100%;
+}
+.banner-schedule {
+  position: absolute;
+  /* centred under "Anno Arcana" on the right of the banner */
+  left: 80.5%;
+  top: 62%;
+  transform: translateX(-50%) rotate(-3deg);
+  white-space: nowrap;
+  font-size: 5cqw;
+  color: #f4e2d0;
+  text-shadow: 0 0 0.4em rgba(0, 0, 0, 0.9), 0 0 0.15em rgba(0, 0, 0, 0.9);
+}
+
 /* ComicAd banner between the logo and the nav bar */
 .header-ad {
   margin-top: 1rem;

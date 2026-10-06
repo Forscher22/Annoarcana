@@ -102,6 +102,8 @@ module.exports = async function(eleventyConfig) {
 		eleventyConfig.addPassthroughCopy("css");
 		eleventyConfig.addPassthroughCopy("js");
 		eleventyConfig.addPassthroughCopy("robots.txt");
+		// The template's setup guide is for the repo, not for readers
+		eleventyConfig.ignores.add("readme.md");
 		eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
 			widths: [100, "auto"], 
 			defaultAttributes: {

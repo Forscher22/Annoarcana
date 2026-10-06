@@ -9,13 +9,15 @@ actually wrong with that; I'm just pointing it out to say it's intentional!
 
 Pages with a `section` in their front matter (About, Support, Links) show the
 text written for them in the Studio, falling back to the page's own file. The
-Links and Support pages also show a list of site emblems below that text.
+Links and Support pages also show a list of site emblems below that text, and
+the About page shows the content notice and credits.
 {% endcomment %}<div class="subPage paperDiv">
   <h1>{{ title }}</h1>
   {%- if section %}
   {{ sections[section] | markdown }}
   {%- if section == "links" %}{% render 'readElsewhere.liquid' %}{% endif %}
   {%- if section == "support" %}{% render 'supportLinks.liquid' %}{% endif %}
+  {%- if section == "about" %}{% render 'aboutExtras.liquid' %}{% endif %}
   {%- else %}
   {{ content }}
   {%- endif %}

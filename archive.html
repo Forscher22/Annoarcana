@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Last Update: 02/10/2026 -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+        <meta name="robots" content="noai, noimageai">
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss/" />
+
+        
+
+        <link href="https://comicfury.com/images/layouts/desire/josefin-sans.css" rel="stylesheet" type="text/css">
+        <link href="https://comicfury.com/images/layouts/desire/lato.css" rel="stylesheet" type="text/css">
+
+
+        <title>Archive | Anno Arcana</title>
+
+        <style>
+/*
+name: 			desire
+author: 		cutething
+author link: 	https://comicfury.com/profile.php?username=cutething
+license: 		created exclusively for comic fury. feel free to use and modify, but please keep this credit
+*/
+
+:root {
+    --site-title-text:#fff;
+    --site-bg: #2f3238;
+    --site-bg-below-fold: #383C43;
+    --site-text: #afb1b3;
+    --link: #afb1b3;
+    --link-hover: #afb1b3;
+    --selection-bg: #eee;
+    --selection-text: #2f3238;
+    --header-link-text: #d1d1d1;
+    --header-link-text-hover: #eee;
+    --hamburger-menu-icon:#fff;
+    --nav-arrows: #fff;
+    --nav-arrows-opacity:0.5;
+    --nav-arrows-hover: #fff;
+    --nav-arrows-opacity-hover:0.8;
+    --saveload-icons: #fff;
+    --saveload-icons-opacity:0.5;
+    --saveload-icons-hover: #fff;
+    --saveload-icons-opacity-hover:0.8;
+    --saveload-icons-saved: var(--site-bg);
+    --tag-bg: #383c43;
+    --tag-hover-bg: #383c43;
+    --tag-text: #afb1b3;
+    --tag-label-color:#afb1b3;
+    --comment-meta-text: #777;
+    --comment-bg: #2f3238;
+    --comment-border: #2f3238;
+    --comment-icon: #fff;
+    --comment-icon-opacity: 0.5;
+    --comment-icon-hover: #fff;
+    --comment-icon-opacity-hover: 0.8;
+    --postcomment-link:#fff;
+    --author-comment-bg: #383C43;
+    --author-comment-border: #383C43;
+    --search-input: #383C43;
+    --max-site-width:1080px;
+    --min-site-width:830px;
+    --thumbnail-box: #212327;
+    --archive-chapter-bg: #212327;
+    --archive-pages:#fff;
+    --archive-current-page-bg:#fff;
+    --archive-current-page-text:#2f3238;
+
+    --permalink-text:#8f9496;
+    --chapter-description-text:#b3b3b3;
+
+    --comic-width:var(--min-site-width); /*this gets overwritten on comic apges*/
+}
+
+html {
+    background: var(--site-bg);
+    color:var(--site-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+}
+
+html,
+input,
+select {
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    font-size:1rem;
+}
+
+* {
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+a:link, a:visited {
+    transition:background-color ease-in 250ms, color ease-in 250ms, border ease-in 250ms, opacity ease-in 250ms;
+    color:var(--link);
+    text-decoration:underline;
+}
+
+path {
+    transition:fill ease-in 250ms, opacity ease-in 250ms;
+}
+
+a:hover, a:focus {
+    color:var(--link-hover);
+    text-decoration:none;
+}
+
+h1, h2, h3, h4, h5 {
+    font-size:1rem;
+    font-family: 'Josefin Sans', sans-serif;
+    text-transform: uppercase;
+    font-weight:normal;
+}
+
+hr, .clear {
+    clear:both;
+}
+
+hr {
+    border:0;
+    border-bottom: 1px solid #383C43;
+    margin: 30px 0;
+}
+
+::selection {
+    background: var(--selection-bg);
+    color: var(--selection-text);
+}
+
+.mobile-only {
+    display:none;
+}
+
+
+/* main body */
+.main-body,
+.content-below-fold-inner,
+footer {
+    max-width: min(100%, var(--max-site-width));
+    min-width: min(100%, var(--min-site-width));
+    width: var(--comic-width);
+    margin: auto;
+    padding: 15px;
+}
+
+.main-body {
+    margin-bottom: 7px;
+}
+
+.content-below-fold {
+    background:var(--site-bg-below-fold);
+    padding: 30px 0;
+}
+
+
+/* header */
+
+.header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom:10px;
+}
+
+#sitetitle {
+    padding: 10px 15px;
+    font-weight:normal;
+    max-width:calc(100% - 50px);
+}
+
+#sitetitle a {
+    color: var(--site-title-text);
+    font-family: 'Josefin Sans', sans-serif;
+    text-transform:uppercase;
+    font-size: 150%;
+    text-decoration: none;
+}
+
+header img {
+    max-width:100%;
+    height:auto;
+}
+
+#topnav ul {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 0;
+    list-style:none;
+    padding-left:15px;
+}
+
+#topnav li a {
+    display:block;
+    padding: 7px;
+    padding-left:0; /* set to 0 so that they line up when spanning multiple lines */
+    padding-right:0.92rem;
+    margin-right:0.92rem;
+    color: var(--header-link-text);
+    font-size: 13px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+#topnav li:last-of-type a {
+    margin-right:0;
+}
+
+#topnav li a:hover,
+#topnav li a:focus,
+#topnav li a:active {
+    background: none;
+    color: var(--header-link-text-hover);
+}
+
+#topnav-hidetoggle {
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    border:0;
+    apperance:none;
+    background:transparent;
+    width:40px;
+    height:40px;
+}
+
+#topnav-hidetoggle:hover {
+    cursor:pointer;
+}
+
+#topnav-hidetoggle .bar {
+    background-color: var(--hamburger-menu-icon);
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 100px;
+    margin-top:2px;
+    margin-bottom:2px;
+    transition: transform 0.5s, margin 0.5s;
+}
+
+#topnav-hidetoggle[data-status="visible"] .bar1 {
+    transform: rotate(-45deg);
+    margin:0px;
+    margin-bottom:-1px;
+}
+
+#topnav-hidetoggle[data-status="visible"] .bar2 {
+    transform: rotate(45deg);
+    margin:0px;
+    margin-top:-1px;
+}
+
+
+/* footer */
+
+#cfva {
+    margin: 25px auto;
+    text-align:center;
+    display:block;
+    max-width: 100%;
+    overflow:hidden;
+}
+
+#cfva img {
+    max-width:100%;
+    height:auto;
+}
+
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    font-size: 11px;
+}
+
+footer ul {
+    margin:0;
+    padding:0;
+    list-style:none;
+    display:inline-flex;
+    flex-wrap: wrap;
+}
+
+footer li {
+    list-style:none;
+    margin-right:15px;
+}
+
+footer .searchbar {
+    justify-content: flex-end;
+    margin: 15px 0;
+    margin-left:15px;
+}
+
+.footer-left {
+    flex: 1 1 auto;
+}
+
+.footer-right {
+    margin-left: auto;
+}
+
+.footer-left div:not(:last-of-type) {
+    margin-bottom:12px;
+}
+
+.searchform.searchform-footer {
+    margin-bottom:12px;
+}
+
+.hostedby {
+    display:inline-flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content: center;
+}
+
+.hostedby a {
+    display:inline-flex;
+    align-items:center;
+    word-wrap:normal;
+    word-break:keep-all;
+}
+
+.hostedby a img {
+    width:auto;
+    margin-left:0.5em;
+    margin-right:5px;
+}
+
+.hostedby .comicprof {
+    margin-left:5px;
+}
+
+.cflink {
+    text-align:center;
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+/* all pages */
+
+.pagetitle,
+.secondarytitle {
+    margin-bottom:5px;
+    line-height: 100%;
+}
+
+.pagetitle,
+.secondarytitle {
+    margin-bottom:25px;
+}
+
+.pagetitle {
+    padding-left: 2px;
+}
+
+.secondarytitle {
+    margin-top: 15px;
+}
+
+.secondarytitle,
+.title {
+    font-size:1rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+
+/* comic page */
+
+.comicmeta,
+.leftrightsplit {
+    display:flex;
+    align-items:center;
+}
+
+.comictitlebar,
+.blogtitlebar,
+.comicnav {
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.comicmeta,
+.blogtitlebox {
+    flex-wrap: wrap;
+    margin-top:-5px; /* to compensate for the nav arrows and comictitle having margin-top of 10 */
+    margin-bottom:5px;
+}
+
+.comictitlebar,
+.leftcontent {
+    flex: 1 1 auto;
+    min-width: 45%;
+}
+
+.rightcontent {
+    margin-left: auto;
+    text-align:right;
+}
+
+.comictitle {
+    line-height: 110%;
+}
+
+#comicimagewrap {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: fit-content;
+    margin: auto;
+}
+
+#comicimagewrap img {
+    display:block;
+    max-width: 100%;
+    height: auto;
+}
+
+.comicsegmentimage {
+    display: block;
+    margin: auto;
+}
+
+.mobile-menu-buttons {
+    display:flex;
+}
+
+.mobile-menu-buttons a:not(:first-of-type) {
+    margin-left:17px;
+}
+
+.mobile-menu-buttons svg {
+    width: auto;
+    height: 20px;
+}
+
+.browsing-tags-note {
+    text-align:center;
+    margin-bottom:5px;
+    margin-top:5px;
+}
+
+.browse-all-link {
+    margin-top:5px;
+}
+
+#tags {
+    text-align: center;
+    margin-bottom: 25px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+    gap:10px 0;
+    font-size: 0.8rem;
+}
+
+#tags a {
+    display: inline-block;
+    padding: 5px 10px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    margin-right: 5px;
+    margin-left: 5px;
+    text-decoration:none;
+}
+
+#tags a:hover,
+#tags a:active {
+    background: var(--tag-hover-bg);
+}
+
+.tags-label {
+    font-weight:bold;
+    margin-right:5px;
+    color:var(--tag-label-color);
+    text-transform:uppercase;
+    font-size:11px;
+}
+
+.comic-options {
+    display: flex;
+    align-items: flex-start;
+    justify-content: stretch;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.comic-options-overview {
+    margin-bottom:15px;
+}
+
+.ratingbox {
+    margin-bottom:1rem;
+}
+
+.ratingbox:not(:has(div)) {
+    /* hide the empty ratingbox if both ratings and permalinks are disabled to stop unnecessary margin */
+    display: none;
+}
+
+#comicrating {
+    display: flex;
+    align-items:center;
+    justify-content:flex-end;
+}
+
+.ratingtitle {
+    font-family: 'Lato', sans-serif;
+    line-height: 100%;
+    text-transform: uppercase;
+    margin-right:0.5rem;
+}
+
+.hearts {
+    position: relative;
+    height:26px;
+    width: 140px;
+    display:flex;
+    flex-direction: row-reverse;
+}
+
+.hearts span {
+    display:none;
+}
+
+.hearts a {
+    background: url("https://comicfury.com/images/layouts/desire/rating-sprite.svg") top left no-repeat;
+    opacity:0.5;
+    height:26px;
+    width:28px;
+    transition:none;
+}
+
+.hearts a:hover {
+    background: url("https://comicfury.com/images/layouts/desire/rating-sprite.svg") bottom left no-repeat;
+}
+
+.hearts a.like1 {
+    background-position: 3px top;
+}
+
+.hearts a.like1:hover,
+.hearts a:hover ~ .like1 {
+    background-position: 3px bottom;
+    opacity:0.8;
+}
+
+.hearts a.like2 {
+    background-position: -26px top;
+}
+
+.hearts a.like2:hover,
+.hearts a:hover ~ .like2 {
+    background-position: -26px bottom;
+    opacity:0.8;
+}
+
+.hearts a.like3 {
+    background-position: -55px top;
+}
+
+.hearts a.like3:hover,
+.hearts a:hover ~ .like3 {
+    background-position: -55px bottom;
+    opacity:0.8;
+}
+
+.hearts a.like4 {
+    background-position: -84px top;
+}
+
+.hearts a.like4:hover,
+.hearts a:hover ~ .like4 {
+    background-position: -84px bottom;
+    opacity:0.8;
+}
+
+.hearts a.like5 {
+    background-position: -113px top;
+}
+
+.hearts a.like5:hover,
+.hearts a:hover ~ .like5 {
+    background-position: -113px bottom;
+    opacity:0.8;
+}
+
+
+#saveplace {
+    flex:1 1 auto;
+    display: flex;
+}
+
+#saveplace svg,
+#saveplace img {
+    display:block;
+}
+
+#saveplace svg path {
+    fill: var(--saveload-icons);
+    opacity:var(--saveload-icons-opacity);
+}
+
+#saveplace a:link,
+#saveplace a:visited {
+    margin: 5px 0;
+    margin-right: 4px;
+}
+
+#saveplace a:hover path,
+#saveplace a:active path {
+    fill: var(--saveload-icons-hover);
+    opacity:var(--saveload-icons-opacity-hover);
+}
+
+#saveplace .saveplace-saved {
+    pointer-events: none;
+}
+
+#saveplace .saveplace-saved path,
+#saveplace a.saveplace-saved:link path,
+#saveplace a.saveplace-saved:visited path,
+#saveplace a.saveplace-saved:hover path,
+#saveplace a.saveplace-saved:focus path {
+    fill:var(--saveload-icons-saved);
+}
+
+.belowcomic {
+    margin-top: 1rem;
+    margin-bottom:1rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.comicnav {
+    display:flex;
+    align-items:center;
+    justify-content:right;
+    flex-wrap:nowrap;
+    margin-left: auto;
+}
+
+.comicnavlink:link,
+.comicnavlink:visited {
+    margin: 5px 0;
+    margin-left: 4px;
+}
+
+.comicnavlink svg,
+.comicnavlink img {
+    display: block;
+    width: auto;
+    height: 24px;
+}
+
+.comicnavlink:link svg path,
+.comicnavlink:visited svg path {
+    fill: var(--nav-arrows);
+    opacity: var(--nav-arrows-opacity);
+}
+
+.comicnavlink:not(.comicnavlink-inactive):hover svg path,
+.comicnavlink:not(.comicnavlink-inactive):focus svg path {
+    fill: var(--nav-arrows-hover);
+    opacity: var(--nav-arrows-opacity-hover);
+}
+
+.loadplace-inactive,
+.comicnavlink-inactive {
+    opacity:0.25;
+    pointer-events: none;
+}
+
+
+.permalinkcode {
+    color:var(--permalink-text);
+    word-wrap: break-word;
+    word-break: break-word;
+    font-size: 0.8rem;
+}
+
+.permalinkcode b {
+    text-transform:uppercase;
+    margin-right:5px;
+    color: var(--tag-label-color);
+    font-size:11px;
+}
+
+/* comments */
+
+.authornotes {
+    margin-top: 22px;
+}
+
+.comments {
+    margin-top:25px;
+}
+
+
+.authornotes,
+.comments {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#commentform {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+.comment:not(:last-of-type) {
+    margin-bottom:30px;
+}
+
+.commentcontent {
+    display: flex;
+    flex-wrap:nowarp;
+}
+
+.commentleft {
+    display: flex;
+    align-items: center;
+}
+
+.commentright {
+    position:relative;
+    flex: 1 1 auto;
+    background: var(--comment-bg);
+    border:1px solid var(--comment-border);
+    padding: 15px;
+    margin-left: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-body .commentright {
+    --comment-bg: var(--author-comment-bg);
+    --comment-border: var(--author-comment-border);
+}
+
+.commentright::before,
+.commentright::after {
+    content:'';
+    border: solid transparent;
+    border-right-color: var(--comment-border);
+    border-width: 16px;
+    margin-top: -16px;
+    right: 100%;
+    top: 50%;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.commentright::after {
+    border-width: 15px;
+    margin-top: -15px;
+    border-right-color: var(--comment-bg);
+}
+
+.commentdata {
+    display:flex;
+    align-items: center;
+    padding-bottom:5px;
+    margin-bottom:10px;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    color: var(--comment-meta-text);
+    text-underline-offset: 0.1rem;
+}
+
+.notecontent {
+    flex: 1 1 auto;
+}
+
+.commentusername {
+    flex:1 1 auto;
+}
+
+.postdate,
+a:link.postdate,
+a:visited.postdate,
+a:hover.postdate  {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    color:var(--comment-meta-text);
+    text-decoration:none;
+}
+
+.avatar {
+    margin-right: 10px;
+    width:125px;
+}
+
+.avatar img {
+    display:block;
+    background: #fff;
+    border-radius: 125px;
+    filter: grayscale(100%);
+    max-width:125px;
+    height:auto;
+    margin-left:auto;
+}
+
+.avatar-mobile {
+    display:none;
+}
+
+.reply .avatar img {
+    max-width: 75px;
+    height: auto;
+}
+
+.commentbottom {
+    text-align:right;
+    margin-top: 12px;
+    line-height: 100%;
+}
+
+.commentcontrol {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.commentcontrol svg {
+    display:block;
+    height:24px;
+    width:auto;
+}
+
+.commentcontrol a {
+    display:block;
+    padding:10px;
+    padding-left:5px;
+    padding-bottom:3px;
+    padding-top:3px;
+    margin-right:-10px; /*to make the edge line up with everything else*/
+}
+
+.commentcontrol a:link path,
+.commentcontrol a:visited path {
+    fill:var(--comment-icon);
+    opacity:var(--comment-icon-opacity);
+}
+
+.commentcontrol a:active path,
+.commentcontrol a:hover path {
+    fill:var(--comment-icon-hover);
+    opacity:var(--comment-icon-opacity-hover);
+}
+
+.commentcontrol > * {
+    margin-left:10px;
+}
+
+.commentcontrol a {
+    display:block;
+}
+
+.reply-depth1 {
+    margin-left:50px;
+}
+
+.reply-depth2 {
+    margin-left:75px;
+}
+
+.reply-depth3 {
+    margin-left:100px;
+}
+
+.reply-depth4 {
+    margin-left:125px;
+}
+
+.reply-depth5,
+.reply-depth-above5 {
+    margin-left:150px;
+}
+
+.postcommentlink {
+    text-align:center;
+    font-family: 'Josefin Sans', sans-serif;
+    text-transform: uppercase;
+}
+
+.postcommentlink a:link,
+.postcommentlink a:visited {
+    border: 1px solid var(--postcomment-link);
+    color: var(--postcomment-link);
+    text-decoration: none;
+    opacity: 0.5;
+    display:inline-block;
+    padding: 15px 30px;
+    padding-top:18px; /*to offset for the font*/
+    font-size:0.875rem;
+    margin-top:15px;
+    font-size:1rem;
+    line-height: 100%;
+}
+
+.postcommentlink a:hover,
+.postcommentlink a:active {
+    opacity:0.8;
+}
+
+.postcommentnote {
+    text-align:center;
+    margin-top:10px;
+    font-size: 11px;
+}
+
+/* Blog Display, Blog Archive */
+
+.blogs-container,
+.extra-page-container {
+    margin: auto;
+}
+
+.blog {
+    margin-bottom:30px;
+}
+
+.blogtitle {
+    font-size: 1rem;
+    line-height:1.5rem;
+    margin-bottom:15px;
+}
+
+.leftrightsplit .blogtitle {
+    line-height: 110%;
+    margin-bottom:0;
+}
+
+.blogtitle a:link,
+.blogtitle a:visited {
+    text-decoration:none;
+}
+
+.blogcontent {
+    min-height:70px;
+}
+
+.blogmeta {
+    display:flex;
+    margin-top:15px;
+    align-items:flex-end;
+}
+
+.blogdata {
+    flex:1 1 auto;
+}
+
+.authordata {
+    margin-right: 5px;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.blogcommentlink,
+.blogarchivelink {
+    font-size: 11px;
+    text-transform: uppercase;
+    text-align:right;
+}
+
+
+#pages {
+    margin-bottom: 25px;
+}
+
+#pageslabel {
+    margin-bottom:15px;
+}
+
+#pages a, .pageskip {
+    box-sizing: content-box;
+    display:inline-block;
+    text-align:center;
+    width:27px;
+    height:27px;
+    line-height:26px;
+    border-radius:27px;
+    margin-right:12px;
+    text-decoration:none;
+    color:var(--archive-pages);
+    margin-bottom:7px;
+    opacity:0.5;
+}
+
+#pages a {
+    border:2px solid var(--archive-pages);
+}
+
+.pageskip {
+    padding:2px;
+}
+
+#pages a:hover {
+    opacity:0.8;
+}
+
+#pages a.currentpage,
+#pages a.currentpage:hover {
+    opacity:0.5;
+    background-color:var(--archive-current-page-bg);
+    color:var(--archive-current-page-text);
+    pointer-events: none;
+}
+
+#pages a.currentpage {
+    font-weight:bold;
+}
+
+
+
+/* overview */
+
+.overviewcommentlink {
+    text-align:right;
+    margin-bottom:15px;
+    font-size:11px;
+    text-transform:uppercase;
+}
+
+.blog-archive-link {
+    font-size:11px;
+    text-transform:uppercase;
+}
+
+/* Comic Archive, Search */
+
+.archive-container {
+    margin: auto;
+}
+
+#archive,
+#archive-chapters {
+    margin:auto;
+    margin-bottom:5px;
+    box-sizing:border-box;
+}
+
+#archive h3 {
+    margin-bottom:0;
+    margin-top:0;
+}
+
+#archive .chapter-title {
+    margin-bottom:5px;
+    background-color:var(--archive-chapter-bg);
+    padding:8px 15px;
+    padding-top:11px; /* compensating for josefin sans being a bit lopsided */
+}
+
+#archive .chapter-title:not(:first-child) {
+    margin-top:30px;
+}
+
+.chapter-title h3 {
+    font-size:1rem;
+}
+
+.search-title h3 {
+    font-size:1rem;
+}
+
+.search-title a,
+.chapter-title a {
+    text-underline-offset: 0.1rem;
+}
+
+#archive .chapterdescription {
+    font-size:0.8rem;
+    color:var(--chapter-description-text);
+    display:inline-block;
+    line-height:150%;
+}
+
+#archive .archivecomic {
+    display:flex;
+    align-items:center;
+    flex-wrap:nowrap;
+    text-align:left;
+    padding-left:10px;
+    padding-right:10px;
+    font-size: 1.1rem;
+}
+
+#archive .archivecomics {
+    padding: 10px 0;
+}
+
+#archive .archivecomicnumber,
+#archive .archivecomicposttime,
+#archive .archivecomictitle {
+    box-sizing:border-box;
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
+#archive .archivecomic:first-of-type .archivecomicnumber,
+#archive .archivecomic:first-of-type .archivecomicposttime,
+#archive .archivecomic:first-of-type .archivecomictitle {
+    padding-top:0;
+}
+
+#archive .archivecomic:last-of-type .archivecomicnumber,
+#archive .archivecomic:last-of-type .archivecomicposttime,
+#archive .archivecomic:last-of-type .archivecomictitle {
+    padding-bottom:0;
+}
+
+
+#archive .archivecomicnumber {
+    padding-right:15px;
+    min-width:40px;
+    word-wrap:normal;
+    word-break:keep-all;
+    font-size:0.8rem;
+    margin-top: 4px;
+}
+
+#archive .archivecomicposttime {
+    font-size:0.8rem;
+    text-align:right;
+    width:calc(30% - 40px);
+    margin-top:4px;
+}
+
+#archive .archivecomictitle {
+    flex:1 1 70%;
+}
+
+#archive-chapters .chapter {
+    display:flex;
+    margin-bottom:35px;
+}
+
+#archive-chapters .chapter-cover {
+    margin-right:15px;
+}
+
+.chapter-cover img {
+    max-width:100%;
+    max-height:100px;
+    width:auto;
+    height:auto;
+}
+
+#archive-chapters .chapter-data {
+    flex:1 1 0%;
+}
+
+#archive-chapters h3 {
+    margin:0;
+    margin-bottom:6px;
+}
+
+#archive-chapters .chapterdescription {
+    font-size:0.875rem;
+    margin-bottom:8px;
+}
+
+#archive-chapters .chapter-more,
+.archive-back-link {
+    font-size:11px;
+    text-transform:uppercase;
+}
+
+.archive-back-link {
+    margin-bottom:15px;
+    margin-top:15px;
+}
+
+.chapter-cover a {
+    box-shadow: 0 2px 2px rgba(0,0,0,0.05);
+    transition:opacity ease-in 250ms;
+    display:block;
+}
+
+#thumbnail-preview-box {
+    background-color:var(--thumbnail-box);
+    padding:8px;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.05);
+    transition:opacity ease-in 250ms;
+    display:block;
+}
+
+#thumbnail-preview-box img,
+.chapter-cover a img {
+    display:block;
+}
+
+/* Search */
+
+.searchbar {
+    display:flex;
+}
+
+.searchbar input[type="text"],
+.searchbar input[type="submit"] {
+    appearance: none;
+    border: 0;
+    margin:0;
+    color: inherit;
+    font: inherit;
+}
+
+.searchbar input[type="text"] {
+    background: var(--search-input);
+    padding: 0px 10px;
+    font-size: 12px;
+    line-height: 24px;
+    vertical-align: middle;
+}
+
+.searchbar input[type="submit"] {
+    background: url("https://comicfury.com/images/layouts/desire/search.svg");
+    height: 24px;
+    width: 24px;
+    opacity: 0.5;
+    vertical-align: middle;
+    color:transparent;
+    margin-left:3px;
+}
+
+.searchbar input[type="submit"]:hover {
+    opacity: 0.8;
+
+}
+
+.searchbar input[type="submit"]:active {
+    opacity: 1;
+}
+
+.searchform {
+    margin-bottom:25px;
+}
+
+.searcherror {
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.browse-tagged {
+    margin-top:5px;
+    font-size:11px;
+    text-transform:uppercase;
+}
+
+.search-results {
+    margin-top:15px;
+}
+
+/* Extra Pages / user-content */
+#errormessage,
+.extra-page-content {
+    padding:2px;
+}
+
+.blogcontent,
+.blogtitle,
+.pagetitle,
+.comictitlebar,
+.archivecomictitle,
+.extra-page-content,
+.notecontent,
+#topnav li a {
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.notecontent img,
+.blogcontent img,
+.extra-page-content img {
+    max-width:100%;
+    /*using !important because the WYSIWYG-editor sometimes applies widths and heights as an inline style, which could cause squishy images otherwise*/
+    height:auto !important;
+}
+
+.blogcontent table,
+.extra-page-content table {
+    max-width:100%;
+}
+
+.blogcontent table img,
+.extra-page-content table img {
+    /* we cannot use the 100% rule in tables, since it causes columns with text to take up all the space and make images tiny.
+       this rule will only work with tables that have up to 3 image columns next to one another (or two images and text),
+       wider tables will end up stretching the page*/
+    max-width:27vw;
+}
+
+/* touch devices */
+@media (pointer: coarse) {
+
+    .commentcontrol img,
+    .commentcontrol svg {
+        margin:5px;
+        margin-top:0;
+        margin-bottom:5px;
+        margin-right:0;
+    }
+
+    .commentcontrol > * {
+      margin-left: 5px;
+      margin-bottom:5px;
+    }
+
+
+    .comicnavlink:link,
+    .comicnavlink:visited {
+        padding:6px 4px;
+        margin-left:8px;
+        padding-right:0;
+    }
+
+
+    #saveplace a:link,
+    #saveplace a:visited {
+        padding:6px 4px;
+        margin-right:8px;
+        padding-left:0;
+    }
+}
+
+/*rules only for screens below 850 pixels (tablets, very small screens)*/
+@media (max-width:850px) {
+
+    .chapter-cover img {
+        max-width:160px;
+        height:auto;
+    }
+}
+
+
+/*rules only for screens below 750 pixels (tablets)*/
+@media (max-width:800px) {
+
+    #archive .chapter-title:not(:first-child) {
+        margin-top:25px;
+    }
+
+    #archive .archivecomic {
+        flex-wrap:wrap;
+        align-items:flex-start;
+    }
+
+    #archive .archivecomicnumber {
+        min-width:auto;
+        word-wrap:break-word;
+        word-break:break-word;
+    }
+
+    #archive .archivecomicposttime {
+        text-align:left;
+        width:100%;
+        font-size:0.75rem;
+        padding-top:0;
+        margin-top:0;
+    }
+
+    #archive .archivecomictitle {
+        width:auto;
+        flex-basis:85%;
+    }
+
+    #archive .archivecomicnumber,
+    #archive .archivecomictitle {
+        padding-top:10px;
+    }
+
+    .avatar-mobile {
+        display:block;
+        margin-right: 5px;
+    }
+
+    .avatar-mobile img {
+        width: 25px;
+        height: 25px;
+        border-radius: 25px;
+        filter: grayscale(100%);
+    }
+
+    .reply-depth1 {
+        margin-left:25px;
+    }
+
+    .reply-depth2 {
+        margin-left:50px;
+    }
+
+    .reply-depth3 {
+        margin-left:75px;
+    }
+
+    .reply-depth4 {
+        margin-left:100px;
+    }
+
+    .reply-depth5,
+    .reply-depth-above5 {
+        margin-left:125px;
+    }
+
+    .commentleft {
+        display:none;
+    }
+
+    .commentright {
+        margin-left:0;
+    }
+
+    .commentcontent {
+        flex-wrap:wrap;
+    }
+
+    .comment:not(:last-of-type) {
+        margin-bottom: 15px;
+    }
+
+    .commentcontrol {
+        width:100%;
+        flex-direction:row;
+        justify-content:flex-end;
+    }
+
+    .commentcontrol img,
+    .commentcontrol svg {
+        margin-top:5px;
+    }
+
+    .commentcontrol > * {
+        margin-left:0;
+    }
+
+    .commentcontrol a {
+        margin-right:0;
+        padding-right:5px;
+    }
+
+    .commentcontrol a:last-of-type {
+        padding-right:10px;
+        margin-right:-10px;
+    }
+
+    @media (pointer: coarse) {
+
+        .commentcontrol img,
+        .commentcontrol svg {
+            margin-bottom:0;
+        }
+
+        .commentcontrol > * {
+          margin-bottom:0;
+        }
+
+        .commentcontrol a {
+            margin-left:5px;
+        }
+    }
+}
+
+/*rules only for screens below 750 pixels (tablets)*/
+@media (max-width:750px) {
+    .hide-mobile {
+        display:none;
+    }
+
+    .mobile-only {
+        display:block;
+    }
+
+    .comicmeta {
+        flex: 1 1 auto;
+    }
+
+    .comic-options {
+        flex-wrap: wrap;
+    }
+
+    .ratingbox {
+        flex-wrap:wrap;
+    }
+
+    .permalinkcode {
+        width:100%;
+        text-align:center;
+    }
+
+    .permalinkcode + #comicrating {
+        margin-top:15px;
+    }
+
+    #topnav {
+        width:100%;
+    }
+
+    #topnav ul {
+        flex-direction:column;
+    }
+}
+
+/*rules only for screens below 650 pixels (tablets)*/
+@media (max-width:650px) {
+    html {
+        font-size:0.875rem;
+    }
+
+    .chapter-cover img {
+        max-width:110px;
+    }
+}
+
+/*rules only for screens below 550 pixels (wide phones)*/
+@media (max-width:550px) {
+
+    .extra-page-content {
+        padding-left:10px;
+        padding-right:10px;
+    }
+
+    .reply-depth1 {
+        margin-left:20px;
+    }
+
+    .reply-depth2 {
+        margin-left:40px;
+    }
+
+    .reply-depth3 {
+        margin-left:60px;
+    }
+
+    .reply-depth4 {
+        margin-left:80px;
+    }
+
+    .reply-depth5,
+    .reply-depth-above5 {
+        margin-left:100px;
+    }
+}
+
+/*rules only for screens below 420 pixels (landscape mode phones)*/
+@media (max-width:420px) {
+
+    #topnav li a {
+        font-size: 0.9rem;
+    }
+
+
+    .support-banner {
+        margin-bottom: 0;
+    }
+
+
+    .reply-depth1 {
+        margin-left:20px;
+    }
+
+    .reply-depth2 {
+        margin-left:40px;
+    }
+
+    .reply-depth3,
+    .reply-depth4,
+    .reply-depth5,
+    .reply-depth-above5 {
+        margin-left:60px;
+    }
+
+    .chapter-cover img {
+        max-width:80px;
+    }
+
+}
+
+/*rules only for screens below 360 pixels (portrait mode phones)*/
+@media (max-width:360px) {
+
+    .reply-depth3,
+    .reply-depth4,
+    .reply-depth5,
+    .reply-depth-above5 {
+        margin-left:45px;
+    }
+
+    .blogtitle {
+        font-size: 1.25rem;
+        line-height: 1.25rem;
+    }
+
+
+    .blogdata {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+
+</style>
+
+        <script type="text/javascript" src="https://comicfury.com/cflayoutjs.js.php?cc=inline&amp;wcid=72276&amp;from=https%3A%2F%2Fannoarcana.thecomicseries.com%2Farchive%2F"></script>
+
+        
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function(e) {
+                //this checks if the current visitor has a place saved already, and if not, add the "loadplace-inactive" class
+                //to the "load my place" link, to gray it out
+                var loadPlaceLink = document.getElementById('loadplace-link');
+                if(loadPlaceLink !== null && !comicfury.bookmark)
+                {
+                    loadPlaceLink.classList.add('loadplace-inactive');
+                }
+            });
+
+            var customOnSave = function(saveLink) {
+                //this adds the class "saveplace-saved" class to the "save my place" link, when the bookmark has been saved
+                //you can also overwrite saveLink.innerHTML instead with new HTML code to e.g. change the image
+                saveLink.classList.add('saveplace-saved');
+            };
+
+            var selectElementText = function(element) {
+                if (window.getSelection && document.createRange)
+                {
+                    var selection = window.getSelection();
+                    var range = document.createRange();
+                    range.selectNodeContents(element);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+            };
+        </script>
+
+
+        <!-- this is the css + code for the mobile hamburger menu -->
+        <style>
+            @media (min-width:750px) {
+                #topnav {
+                    display:block !important;
+                }
+
+                #topnav-hidetoggle {
+                    display:none !important;
+                }
+            }
+
+            #topnav {
+                display:none;
+            }
+        </style>
+        <script>
+            function menuToggle() {
+                let toggleButton = document.getElementById('topnav-hidetoggle');
+                let menu = document.getElementById('topnav');
+
+                if(!toggleButton || !menu)
+                {
+                    return false;
+                }
+
+                if(toggleButton.getAttribute('data-status') !== 'visible')
+                {
+                    toggleButton.setAttribute('data-status', 'visible');
+                    menu.style.display = 'block';
+                }
+                else
+                {
+                    toggleButton.setAttribute('data-status', 'hidden');
+                    menu.style.display = 'none';
+                }
+
+                return false;
+            }
+        </script>
+    </head>
+    <body>
+
+        <header class="header-top">
+            <h1 id="sitetitle">
+                <a href="/">Anno Arcana</a>
+            </h1>
+
+            <button id="topnav-hidetoggle" data-status="hidden" onclick="return menuToggle();" title="Show Menu" aria-label="Show Menu">
+                <div class="bar bar1"></div>
+                <div class="bar bar2"></div>
+            </button>
+
+            <nav id="topnav">
+                <ul>
+                    <li><a href="/comics/1/">First</a></li>
+                    <li><a href="/archive/">Archive</a></li>
+
+                    
+                        <li><a href="https://comicfury.com/read/annoarcana/archive">Scroll View</a></li>
+                    
+
+                    
+                        <li><a href="/Supportus/">Support us! </a></li>
+                    
+                        <li><a href="/Credit/">Credits</a></li>
+                    
+                        <li><a href="/Links/">Links (webtoon,tapas,etc)</a></li>
+                    
+
+                    
+
+                    
+                        <li><a href="https://comicfury.com/comic.php?action=addsubscription&amp;url=annoarcana">Subscribe</a></li>
+                    
+                </ul>
+            </nav>
+
+        </header>
+        <script type="text/javascript" src="https://www.comicad.net/r/U5JonroXCj/"></script>
+
+        <div class="wrap">
+            <!-- if we're on an extra page, show the title here: -->
+            
+
+
+            <div class="archive-container main-body">
+    <h2 class="pagetitle">
+        Archive
+        
+    </h2>
+
+
+    
+
+
+    
+
+        <div id="archive-chapters">
+
+            
+                <div class="chapter">
+                    
+                        <div class="chapter-cover">
+                            <a href="/comics/1">
+                                <img src="https://img.comicfury.com/comics/thumbs/394/72276a1750464362b0f471776933.webp" width="140" height="210">
+                            </a>
+                        </div>
+                    
+                    <div class="chapter-data">
+                        <div class="chapter-title">
+                            <h3><a href="/comics/1">Covers and lore interludes</a></h3>
+                            <div class="chapterdescription"></div>
+                        </div>
+                        <div class="chapter-more">
+                            <a href="/archive/95677">Comics in this chapter</a>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="chapter">
+                    
+                        <div class="chapter-cover">
+                            <a href="/comics/2">
+                                <img src="https://img.comicfury.com/comics/thumbs/394/72276a1750481521b0f811334102.webp" width="149" height="210">
+                            </a>
+                        </div>
+                    
+                    <div class="chapter-data">
+                        <div class="chapter-title">
+                            <h3><a href="/comics/2">Promethean Pact</a></h3>
+                            <div class="chapterdescription">Prologue of the story</div>
+                        </div>
+                        <div class="chapter-more">
+                            <a href="/archive/95676">Comics in this chapter</a>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="chapter">
+                    
+                        <div class="chapter-cover">
+                            <a href="/comics/14">
+                                <img src="https://img.comicfury.com/comics/thumbs/404/72276a1755851882b0f237352298.webp" width="149" height="210">
+                            </a>
+                        </div>
+                    
+                    <div class="chapter-data">
+                        <div class="chapter-title">
+                            <h3><a href="/comics/14">Resplendent return</a></h3>
+                            <div class="chapterdescription"></div>
+                        </div>
+                        <div class="chapter-more">
+                            <a href="/archive/97055">Comics in this chapter</a>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="chapter">
+                    
+                        <div class="chapter-cover">
+                            <a href="/comics/32">
+                                <img src="https://img.comicfury.com/comics/thumbs/429/72276a1770397681b0f146745388.webp" width="149" height="210">
+                            </a>
+                        </div>
+                    
+                    <div class="chapter-data">
+                        <div class="chapter-title">
+                            <h3><a href="/comics/32">Grisly Groves</a></h3>
+                            <div class="chapterdescription"></div>
+                        </div>
+                        <div class="chapter-more">
+                            <a href="/archive/104834">Comics in this chapter</a>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+    
+
+    
+        <div class="archive-back-link">
+            <a href="/archive/comics">List all Comics</a>
+        </div>
+    
+
+    
+
+
+    
+</div>
+
+
+            
+
+            
+
+            <footer>
+                <div class="footer-left">
+
+                    <div class="hostedby">
+                        <span>Hosted by </span>
+                        <a href="https://comicfury.com">
+                            <img src="https://comicfury.com/images/gator-icon-white.png" height="22" style="height:22px; width:auto;" />
+                            ComicFury
+                        </a>
+                        <span class="comicprof"> (<a href="https://comicfury.com/comicprofile.php?url=annoarcana">Comic Profile</a>)</span>
+                    </div>
+
+                    <div>
+                        Webcomic &copy; 2025 - 2026 Forscher
+                        |
+                        Design by <a href="https://comicfury.com/profile.php?username=cutething" target="_blank" title="awwww yisssss">cutething</a>.
+                    </div>
+                </div>
+
+                <div class="footer-right">
+                    
+                        
+                            <form method="post" action="/search/" class="searchform searchform-footer">
+                                <div class="searchbar">
+                                    <input type="text" name="search" value="" placeholder="Search..." />
+                                    <input type="submit" value="Search!" />
+                                </div>
+                            </form>
+                        
+                    
+                </div>
+            </footer>
+
+        </div>
+    </body>
+</html>
