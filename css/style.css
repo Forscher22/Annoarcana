@@ -85,8 +85,8 @@ img {
 
 body {
   background-color: var(--bg-color);
-  /* "Dark Brick Wall" by Alex Parker (CC BY-SA 3.0), tinted by the navy above */
-  background-image: url("/img/textures/dark-brick-wall.png");
+  /* "Stardust" by Atle Mo (CC BY-SA 3.0), over the navy above */
+  background-image: url("/img/textures/stardust.png");
 }
 
 /* link colors */
