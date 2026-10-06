@@ -85,8 +85,14 @@ img {
 
 body {
   background-color: var(--bg-color);
-  /* "Stardust" by Atle Mo (CC BY-SA 3.0), over the navy above */
-  background-image: url("/img/textures/stardust.png");
+  /**
+   * "Stardust" by Atle Mo (CC BY-SA 3.0) over a faint teal glow, the colour of
+   * Javi's magic. The glow stays put behind the comic while the page scrolls.
+   */
+  background-image:
+    url("/img/textures/stardust.png"),
+    radial-gradient(ellipse 70% 60% at 50% 45%, rgba(64, 200, 185, 0.14), transparent 70%);
+  background-attachment: scroll, fixed;
 }
 
 /* link colors */
