@@ -85,6 +85,8 @@ img {
 
 body {
   background-color: var(--bg-color);
+  /* "Dark Brick Wall" by Alex Parker (CC BY-SA 3.0), tinted by the navy above */
+  background-image: url("/img/textures/dark-brick-wall.png");
 }
 
 /* link colors */
@@ -178,6 +180,9 @@ footer {
   align-items: center;
   width: 100%;
   font-size: 12px;
+}
+.footer-credit {
+  opacity: 0.7;
 }
 
 footer p {
