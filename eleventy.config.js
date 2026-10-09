@@ -119,6 +119,10 @@ module.exports = async function(eleventyConfig) {
 		eleventyConfig.ignores.add("Links.html");
 		eleventyConfig.ignores.add("Supportus.html");
 		eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+			// Resized copies go in their own folder: their file names change
+			// whenever the image does, so netlify.toml can cache them for a year
+			urlPath: "/img/r/",
+			outputDir: path.join(eleventyConfig.directories.output, "img", "r"),
 			widths: [100, "auto"],
 			...IMAGE_QUALITY,
 			defaultAttributes: {

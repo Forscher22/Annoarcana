@@ -26,7 +26,11 @@
       {%- assign pageDescription = metadata.description %}
     {%- endif %}
     <meta name="description" content="{{ pageDescription | escape }}">
+    {%- if noindex %}
+    <meta name="robots" content="noindex">
+    {%- else %}
     <link rel="canonical" href="{{ metadata.base }}{{ page.url }}">
+    {%- endif %}
     <link rel="alternate" type="application/rss+xml" title="{{ metadata.title | escape }}: every new page" href="/feed.xml">
     <link rel="alternate" type="application/rss+xml" title="{{ metadata.title | escape }}: new chapters" href="/chapters.xml">
     {%- comment %}

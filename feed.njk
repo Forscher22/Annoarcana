@@ -1,7 +1,8 @@
 ---json
 {
   "permalink": "feed.xml",
-  "eleventyExcludeFromCollections": true
+  "eleventyExcludeFromCollections": true,
+  "eleventyImport": { "collections": ["comic"] }
 }
 ---
 <?xml version="1.0" encoding="utf-8"?>
@@ -14,10 +15,11 @@
     <language>{{ metadata.language or page.lang }}</language>
     {%- for post in collections.comic | reverse %}
     {%- set absolutePostUrl = post.url | htmlBaseUrl(metadata.base) %}
+    {%- set thumb = post.data.images[0] | shareImage %}
     <item>
       <title>{{ post.data.title }}</title>
       <link>{{ absolutePostUrl }}</link>
-      <description><![CDATA[ <img src="{{ post.data.images[0] | htmlBaseUrl(metadata.base) }}" width="100" alt="Thumbnail for {{ post.data.title }}"/> ]]>{{ post.content | renderTransforms(post.data.page, metadata.base) }}</description>
+      <description><![CDATA[ <img src="{{ thumb.url | htmlBaseUrl(metadata.base) }}" width="100" alt="Thumbnail for {{ post.data.title }}"/> ]]>{{ post.content | renderTransforms(post.data.page, metadata.base) }}</description>
       <pubDate>{{ post.data.date | dateToRfc822 }}</pubDate>
       <dc:creator>{{ metadata.author }}</dc:creator>
       <guid>{{ absolutePostUrl }}</guid>
