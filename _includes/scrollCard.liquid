@@ -1,0 +1,17 @@
+{%- comment %} One chapter in the Scroll View menu (scroll.liquid) {% endcomment %}
+{%- assign first = ch.pages | first %}
+{%- assign cover = first.data.images | first %}
+<li class="scroll-chapter">
+  <a href="/chapter/{{ ch.number }}/">
+    {%- if cover contains "/comic-uploads/" %}
+    <img src="{{ cover }}" alt="" loading="lazy" eleventy:ignore>
+    {%- else %}
+    <img src="{{ cover }}" alt="" loading="lazy" sizes="(max-width: 700px) 40vw, 200px" eleventy:widths="300,600" eleventy:formats="webp,jpeg">
+    {%- endif %}
+    <span class="scroll-chapter-text">
+      <span class="scroll-chapter-name">{{ ch.name }}</span>
+      <span class="scroll-chapter-meta">{% if ch.number > 0 %}Chapter {{ ch.number }} · {% endif %}{{ ch.pages.size }} page{% if ch.pages.size != 1 %}s{% endif %}</span>
+      <span class="scroll-chapter-go">Start reading &rarr;</span>
+    </span>
+  </a>
+</li>

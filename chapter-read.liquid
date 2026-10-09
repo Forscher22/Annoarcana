@@ -28,7 +28,7 @@ are the same resized copies the comic pages use, so they're often cached.
 {%- capture chapterNav %}
 <nav class="chapter-read-nav" aria-label="Chapters">
   {%- if prevChapter %}<a href="/chapter/{{ prevChapter.number }}/">&larr; {{ prevChapter.name }}</a>{% else %}<span></span>{% endif %}
-  <a href="/archive/#chapter{{ chapter.number }}">Archive</a>
+  <a href="/scroll/">All chapters</a>
   {%- if nextChapter %}<a href="/chapter/{{ nextChapter.number }}/">{{ nextChapter.name }} &rarr;</a>{% else %}<span></span>{% endif %}
 </nav>
 {%- endcapture %}

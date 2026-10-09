@@ -1,0 +1,17 @@
+---
+layout: layouts/page.liquid
+title: Scroll View
+permalink: /scroll/
+description: "Read Anno Arcana a whole chapter at a time: pick a chapter and scroll through every page on one page."
+---
+{% comment %}
+The Scroll View menu: every chapter as a card that opens it on one long page
+(chapter-read.liquid). Story chapters first, then the lore interludes.
+{% endcomment %}
+<p>Pick a chapter to read it from start to finish on one long page.</p>
+{%- assign story = collections.chapterReads | where_exp: "ch", "ch.number > 0" %}
+{%- assign lore = collections.chapterReads | where_exp: "ch", "ch.number == 0" %}
+<ol class="scroll-chapters">
+  {%- for ch in story %}{% render 'scrollCard.liquid', ch: ch %}{% endfor %}
+  {%- for ch in lore %}{% render 'scrollCard.liquid', ch: ch %}{% endfor %}
+</ol>
