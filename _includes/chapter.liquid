@@ -31,13 +31,18 @@ the page."
         <img class="chapter-img" src="{{ thumb }}" alt="Thumbnail for {{ ch.name }}"{% if thumb contains "/comic-uploads/" %} eleventy:ignore{% endif %}>
         <div class="chapter-text">
             <h2>{{ ch.name }}</h2>
-            {% for item in collection[key] %}
-              <div class="chapter">
-                <h3>
-                  <a href="{{ item.url }}">{{ item.data.title }}</a>
-                </h3>
-              </div>
-            {% endfor %}
+            <p class="chapter-read-link"><a href="/chapter/{{ ch.number }}/">Read the whole chapter on one page &rarr;</a></p>
+            <ol class="chapter-pages">
+            {%- for item in collection[key] %}
+              <li class="chapter">
+                <a href="{{ item.url }}">
+                  {%- comment %} Small thumbnails, already resized (see thumbImage in eleventy.config.js) {% endcomment %}
+                  <img class="chapter-thumb" src="{{ item.data.images[0] | thumbImage }}" alt="" width="60" loading="lazy" decoding="async" eleventy:ignore>
+                  <span>{{ item.data.title }}</span>
+                </a>
+              </li>
+            {%- endfor %}
+            </ol>
             <p class="chapter-top"><a href="#chapters">&uarr; Back to chapters</a></p>
         </div>
     </div>

@@ -1,0 +1,64 @@
+---
+layout: layouts/base.liquid
+pagination:
+  data: collections.chapterReads
+  size: 1
+  alias: chapter
+permalink: "/chapter/{{ chapter.number }}/"
+eleventyComputed:
+  title: "{{ chapter.name }}: the whole chapter"
+  description: "Read all of {{ chapter.name }} from Anno Arcana on one page, from start to finish."
+---
+{% comment %}
+A whole chapter on one long page, for reading straight through. Each comic
+page links back to its own page, where its notes and comments are. The images
+are the same resized copies the comic pages use, so they're often cached.
+{% endcomment %}
+{%- comment %} Previous/next follow the story, so the lore interludes (chapter 0) aren't in the chain {% endcomment %}
+{%- assign prevChapter = nil %}{% assign nextChapter = nil %}{% assign passed = false %}
+{%- if chapter.number > 0 %}
+  {%- for ch in collections.chapterReads %}
+    {%- if ch.number == 0 %}{% continue %}{% endif %}
+    {%- if ch.number == chapter.number %}{% assign passed = true %}{% continue %}{% endif %}
+    {%- if passed %}{% assign nextChapter = ch %}{% break %}{% else %}{% assign prevChapter = ch %}{% endif %}
+  {%- endfor %}
+{%- endif %}
+{%- capture chapterNav %}
+<nav class="chapter-read-nav" aria-label="Chapters">
+  {%- if prevChapter %}<a href="/chapter/{{ prevChapter.number }}/">&larr; {{ prevChapter.name }}</a>{% else %}<span></span>{% endif %}
+  <a href="/archive/#chapter{{ chapter.number }}">Archive</a>
+  {%- if nextChapter %}<a href="/chapter/{{ nextChapter.number }}/">{{ nextChapter.name }} &rarr;</a>{% else %}<span></span>{% endif %}
+</nav>
+{%- endcapture %}
+
+<div class="chapter-read">
+  <div class="paperDiv chapter-read-head">
+    <h1>{{ chapter.name }}</h1>
+    <p>
+      {% if chapter.number > 0 %}Chapter {{ chapter.number }} · {% endif %}{{ chapter.pages.size }} page{% if chapter.pages.size != 1 %}s{% endif %}.
+      Tap a page's title to see its notes and comments.
+    </p>
+    {{ chapterNav }}
+  </div>
+
+  <div class="paperDiv chapter-read-pages">
+    {%- for item in chapter.pages %}
+    <section class="chapter-read-page" id="page-{{ item.page.fileSlug }}">
+      <h2><a href="{{ item.url }}">{{ item.data.title }}</a></h2>
+      {%- for panel in item.data.images %}
+        {%- assign uploaded = panel | slice: 0, 15 %}
+        {%- if uploaded == "/comic-uploads/" %}
+        <img src="{{ panel }}" alt="{{ item.data.alt }}" loading="lazy" eleventy:ignore>
+        {%- else %}
+        <img src="{{ panel }}" alt="{{ item.data.alt }}" loading="{% if forloop.parentloop.first and forloop.first %}eager{% else %}lazy{% endif %}" sizes="(max-width: 1138px) 90vw, 1024px" eleventy:widths="600,1000,1500,2100" eleventy:formats="webp,jpeg">
+        {%- endif %}
+      {%- endfor %}
+    </section>
+    {%- endfor %}
+  </div>
+
+  <div class="paperDiv chapter-read-foot">
+    <p>That's the end of {{ chapter.name }}{% if nextChapter %}. Keep going with <a href="/chapter/{{ nextChapter.number }}/">{{ nextChapter.name }}</a>{% endif %}!</p>
+    {{ chapterNav }}
+  </div>
+</div>

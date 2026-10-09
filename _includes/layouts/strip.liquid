@@ -21,6 +21,10 @@ Liquid file within the template.
   {% render 'comic.liquid', collection: collections.comic, page: page, images: images, alt: alt, hover: hover, date: date, spread: spread %}
 </div>
 {%- assign number = pageNumber | default: page.fileSlug | plus: 0 %}
-{% render 'authorNotes.liquid', title: title, date: date, content: content, number: number, pageNotes: pageNotes %}
+{%- assign chapterNumber = "" %}{% assign chapterTitle = "" %}
+{%- for tag in tags %}{% assign prefix = tag | slice: 0, 7 %}{% if prefix == "chapter" %}{% assign chapterNumber = tag | remove_first: "chapter" %}{% endif %}{% endfor %}
+{%- for ch in chapterNames %}{% assign n = ch.number | append: "" %}{% if n == chapterNumber %}{% assign chapterTitle = ch.name %}{% endif %}{% endfor %}
+{% render 'authorNotes.liquid', title: title, date: date, content: content, number: number, pageNotes: pageNotes, url: page.url, base: metadata.base, chapterNumber: chapterNumber, chapterTitle: chapterTitle %}
 {% render 'comicSocials.liquid', placement: 'row', spread: spread %}
 {% render 'comments.liquid', number: number %}
+<script src="/js/share.js" defer></script>

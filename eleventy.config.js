@@ -245,6 +245,14 @@ module.exports = async function(eleventyConfig) {
 			const utc= (new Date(value)).toUTCString().split(' ');
 			return `${utc[2]} ${utc[1]}, ${utc[3]}`;
 		});
+		// Chapters that have pages, each with its pages in reading order, for the
+		// one-page chapter readers (chapter-read.liquid)
+		const chapterNameList = require("./_data/chapterNames.json");
+		eleventyConfig.addCollection("chapterReads", (api) =>
+			chapterNameList
+				.map((ch) => ({ ...ch, pages: api.getFilteredByTag(`chapter${ch.number}`) }))
+				.filter((ch) => ch.pages.length),
+		);
 		eleventyConfig.addAsyncFilter("chapters", async function(collections) { 
 			// Sort chapters numerically so chapter10 comes after chapter9
 			return Object.keys(collections)
