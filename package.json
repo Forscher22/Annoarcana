@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "eleventy --serve",
-    "build": "eleventy"
+    "build": "eleventy",
+    "webtoon": "node scripts/webtoon-export.js"
   },
   "keywords": [],
   "author": "",

@@ -85,3 +85,10 @@ Still curious? [Start exploring the template](https://github.com/covalria-sow/el
 ### Pages between page numbers
 
 Page numbers are whole numbers (comments and author notes are tied to them). For pages that sit between two numbered pages, like an interlude, name the file so it sorts in the right spot (e.g. `53a.md`, `53b.md` come after `53.md` and before `54.md`) and give it a reserved `pageNumber` of 1000 or more in its front matter. The Studio skips these numbers when suggesting the next page number.
+
+### Anno Arcana extras
+
+- **WEBTOON copies:** `npm run webtoon` writes WEBTOON-ready versions of the comic pages to `webtoon-export/` (800px wide, sRGB, sliced at 1280px tall, each under 2MB). `npm run webtoon -- 54` does one page, `npm run webtoon -- 50 54` a range, `npm run webtoon -- 53a` an interlude.
+- **Visitor stats:** sign up at goatcounter.com and put your site code in `goatcounter` in `_data/metadata.json` (e.g. `"annoarcana"` for annoarcana.goatcounter.com). Leave it empty to turn stats off.
+- **Faster builds:** `netlify/plugins/image-cache` keeps the resized images between Netlify builds, so only new or changed pages get processed.
+- **Comment spam:** each visitor can post 5 comments per 10 minutes (see `netlify/functions/comments.mts`); the Studio account isn't limited.

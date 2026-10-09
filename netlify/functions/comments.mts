@@ -1,4 +1,5 @@
-import type { Config } from "@netlify/functions";
+import type { Config, Context } from "@netlify/functions";
+import { getStore } from "@netlify/blobs";
 import { getUser } from "@netlify/identity";
 import { and, asc, desc, eq, gt } from "drizzle-orm";
 import { db } from "../../db/index.js";
@@ -8,9 +9,29 @@ import { requireAdmin } from "../../lib/admin-auth.js";
 const MAX_NAME = 60;
 const MAX_BODY = 2000;
 
+// Each visitor can post a few comments per window; enough for a real
+// conversation, not enough for a spam run. Visitors are told apart by a hash
+// of their IP address (the address itself isn't stored), and the record
+// expires with the window.
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+
+async function overRateLimit(ip: string): Promise<boolean> {
+  if (!ip) return false;
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`comments:${ip}`));
+  const key = [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
+  const store = getStore({ name: "comment-rate-limit", consistency: "strong" });
+  const now = Date.now();
+  const saved = (await store.get(key, { type: "json" })) as number[] | null;
+  const recent = (saved ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (recent.length >= RATE_LIMIT) return true;
+  await store.setJSON(key, [...recent, now]);
+  return false;
+}
+
 // Reader comments on comic pages. Anyone can read and post; deleting (and the
 // Studio's "recent comments" list) is admin-only.
-export default async (req: Request) => {
+export default async (req: Request, context: Context) => {
   const url = new URL(req.url);
   const id = url.pathname.split("/").filter(Boolean)[2];
 
@@ -78,9 +99,17 @@ export default async (req: Request) => {
     }
 
     const user = await getUser();
+    const isAdmin = Boolean(user?.roles?.includes("admin"));
+    if (!isAdmin && (await overRateLimit(context.ip))) {
+      return Response.json(
+        { error: "You're commenting a lot! Please wait a few minutes and try again." },
+        { status: 429 },
+      );
+    }
+
     const [comment] = await db
       .insert(comments)
-      .values({ pageNumber: page, name, body, isAuthor: Boolean(user?.roles?.includes("admin")) })
+      .values({ pageNumber: page, name, body, isAuthor: isAdmin })
       .returning({
         id: comments.id,
         name: comments.name,

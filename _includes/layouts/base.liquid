@@ -26,7 +26,11 @@
       {%- assign pageDescription = metadata.description %}
     {%- endif %}
     <meta name="description" content="{{ pageDescription | escape }}">
+    {%- if noindex %}
+    <meta name="robots" content="noindex">
+    {%- else %}
     <link rel="canonical" href="{{ metadata.base }}{{ page.url }}">
+    {%- endif %}
     <link rel="alternate" type="application/rss+xml" title="{{ metadata.title | escape }}: every new page" href="/feed.xml">
     <link rel="alternate" type="application/rss+xml" title="{{ metadata.title | escape }}: new chapters" href="/chapters.xml">
     {%- comment %}
@@ -94,5 +98,14 @@
       {{ content }}
     </main>
     {% render 'footer.liquid' %}
+    {%- comment %}
+    Visitor stats (GoatCounter: no cookies, no personal data). Turned on by
+    putting the site code from goatcounter.com in `goatcounter` in
+    _data/metadata.json, e.g. "annoarcana" for annoarcana.goatcounter.com.
+    The Studio isn't counted.
+    {% endcomment %}
+    {%- if metadata.goatcounter != "" %}{% unless page.url contains "/admin/" %}
+    <script data-goatcounter="https://{{ metadata.goatcounter }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+    {%- endunless %}{% endif %}
   </body>
 </html>

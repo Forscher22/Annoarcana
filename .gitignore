@@ -4,3 +4,5 @@ _site
 .cache
 # Local Netlify folder
 .netlify
+# WEBTOON-ready copies made by `npm run webtoon`
+webtoon-export

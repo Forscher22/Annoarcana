@@ -89,17 +89,20 @@
   flex-direction: column;
 }
 
-/* ComicAd unit in the right margin, under Patreon and Ko-fi. Same width as the
-   sign-up on the left; anything wider is scaled down or cropped rather than
-   spilling over the comic. */
+/* ComicAd unit in the right margin, under Patreon and Ko-fi. Anything wider
+   than the margin is scaled down or cropped rather than spilling over the
+   comic. */
 .side-ad {
-  width: min(8rem, calc((100vw - 64rem) / 2 - 2.5rem));
+  /* 160px fits ComicAd's 160x300 and 160x600 units on screens ~1390px+ */
+  width: min(160px, calc((100vw - 64rem) / 2 - 2.5rem));
   margin-top: 0.5rem;
   overflow: hidden;
   text-align: center;
 }
-.side-ad img,
-.side-ad iframe {
+.side-ad img {
   max-width: 100%;
   height: auto;
+}
+.side-ad iframe {
+  max-width: 100%;
 }

@@ -13,13 +13,21 @@ const IMAGE_TYPES: Record<string, string> = {
 };
 
 // Page numbers already used by Markdown files in `comic/`, read from the
-// index the site publishes at build time.
+// index the site publishes at build time. A file named after a number (like
+// `31.md`) owns that number even when it has a reserved `pageNumber`, since a
+// Studio page with the same number would get the same URL and be skipped.
 async function filePageNumbers(origin: string): Promise<Set<number>> {
   try {
     const res = await fetch(`${origin}/comic-index.json`);
     if (!res.ok) return new Set();
-    const pages: { number: number; source: string }[] = await res.json();
-    return new Set(pages.filter((p) => p.source === "file").map((p) => p.number));
+    const pages: { number: number; url: string; source: string }[] = await res.json();
+    const taken = new Set<number>();
+    for (const p of pages.filter((p) => p.source === "file")) {
+      taken.add(p.number);
+      const slug = p.url.match(/^\/comic\/(\d+)\/$/);
+      if (slug) taken.add(parseInt(slug[1], 10));
+    }
+    return taken;
   } catch {
     return new Set();
   }

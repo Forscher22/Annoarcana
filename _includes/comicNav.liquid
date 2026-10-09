@@ -17,16 +17,16 @@ we're on the first page of the comic, we don't need to show that button.
 {%- comment %} The arrows are decorative (empty alt); the label under each one names it {% endcomment %}
 <div class="comicNav">
   {% if current != first %}
-    <a href="{{ first.url }}"><img src="/img/comicnav/nav_first.png" alt=""><span>First</span></a>
+    <a href="{{ first.url }}"><img src="/img/comicnav/nav_first.png" alt="" loading="eager" sizes="90px"><span>First</span></a>
   {% endif %}
   {% if previous %}
-    <a href="{{ previous.url }}"><img src="/img/comicnav/nav_previous.png" alt=""><span>Previous</span></a>
+    <a href="{{ previous.url }}"><img src="/img/comicnav/nav_previous.png" alt="" loading="eager" sizes="90px"><span>Previous</span></a>
   {% endif %}
   {% if next %}
-    <a href="{{ next.url }}"><img src="/img/comicnav/nav_next.png" alt=""><span>Next</span></a>
+    <a href="{{ next.url }}"><img src="/img/comicnav/nav_next.png" alt="" loading="eager" sizes="90px"><span>Next</span></a>
   {% endif %}
   {% if current != last %}
-    <a href="{{ last.url }}"><img src="/img/comicnav/nav_last.png" alt=""><span>Latest</span></a>
+    <a href="{{ last.url }}"><img src="/img/comicnav/nav_last.png" alt="" loading="eager" sizes="90px"><span>Latest</span></a>
   {% endif %}
 </div>
 

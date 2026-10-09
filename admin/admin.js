@@ -362,7 +362,12 @@ async function loadComments() {
   const list = $("[data-slot=comments]");
   list.innerHTML = '<li class="page-skeleton"></li>'.repeat(2);
   try {
-    const { comments } = await api("/api/comments?recent");
+    const [{ comments }, published] = await Promise.all([
+      api("/api/comments?recent"),
+      fetch("/comic-index.json").then((r) => (r.ok ? r.json() : [])).catch(() => []),
+    ]);
+    // Interludes have reserved numbers (1000+), so look up each page's real URL
+    const pageByNumber = new Map(published.map((p) => [p.number, p]));
     list.innerHTML = "";
     if (!comments.length) {
       list.innerHTML = '<li class="page-empty">No comments yet.</li>';
@@ -377,8 +382,9 @@ async function loadComments() {
         <button type="button" class="link-button danger">Delete</button>`;
       $("strong", item).textContent = comment.name + (comment.isAuthor ? " (you)" : "");
       const link = $("a", item);
-      link.href = `/comic/${String(comment.pageNumber).padStart(2, "0")}/#comments-heading`;
-      link.textContent = `Page ${comment.pageNumber}`;
+      const onPage = pageByNumber.get(comment.pageNumber);
+      link.href = `${onPage ? onPage.url : `/comic/${String(comment.pageNumber).padStart(2, "0")}/`}#comments-heading`;
+      link.textContent = onPage?.title || `Page ${comment.pageNumber}`;
       $("time", item).textContent = new Date(comment.createdAt).toLocaleString();
       $(".studio-comment-body", item).textContent = comment.body;
       $("button", item).addEventListener("click", async () => {
