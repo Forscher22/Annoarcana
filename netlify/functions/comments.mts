@@ -29,6 +29,38 @@ async function overRateLimit(ip: string): Promise<boolean> {
   return false;
 }
 
+// Posts new reader comments to a Discord channel, if a webhook URL is saved in
+// the DISCORD_COMMENTS_WEBHOOK_URL environment variable. A failure here never
+// stops the comment from being posted.
+async function alertDiscord(comment: { name: string; body: string }, pageUrl: string, label: string) {
+  const webhook = process.env.DISCORD_COMMENTS_WEBHOOK_URL;
+  if (!webhook) return;
+  const body = comment.body.length > 1000 ? `${comment.body.slice(0, 1000)}…` : comment.body;
+  try {
+    await fetch(webhook, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: AbortSignal.timeout(4000),
+      body: JSON.stringify({
+        username: "Anno Arcana comments",
+        // Never let a comment ping @everyone or anyone else
+        allowed_mentions: { parse: [] },
+        embeds: [
+          {
+            title: `New comment on ${label}`,
+            url: pageUrl,
+            author: { name: comment.name },
+            description: body,
+            color: 0xda5437,
+          },
+        ],
+      }),
+    });
+  } catch (error) {
+    console.warn(`[comments] Discord alert failed: ${(error as Error).message}`);
+  }
+}
+
 // Reader comments on comic pages. Anyone can read and post; deleting (and the
 // Studio's "recent comments" list) is admin-only.
 export default async (req: Request, context: Context) => {
@@ -117,6 +149,14 @@ export default async (req: Request, context: Context) => {
         isAuthor: comments.isAuthor,
         createdAt: comments.createdAt,
       });
+
+    // Link the alert to the page the comment was left on. Only this site's
+    // own paths are accepted (e.g. "/" or "/comic/54/").
+    const path = String(input.path ?? "");
+    const knownPath = /^\/(comic\/[A-Za-z0-9-]+\/)?$/.test(path) ? path : "/";
+    const label = knownPath === "/" ? "the home page" : knownPath;
+    if (!isAdmin) await alertDiscord(comment, new URL(knownPath, url.origin).href, label);
+
     return Response.json({ comment }, { status: 201 });
   }
 

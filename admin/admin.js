@@ -210,7 +210,11 @@ function renderPages({ pages, buildHookConfigured }, published) {
       source: "dashboard",
       id: p.id,
       pending: true,
+      // Dated in the future: the site publishes it on that date by itself
+      scheduled: p.postedOn > today(),
     }));
+  const publishing = pending.filter((p) => !p.scheduled);
+  const scheduled = pending.filter((p) => p.scheduled);
   const all = [...published, ...pending].sort((a, b) => a.number - b.number);
 
   // Suggest the next page number and the latest chapter for the upload form
@@ -232,8 +236,10 @@ function renderPages({ pages, buildHookConfigured }, published) {
       "Automatic publishing isn't set up yet, so new pages appear after the site's next deploy. " +
         "To publish right away, add a build hook (see the setup notes).",
     );
-  } else if (pending.length) {
-    notice(`${pending.length} page${pending.length > 1 ? "s are" : " is"} on the way to the site. Publishing takes a minute or two.`);
+  } else if (publishing.length) {
+    notice(`${publishing.length} page${publishing.length > 1 ? "s are" : " is"} on the way to the site. Publishing takes a minute or two.`);
+  } else if (scheduled.length) {
+    notice(`${scheduled.length} page${scheduled.length > 1 ? "s are" : " is"} scheduled and will go up on ${scheduled.length > 1 ? "their dates" : "its date"} automatically.`);
   } else {
     notice("");
   }
@@ -259,7 +265,7 @@ function renderPages({ pages, buildHookConfigured }, published) {
     $("strong", item).textContent = page.title || `Page ${String(page.number).padStart(2, "0")}`;
     $(".page-sub", item).textContent =
       `Page ${page.number} · ${chapterName(page.chapter)} · ${page.date}` +
-      (page.pending ? " · publishing…" : "");
+      (page.scheduled ? ` · scheduled for ${page.date}` : page.pending ? " · publishing…" : "");
 
     const actions = $(".page-actions", item);
     if (!page.pending) {

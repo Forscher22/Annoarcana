@@ -104,7 +104,8 @@ eleventyExcludeFromCollections: true
                   {%- endfor %}
                 </select>
               </label>
-              <label>Posting date <input type="date" name="postedOn" required></label>
+              <label>Posting date <span class="optional">pick a future date to schedule it</span>
+                <input type="date" name="postedOn" required></label>
             </div>
 
             <label>Title <span class="optional">optional; leave blank to show "Page 12"</span>
@@ -205,6 +206,16 @@ eleventyExcludeFromCollections: true
             <a href="/characters/">View characters page</a>
           </div>
           <ol class="page-list" data-slot="characters"></ol>
+        </section>
+
+        <section class="paperDiv studio-card studio-news">
+          <h2>Backups</h2>
+          <p>
+            Comments, news posts, characters, notes and page text live in the site's database.
+            A backup is saved automatically every week (the last 12 are kept), and you can grab
+            an up-to-date copy here any time. Keep one somewhere safe now and then.
+          </p>
+          <a class="ink-button" href="/api/backup" download>Download a backup</a>
         </section>
       </div>
 

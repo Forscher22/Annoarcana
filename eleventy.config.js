@@ -105,7 +105,40 @@ const IMAGE_QUALITY = {
 	sharpJpegOptions: { quality: 95 },
 };
 
+/**
+ * Scheduled pages: a comic page dated in the future is left out of the build
+ * until its date (at `publishTimeUTC` from _data/metadata.json) has passed.
+ * The dates of waiting pages are written to /schedule.json, which the
+ * publish-scheduled function checks every hour to rebuild the site when one
+ * is due.
+ */
+const { publishTimeUTC = "00:00" } = require("./_data/metadata.json");
+
+function goesLiveAt(date) {
+	const day = new Date(date);
+	if (Number.isNaN(day.getTime())) return null;
+	const [hours, minutes] = publishTimeUTC.split(":").map(Number);
+	return new Date(Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), day.getUTCDate(), hours || 0, minutes || 0));
+}
+
 module.exports = async function(eleventyConfig) {
+		// inputPath -> when that page goes live, for pages still waiting
+		const scheduled = new Map();
+		eleventyConfig.addPreprocessor("scheduled-pages", "*", (data) => {
+			if (!data.page?.inputPath?.startsWith("./comic/")) return;
+			const liveAt = goesLiveAt(data.date ?? data.page.date);
+			if (liveAt && liveAt > new Date()) {
+				scheduled.set(data.page.inputPath, liveAt);
+				return false;
+			}
+			scheduled.delete(data.page.inputPath);
+		});
+		eleventyConfig.on("eleventy.after", ({ directories }) => {
+			// Only the dates, so nothing about upcoming pages is given away
+			const due = [...scheduled.values()].sort((a, b) => a - b).map((d) => d.toISOString());
+			fs.writeFileSync(path.join(directories.output, "schedule.json"), JSON.stringify({ due }));
+		});
+
 		// Copy `img` and `css` folders to output
 		// The full-size comic pages in img/comics are only the masters that the
 		// resized copies are built from, so they aren't published themselves

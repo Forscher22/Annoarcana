@@ -230,6 +230,11 @@
   box-shadow: 3px 3px 0 var(--accent);
   transition: transform 0.15s, box-shadow 0.15s;
 }
+/* The same button look on a link (e.g. "Download a backup") */
+a.ink-button {
+  display: inline-block;
+  text-decoration: none;
+}
 .ink-button:hover {
   transform: translate(-1px, -1px);
   box-shadow: 5px 5px 0 var(--accent);
