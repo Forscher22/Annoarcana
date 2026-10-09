@@ -1,5 +1,6 @@
 ---
 title: Links
+description: "Where to find Anno Arcana: read it on WEBTOON, GlobalComix, itch.io and ComicFury, and follow along on Bluesky."
 layout: layouts/page.liquid
 section: links
 ---

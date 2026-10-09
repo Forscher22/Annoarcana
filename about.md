@@ -1,5 +1,6 @@
 ---
 title: About
+description: "A world without magic until a fey deal 15 years ago. What Anno Arcana is about, its content notice, and the artists, letterers and editors behind it."
 layout: layouts/page.liquid
 section: about
 ---

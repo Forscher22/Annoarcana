@@ -1,0 +1,31 @@
+{% comment %}
+Email sign-up for new chapter announcements and big Anno Arcana news. Sign-ups go straight to the
+Buttondown newsletter (buttondown.com/forscher22), which sends the
+confirmation email and handles unsubscribes. It opens in a new tab so
+readers keep their place in the comic.
+{% endcomment %}
+<section class="paperDiv subscribe" aria-labelledby="subscribe-heading">
+  <h2 id="subscribe-heading">Get an email when a new chapter drops</h2>
+  <p class="subscribe-blurb">No spam, just a heads-up when a new chapter starts or there's big news. Unsubscribe any time.</p>
+  <form
+    action="https://buttondown.com/api/emails/embed-subscribe/forscher22"
+    method="post"
+    target="_blank"
+    class="subscribe-form"
+  >
+    <label for="bd-email">Email address</label>
+    <div class="subscribe-row">
+      <input type="email" name="email" id="bd-email" autocomplete="email" placeholder="you@example.com" required>
+      <button type="submit">Subscribe</button>
+    </div>
+  </form>
+  <p class="subscribe-privacy">
+    Your email is only used for chapter updates and big Anno Arcana news (new issue
+    releases, conventions I might be at, etc.), and that is <strong>all</strong>.
+    Sign-ups are handled by Buttondown
+    (<a href="https://buttondown.com/legal/privacy" target="_blank" rel="noopener">their privacy policy</a>).
+  </p>
+  <p class="subscribe-powered">
+    <a href="https://buttondown.com/refer/forscher22" target="_blank" rel="noopener">Powered by Buttondown</a>
+  </p>
+</section>

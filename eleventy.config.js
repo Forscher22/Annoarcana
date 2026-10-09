@@ -10,7 +10,8 @@
 
 const fs = require("node:fs");
 const path = require("node:path");
-const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
+const Image = require("@11ty/eleventy-img");
+const { eleventyImageTransformPlugin } = Image;
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 /**
@@ -96,6 +97,14 @@ async function getCharacters() {
 	}
 }
 
+// Quality for every resized image (comic pages, share images, nav buttons).
+// 95 keeps the brush grain and faint sketch lines that lower settings smooth
+// over, while pages stay about 6x smaller than the original PNGs.
+const IMAGE_QUALITY = {
+	sharpWebpOptions: { quality: 95 },
+	sharpJpegOptions: { quality: 95 },
+};
+
 module.exports = async function(eleventyConfig) {
 		// Copy `img` and `css` folders to output
 		eleventyConfig.addPassthroughCopy("img");
@@ -110,12 +119,33 @@ module.exports = async function(eleventyConfig) {
 		eleventyConfig.ignores.add("Links.html");
 		eleventyConfig.ignores.add("Supportus.html");
 		eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
-			widths: [100, "auto"], 
+			widths: [100, "auto"],
+			...IMAGE_QUALITY,
 			defaultAttributes: {
 			  loading: 'lazy'
 			}
 		});
 		eleventyConfig.addPlugin(pluginRss);
+
+		// The picture shown when a page is shared (Discord, Bluesky, X, ...).
+		// Images in the repo get a 1200px-wide JPEG copy, since the originals
+		// are too big for some sites to show; pages uploaded through the
+		// dashboard aren't on disk at build time, so they use the upload itself.
+		eleventyConfig.addAsyncFilter("shareImage", async function(src) {
+			const local = path.join(__dirname, src);
+			if (!src.startsWith("/img/") || !fs.existsSync(local)) {
+				return { url: src };
+			}
+			const stats = await Image(local, {
+				widths: [1200],
+				formats: ["jpeg"],
+				...IMAGE_QUALITY,
+				outputDir: path.join(eleventyConfig.directories.output, "img", "share"),
+				urlPath: "/img/share/",
+			});
+			const { url, width, height } = stats.jpeg[0];
+			return { url, width, height };
+		});
 
 		// Add each dashboard page as if it were a file in `comic/`, so it gets the
 		// same layout, ordering and navigation as the Markdown pages. A Markdown

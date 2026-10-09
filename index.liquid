@@ -16,9 +16,10 @@ individual collections to use within templates.
 {%# If you want the first comic instead of the latest, set `last` to `first` %}
 {% assign latest = collections.comic | last %}
 <div class="comic{% if latest.data.spread %} double-page{% endif %}">
-  {% render 'comic.liquid', collection: collections.comic, page: latest.page, images: latest.data.images, alt: latest.data.alt, hover: latest.data.hover %}
+  {% render 'comic.liquid', collection: collections.comic, page: latest.page, images: latest.data.images, alt: latest.data.alt, hover: latest.data.hover, spread: latest.data.spread, showStart: true %}
 </div>
-{%- assign number = latest.page.fileSlug | plus: 0 %}
+{%- assign number = latest.data.pageNumber | default: latest.page.fileSlug | plus: 0 %}
 {% render 'authorNotes.liquid', title: latest.data.title, date: latest.date, content: latest.content, number: number, pageNotes: pageNotes %}
 {% render 'comicSocials.liquid', placement: 'row', spread: latest.data.spread %}
+{% render 'subscribe.liquid' %}
 {% render 'comments.liquid', number: number %}

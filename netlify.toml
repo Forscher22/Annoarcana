@@ -5,3 +5,16 @@
 # Lets the deploy-succeeded function see which migrations shipped with a deploy
 [functions.deploy-succeeded]
   included_files = ["netlify/database/migrations/**"]
+
+# The Elves lore interlude is page 31; it used to live at 30a/30b
+[[redirects]]
+  from = "/comic/30a"
+  to = "/comic/31/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/comic/30b"
+  to = "/comic/31a/"
+  status = 301
+  force = true
