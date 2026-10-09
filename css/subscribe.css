@@ -59,6 +59,16 @@
   background: var(--link-color-hover);
 }
 
+.subscribe-privacy {
+  margin: 1rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #5f5f58;
+}
+.subscribe-privacy a {
+  color: inherit;
+}
+
 .subscribe-powered {
   margin: 0.8rem 0 0;
   font-size: 0.8rem;

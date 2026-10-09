@@ -24,6 +24,8 @@
     {%- endif %}
     <meta name="description" content="{{ pageDescription | escape }}">
     <link rel="canonical" href="{{ metadata.base }}{{ page.url }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ metadata.title | escape }}: every new page" href="/feed.xml">
+    <link rel="alternate" type="application/rss+xml" title="{{ metadata.title | escape }}: new chapters" href="/chapters.xml">
     {%- comment %}
     Link previews for sites like Discord, Bluesky and X. Comic pages show
     their first image; every other page shows the banner.
