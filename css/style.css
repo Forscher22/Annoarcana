@@ -697,3 +697,111 @@ footer p {
   margin: 0.75rem auto 0;
   opacity: 0.4;
 }
+
+/* ---------- Archive thumbnails ---------- */
+.chapter-pages {
+  list-style: none;
+  margin: 0.5rem 0 1rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: 0.6rem 1rem;
+}
+.chapter-pages .chapter a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+.chapter-pages .chapter a:hover span,
+.chapter-pages .chapter a:focus-visible span {
+  text-decoration: underline;
+}
+.chapter-thumb {
+  flex: none;
+  width: 3rem;
+  height: 4.5rem;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid #d6cfc3;
+  background: #f3efe8;
+}
+
+/* ---------- "Read on one page" links, share row ---------- */
+.chapter-read-link {
+  margin: 0.25rem 0 0.75rem;
+  font-weight: 700;
+}
+.share-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.9rem;
+  margin: 1.1rem 0 0;
+  font-size: 0.95rem;
+}
+.share-label {
+  font-weight: 700;
+}
+.share-copy {
+  font: inherit;
+  cursor: pointer;
+  background: var(--content-bg);
+  color: var(--link-color);
+  border: 1px solid var(--link-color);
+  border-radius: 4px;
+  padding: 0.15rem 0.7rem;
+}
+.share-copy:hover,
+.share-copy:focus-visible {
+  border-color: var(--link-color-hover);
+  color: var(--link-color-hover);
+}
+
+/* ---------- One-page chapter reader (chapter-read.liquid) ---------- */
+.chapter-read-head,
+.chapter-read-foot {
+  width: var(--pg-width);
+  margin: 3rem auto 0;
+  padding: 1rem 3% 1.5rem;
+  text-align: center;
+}
+.chapter-read-head h1 {
+  margin-bottom: 0.3rem;
+}
+.chapter-read-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-weight: 700;
+}
+.chapter-read-pages {
+  width: var(--pg-width);
+  margin: 3rem auto 0;
+  padding: 20px;
+}
+.chapter-read-page + .chapter-read-page {
+  margin-top: 2.5rem;
+}
+.chapter-read-page h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.1rem;
+}
+.chapter-read-page picture {
+  display: contents;
+}
+.chapter-read-page img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+@media screen and (max-width: 700px) {
+  .chapter-read-pages {
+    padding: 20px 0;
+  }
+  .chapter-read-page h2 {
+    padding: 0 1rem;
+  }
+}

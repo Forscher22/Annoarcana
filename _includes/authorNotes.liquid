@@ -17,5 +17,19 @@ The author notes box under each comic page. Notes written in the Studio
       Join the Anno Arcana discord!
     </a>
   </p>
+  {%- if url %}
+  {%- comment %} Share links; the Copy button is handled by js/share.js {% endcomment %}
+  {%- assign shareUrl = base | append: url %}
+  {%- assign shareText = title | append: " – Anno Arcana" %}
+  <div class="share-row">
+    <span class="share-label">Share this page:</span>
+    <button type="button" class="share-copy" data-share-url="{{ shareUrl }}" data-share-title="{{ shareText | escape }}">Copy link</button>
+    <a href="https://bsky.app/intent/compose?text={{ shareText | append: ' ' | append: shareUrl | url_encode }}" target="_blank" rel="noopener">Bluesky</a>
+    <a href="https://x.com/intent/tweet?text={{ shareText | url_encode }}&amp;url={{ shareUrl | url_encode }}" target="_blank" rel="noopener">X</a>
+  </div>
+  {%- endif %}
+  {%- if chapterNumber != nil and chapterNumber != "" %}
+  <p class="chapter-read-link"><a href="/chapter/{{ chapterNumber }}/">Read {{ chapterTitle | default: "this chapter" }} on one page &rarr;</a></p>
+  {%- endif %}
   <span class="fox-mark fox-tail authorNotes-tail" aria-hidden="true"></span>
 </div>
