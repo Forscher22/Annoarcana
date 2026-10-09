@@ -38,3 +38,7 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"
+
+# Reuse resized images from earlier builds (see netlify/plugins/image-cache)
+[[plugins]]
+  package = "./netlify/plugins/image-cache"

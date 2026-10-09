@@ -98,5 +98,14 @@
       {{ content }}
     </main>
     {% render 'footer.liquid' %}
+    {%- comment %}
+    Visitor stats (GoatCounter: no cookies, no personal data). Turned on by
+    putting the site code from goatcounter.com in `goatcounter` in
+    _data/metadata.json, e.g. "annoarcana" for annoarcana.goatcounter.com.
+    The Studio isn't counted.
+    {% endcomment %}
+    {%- if metadata.goatcounter != "" %}{% unless page.url contains "/admin/" %}
+    <script data-goatcounter="https://{{ metadata.goatcounter }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+    {%- endunless %}{% endif %}
   </body>
 </html>
