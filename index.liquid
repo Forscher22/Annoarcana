@@ -19,10 +19,7 @@ individual collections to use within templates.
   {% render 'comic.liquid', collection: collections.comic, page: latest.page, images: latest.data.images, alt: latest.data.alt, hover: latest.data.hover, spread: latest.data.spread, showStart: true %}
 </div>
 {%- assign number = latest.data.pageNumber | default: latest.page.fileSlug | plus: 0 %}
-{%- assign chapterNumber = "" %}{% assign chapterTitle = "" %}
-{%- for tag in latest.data.tags %}{% assign prefix = tag | slice: 0, 7 %}{% if prefix == "chapter" %}{% assign chapterNumber = tag | remove_first: "chapter" %}{% endif %}{% endfor %}
-{%- for ch in chapterNames %}{% assign n = ch.number | append: "" %}{% if n == chapterNumber %}{% assign chapterTitle = ch.name %}{% endif %}{% endfor %}
-{% render 'authorNotes.liquid', title: latest.data.title, date: latest.date, content: latest.content, number: number, pageNotes: pageNotes, url: latest.url, base: metadata.base, chapterNumber: chapterNumber, chapterTitle: chapterTitle %}
+{% render 'authorNotes.liquid', title: latest.data.title, date: latest.date, content: latest.content, number: number, pageNotes: pageNotes, url: latest.url, base: metadata.base %}
 <script src="/js/share.js" defer></script>
 {% render 'comicSocials.liquid', placement: 'row', spread: latest.data.spread %}
 {% render 'comments.liquid', number: number %}

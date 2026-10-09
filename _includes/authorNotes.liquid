@@ -28,8 +28,5 @@ The author notes box under each comic page. Notes written in the Studio
     <a href="https://x.com/intent/tweet?text={{ shareText | url_encode }}&amp;url={{ shareUrl | url_encode }}" target="_blank" rel="noopener">X</a>
   </div>
   {%- endif %}
-  {%- if chapterNumber != nil and chapterNumber != "" %}
-  <p class="chapter-read-link"><a href="/chapter/{{ chapterNumber }}/">Read {{ chapterTitle | default: "this chapter" }} on one page &rarr;</a></p>
-  {%- endif %}
   <span class="fox-mark fox-tail authorNotes-tail" aria-hidden="true"></span>
 </div>
