@@ -23,5 +23,4 @@ Liquid file within the template.
 {%- assign number = pageNumber | default: page.fileSlug | plus: 0 %}
 {% render 'authorNotes.liquid', title: title, date: date, content: content, number: number, pageNotes: pageNotes %}
 {% render 'comicSocials.liquid', placement: 'row', spread: spread %}
-{% render 'subscribe.liquid' %}
 {% render 'comments.liquid', number: number %}

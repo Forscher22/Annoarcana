@@ -1,25 +1,28 @@
 {% comment %}
-Email sign-up for new chapter announcements and big Anno Arcana news.
+Email sign-up for new chapter announcements and big Anno Arcana news, shown
+with the follow/support emblems (see comicSocials.liquid): in the left margin
+under Bluesky and X on wide screens, or in the emblem row otherwise.
 Sign-ups go straight to the Buttondown newsletter (buttondown.com/forscher22),
 which sends the confirmation email and handles unsubscribes. It opens in a
 new tab so readers keep their place in the comic.
 {% endcomment %}
-<section class="paperDiv subscribe" aria-labelledby="subscribe-heading">
-  <h2 id="subscribe-heading">Get an email when a new chapter drops</h2>
+<div class="subscribe">
+  <p class="subscribe-title" id="subscribe-title-{{ placement }}">Get an email when a new chapter drops</p>
   <form
     action="https://buttondown.com/api/emails/embed-subscribe/forscher22"
     method="post"
     target="_blank"
     class="subscribe-form"
+    aria-labelledby="subscribe-title-{{ placement }}"
   >
-    <label for="bd-email" class="subscribe-label">Email address</label>
-    <input type="email" name="email" id="bd-email" autocomplete="email" placeholder="you@example.com" required>
+    <label for="bd-email-{{ placement }}" class="subscribe-label">Email address</label>
+    <input type="email" name="email" id="bd-email-{{ placement }}" autocomplete="email" placeholder="Your email" required>
     <button type="submit">Subscribe</button>
   </form>
   <p class="subscribe-privacy">
     Only used for chapter updates and big Anno Arcana news (new issue releases,
-    conventions I might be at, etc.), and that is <strong>all</strong>. Unsubscribe any time.
+    conventions I might be at, etc.), and that is <strong>all</strong>.
     Handled by <a href="https://buttondown.com/refer/forscher22" target="_blank" rel="noopener">Buttondown</a>
-    (<a href="https://buttondown.com/legal/privacy" target="_blank" rel="noopener">privacy policy</a>).
+    (<a href="https://buttondown.com/legal/privacy" target="_blank" rel="noopener">privacy</a>).
   </p>
-</section>
+</div>

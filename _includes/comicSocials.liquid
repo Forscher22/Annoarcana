@@ -5,6 +5,8 @@ Follow and support emblems. This is rendered twice on comic pages:
 - `placement: "row"` (after the author notes) shows them as a row between the
   notes and the comments on narrower screens and for double-page spreads.
 Only one of the two is visible at a time; see "comic side emblems" in style.css.
+The email sign-up (subscribe.liquid) rides along: under the follow links on the
+side, or at the end of the row.
 {% endcomment %}
 <div class="comic-socials comic-socials--{{ placement | default: "row" }}{% if spread %} comic-socials--spread{% endif %}">
   <div class="comic-socials-group comic-socials-left">
@@ -14,6 +16,7 @@ Only one of the two is visible at a time; see "comic side emblems" in style.css.
     <a class="comic-social comic-social-x" href="https://x.com/forscher22" target="_blank" rel="noopener me" aria-label="X (Twitter)" title="X (Twitter)">
       <span class="comic-social-badge"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span>
     </a>
+    {%- if placement == "side" %}{% render 'subscribe.liquid', placement: "side" %}{% endif %}
   </div>
   <div class="comic-socials-group comic-socials-right">
     <a class="comic-social comic-social-patreon" href="https://patreon.com/Forscher22?utm_medium=unknown&amp;utm_source=join_link&amp;utm_campaign=creatorshare_creator&amp;utm_content=copyLink" target="_blank" rel="noopener">
@@ -25,4 +28,5 @@ Only one of the two is visible at a time; see "comic side emblems" in style.css.
       <span class="comic-social-label">Buy us some kofi</span>
     </a>
   </div>
+{%- if placement != "side" %}{% render 'subscribe.liquid', placement: "row" %}{% endif %}
 </div>
