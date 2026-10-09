@@ -97,6 +97,14 @@ async function getCharacters() {
 	}
 }
 
+// Quality for every resized image (comic pages, share images, nav buttons).
+// 95 keeps the brush grain and faint sketch lines that lower settings smooth
+// over, while pages stay about 6x smaller than the original PNGs.
+const IMAGE_QUALITY = {
+	sharpWebpOptions: { quality: 95 },
+	sharpJpegOptions: { quality: 95 },
+};
+
 module.exports = async function(eleventyConfig) {
 		// Copy `img` and `css` folders to output
 		eleventyConfig.addPassthroughCopy("img");
@@ -111,7 +119,8 @@ module.exports = async function(eleventyConfig) {
 		eleventyConfig.ignores.add("Links.html");
 		eleventyConfig.ignores.add("Supportus.html");
 		eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
-			widths: [100, "auto"], 
+			widths: [100, "auto"],
+			...IMAGE_QUALITY,
 			defaultAttributes: {
 			  loading: 'lazy'
 			}
@@ -130,6 +139,7 @@ module.exports = async function(eleventyConfig) {
 			const stats = await Image(local, {
 				widths: [1200],
 				formats: ["jpeg"],
+				...IMAGE_QUALITY,
 				outputDir: path.join(eleventyConfig.directories.output, "img", "share"),
 				urlPath: "/img/share/",
 			});
