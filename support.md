@@ -1,5 +1,6 @@
 ---
 title: Support
+description: "Ways to support Anno Arcana: share it, leave a comment, or back it on Patreon, Ko-fi or itch.io."
 layout: layouts/page.liquid
 section: support
 ---

@@ -84,4 +84,4 @@ Still curious? [Start exploring the template](https://github.com/covalria-sow/el
 
 ### Pages between page numbers
 
-Page numbers are whole numbers (comments and author notes are tied to them). For pages that sit between two numbered pages, like an interlude, name the file so it sorts in the right spot (e.g. `30a.md`, `30b.md` come after `30.md` and before `31.md`) and give it a reserved `pageNumber` of 1000 or more in its front matter. The Studio skips these numbers when suggesting the next page number.
+Page numbers are whole numbers (comments and author notes are tied to them). For pages that sit between two numbered pages, like an interlude, name the file so it sorts in the right spot (e.g. `53a.md`, `53b.md` come after `53.md` and before `54.md`) and give it a reserved `pageNumber` of 1000 or more in its front matter. The Studio skips these numbers when suggesting the next page number.

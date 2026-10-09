@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {%- comment %}
     Comic pages describe themselves with their alt text and name their chapter
-    in the title; every other page falls back to the site-wide description.
+    in the title. Other pages can set a `description` in their front matter,
+    and anything else falls back to the site-wide description.
     {% endcomment %}
     {%- assign chapterName = "" %}
     {%- for tag in tags %}
@@ -19,6 +20,8 @@
     {%- endfor %}
     {%- if alt %}
       {%- assign pageDescription = alt | normalize_whitespace | truncate: 160 %}
+    {%- elsif description %}
+      {%- assign pageDescription = description %}
     {%- else %}
       {%- assign pageDescription = metadata.description %}
     {%- endif %}
