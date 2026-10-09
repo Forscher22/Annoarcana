@@ -1,0 +1,74 @@
+/* Email sign-up box under each comic page (see _includes/subscribe.liquid) */
+
+.subscribe {
+  margin: 3.5rem auto 0;
+  padding: 1% 3% 2%;
+  font-family: "Lato", sans-serif;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.subscribe h2 {
+  margin-bottom: 0.4rem;
+}
+
+.subscribe-blurb {
+  margin: 0 0 1rem;
+}
+
+.subscribe-form label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.subscribe-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.subscribe-row input {
+  flex: 1 1 16rem;
+  font: inherit;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #d6cfc3;
+  border-radius: 2px;
+  background: #faf7f2;
+  color: var(--text-color);
+}
+.subscribe-row input:focus {
+  outline: 2px solid var(--link-color-hover);
+  outline-offset: 1px;
+  background: #fff;
+}
+
+.subscribe-row button {
+  font: 700 1rem "Lato", sans-serif;
+  color: #fff;
+  background: var(--bg-color);
+  border: none;
+  border-radius: 2px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.subscribe-row button:hover,
+.subscribe-row button:focus-visible {
+  background: var(--link-color-hover);
+}
+
+.subscribe-powered {
+  margin: 0.8rem 0 0;
+  font-size: 0.8rem;
+}
+.subscribe-powered a {
+  color: #787872;
+}
+
+@media screen and (max-width: 700px) {
+  .subscribe {
+    padding: 1rem 1.25rem 1.5rem;
+  }
+}

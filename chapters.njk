@@ -1,0 +1,35 @@
+---json
+{
+  "permalink": "chapters.xml",
+  "eleventyExcludeFromCollections": true
+}
+---
+{#- One entry per chapter, pointing at its first page, so an RSS-to-email
+    service (e.g. Buttondown) can send "new chapter" emails without one per
+    page. Lore interludes (chapter0) aren't chapters, so they're left out. -#}
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xml:base="{{ metadata.base | addPathPrefixToFullUrl }}" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ metadata.title }}: new chapters</title>
+    <link>{{ metadata.base | addPathPrefixToFullUrl }}</link>
+    <atom:link href="{{ permalink | htmlBaseUrl(metadata.base) }}" rel="self" type="application/rss+xml" />
+    <description>A new entry each time a chapter of {{ metadata.title }} begins.</description>
+    <language>{{ metadata.language or page.lang }}</language>
+    {%- for chapter in chapterNames | reverse %}
+    {%- set pages = collections["chapter" + chapter.number] %}
+    {%- if chapter.number > 0 and pages and pages.length %}
+    {%- set start = pages | first %}
+    {%- set absoluteUrl = start.url | htmlBaseUrl(metadata.base) %}
+    {%- set cover = start.data.images[0] | shareImage %}
+    <item>
+      <title>Chapter {{ chapter.number }}: {{ chapter.name }}</title>
+      <link>{{ absoluteUrl }}</link>
+      <description><![CDATA[ <p>Chapter {{ chapter.number }} of {{ metadata.title }}, <em>{{ chapter.name }}</em>, has started!</p><p><a href="{{ absoluteUrl }}"><img src="{{ cover.url | htmlBaseUrl(metadata.base) }}" width="400" alt="{{ start.data.alt | default('First page of ' + chapter.name) | escape }}"/></a></p><p><a href="{{ absoluteUrl }}">Start reading</a></p> ]]></description>
+      <pubDate>{{ start.data.date | dateToRfc822 }}</pubDate>
+      <dc:creator>{{ metadata.author }}</dc:creator>
+      <guid>{{ absoluteUrl }}</guid>
+    </item>
+    {%- endif %}
+    {%- endfor %}
+  </channel>
+</rss>

@@ -21,4 +21,5 @@ individual collections to use within templates.
 {%- assign number = latest.data.pageNumber | default: latest.page.fileSlug | plus: 0 %}
 {% render 'authorNotes.liquid', title: latest.data.title, date: latest.date, content: latest.content, number: number, pageNotes: pageNotes %}
 {% render 'comicSocials.liquid', placement: 'row', spread: latest.data.spread %}
+{% render 'subscribe.liquid' %}
 {% render 'comments.liquid', number: number %}
