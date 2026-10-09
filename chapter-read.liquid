@@ -4,6 +4,8 @@ pagination:
   data: collections.chapterReads
   size: 1
   alias: chapter
+  # List every chapter page in collections (and so in the sitemap), not just the first
+  addAllPagesToCollections: true
 permalink: "/chapter/{{ chapter.number }}/"
 eleventyComputed:
   title: "{{ chapter.name }}: the whole chapter"
