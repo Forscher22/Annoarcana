@@ -619,18 +619,6 @@ footer p {
 }
 
 
-/*
- * Netlify's "Powered by Netlify" badge. Netlify adds it to the page itself (it
- * isn't in this site's code), as a floating iframe in the bottom-right corner.
- * This hides it. If Netlify renames the frame, this stops applying and the
- * badge comes back; it can also be switched off in the Netlify dashboard under
- * Project configuration > General > Powered by Netlify badge.
- */
-#nl-badge-frame,
-.nl-badge {
-  display: none !important;
-}
-
 /* fox emblems ("fox" by Caro Asercion, "fox-tail" by Delapouite, game-icons.net,
    CC BY 3.0). Drawn as masks so they take the surrounding text colour. */
 .fox-mark {
