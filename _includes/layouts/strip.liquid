@@ -18,7 +18,7 @@ content depending on if we have data, and the `render` tag includes another
 Liquid file within the template.
 {% endcomment %}
 <div class="comic{% if spread %} double-page{% endif %}">
-  {% render 'comic.liquid', collection: collections.comic, page: page, images: images, alt: alt, hover: hover, date: date %}
+  {% render 'comic.liquid', collection: collections.comic, page: page, images: images, alt: alt, hover: hover, date: date, spread: spread %}
 </div>
 {%- assign number = pageNumber | default: page.fileSlug | plus: 0 %}
 {% render 'authorNotes.liquid', title: title, date: date, content: content, number: number, pageNotes: pageNotes %}

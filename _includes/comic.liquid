@@ -5,11 +5,15 @@ If you want to remove one of the navigation buttons, just remove one of the
 
 {% assign current = collection | getCollectionItem: page %}
 {% assign next = collection | getNextCollectionItem: page %}
+{% assign first = collection | first %}
 
 {% render 'comicNav.liquid', collection: collection, page: page %}
 
 {%- comment %} Bookmark button; the saving is handled by `js/bookmark.js` {% endcomment %}
 <div class="bookmark" data-bookmark data-url="{{ current.url }}" data-title="{{ current.data.title | default: 'Page' | escape }}">
+  {%- if showStart and current != first %}
+  <a class="start-reading" href="{{ first.url }}">Start from page one</a>
+  {%- endif %}
   <button type="button" class="bookmark-save">&#9734; Bookmark this page</button>
   <a class="bookmark-go" hidden></a>
   <button type="button" class="bookmark-clear" hidden>Remove bookmark</button>
@@ -18,10 +22,22 @@ If you want to remove one of the navigation buttons, just remove one of the
 
 <div class="comic-stage">
 <div id="comicPage" class="paperDiv">
+  {%- comment %}
+  Page images in `img/comics` are turned into smaller WebP copies (with a JPEG
+  fallback) at build time, and the browser picks the size it needs. Pages
+  uploaded through the dashboard aren't on disk at build time, so they're
+  shown as uploaded.
+  {% endcomment %}
+  {%- if spread %}{% assign sizes = "(max-width: 1344px) 100vw, 1344px" %}{% else %}{% assign sizes = "(max-width: 1138px) 90vw, 1024px" %}{% endif %}
   {% for panel in images %}
+    {%- assign uploaded = panel | slice: 0, 15 %}
     {% if next %}<a href="{{ next.url }}">{% endif %}
+      {%- if uploaded == "/comic-uploads/" %}
       <img src="{{ panel }}" alt="{{ alt }}"{% if hover %} title="{{ hover | escape }}"{% endif %} eleventy:ignore>
-    {% if next %}</a>{% endif %}   
+      {%- else %}
+      <img src="{{ panel }}" alt="{{ alt }}"{% if hover %} title="{{ hover | escape }}"{% endif %} loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"{% if forloop.first %} fetchpriority="high"{% endif %} sizes="{{ sizes }}" eleventy:widths="600,1000,1500,2100" eleventy:formats="webp,jpeg">
+      {%- endif %}
+    {% if next %}</a>{% endif %}
   {% endfor %}
 </div>
 {% render 'comicSocials.liquid', placement: 'side' %}

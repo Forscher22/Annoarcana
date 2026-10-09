@@ -24,6 +24,31 @@
     {%- endif %}
     <meta name="description" content="{{ pageDescription | escape }}">
     <link rel="canonical" href="{{ metadata.base }}{{ page.url }}">
+    {%- comment %}
+    Link previews for sites like Discord, Bluesky and X. Comic pages show
+    their first image; every other page shows the banner.
+    {% endcomment %}
+    {%- capture pageTitle %}{% if title %}{{ title }}{% if chapterName != "" %} – {{ chapterName }}{% endif %} | {% endif %}{{ metadata.title }}{% endcapture %}
+    {%- if images and images.size > 0 %}
+      {%- assign share = images | first | shareImage %}
+      {%- assign shareAlt = alt | default: metadata.title %}
+    {%- else %}
+      {%- assign share = "/img/banner.png" | shareImage %}
+      {%- assign shareAlt = metadata.title %}
+    {%- endif %}
+    <meta property="og:site_name" content="{{ metadata.title | escape }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ pageTitle | escape }}">
+    <meta property="og:description" content="{{ pageDescription | escape }}">
+    <meta property="og:url" content="{{ metadata.base }}{{ page.url }}">
+    <meta property="og:image" content="{{ metadata.base }}{{ share.url }}">
+    {%- if share.width %}
+    <meta property="og:image:width" content="{{ share.width }}">
+    <meta property="og:image:height" content="{{ share.height }}">
+    {%- endif %}
+    <meta property="og:image:alt" content="{{ shareAlt | normalize_whitespace | escape }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@forscher22">
     <script>
       // Invite and password-reset emails link to the home page; send those
       // links on to the admin dashboard, which knows how to handle them.
@@ -37,10 +62,7 @@
     `metadata.json` file with any other information you deem necessary!
     (https://www.11ty.dev/docs/data-global/)
     -->
-    <title>
-      {%- if title %}{{ title }}{% if chapterName != "" %} – {{ chapterName }}{% endif %} | {% endif -%}
-      {{ metadata.title -}}
-    </title>
+    <title>{{ pageTitle }}</title>
     <link rel="icon" 
       type="image/png" 
       href="/img/favicon.png?v=2">
