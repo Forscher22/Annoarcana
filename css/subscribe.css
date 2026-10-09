@@ -1,84 +1,105 @@
-/* Email sign-up box under each comic page (see _includes/subscribe.liquid) */
+/* Email sign-up that sits with the follow/support emblems
+   (see _includes/subscribe.liquid and comicSocials.liquid). It's on the dark
+   page background, so it uses the same light text as the emblem labels. */
 
 .subscribe {
-  margin: 3.5rem auto 0;
-  padding: 1% 3% 2%;
+  width: 19rem;
+  max-width: 100%;
+  color: var(--on-bg-color);
   font-family: "Lato", sans-serif;
-  font-size: 1rem;
-  color: var(--text-color);
+  font-size: 0.85rem;
+  text-align: left;
 }
 
-.subscribe h2 {
-  margin-bottom: 0.4rem;
+.subscribe-title {
+  margin: 0 0 0.45rem;
+  font-family: "IM Fell English", serif;
+  font-size: 1.1rem;
+  line-height: 1.2;
 }
 
-.subscribe-blurb {
-  margin: 0 0 1rem;
+/* The label is for screen readers; the placeholder shows what goes there */
+.subscribe-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
-.subscribe-form label {
-  display: block;
-  margin-bottom: 0.3rem;
-  font-weight: 700;
-  font-size: 0.9rem;
-}
-
-.subscribe-row {
+.subscribe-form {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
+  gap: 0.4rem;
 }
 
-.subscribe-row input {
-  flex: 1 1 16rem;
+.subscribe-form input {
+  flex: 1 1 auto;
+  min-width: 0;
   font: inherit;
-  padding: 0.55rem 0.7rem;
+  padding: 0.4rem 0.5rem;
   border: 1px solid #d6cfc3;
   border-radius: 2px;
   background: #faf7f2;
   color: var(--text-color);
 }
-.subscribe-row input:focus {
+.subscribe-form input:focus {
   outline: 2px solid var(--link-color-hover);
   outline-offset: 1px;
   background: #fff;
 }
 
-.subscribe-row button {
-  font: 700 1rem "Lato", sans-serif;
+.subscribe-form button {
+  flex: none;
+  font: 700 0.85rem "Lato", sans-serif;
   color: #fff;
-  background: var(--bg-color);
+  background: var(--link-color-hover);
   border: none;
   border-radius: 2px;
-  padding: 0.7rem 1.5rem;
+  padding: 0.45rem 0.8rem;
   cursor: pointer;
-  transition: background 0.2s;
 }
-.subscribe-row button:hover,
-.subscribe-row button:focus-visible {
-  background: var(--link-color-hover);
+.subscribe-form button:hover,
+.subscribe-form button:focus-visible {
+  background: #b8432b;
 }
 
 .subscribe-privacy {
-  margin: 1rem 0 0;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: #5f5f58;
+  margin: 0.45rem 0 0;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  opacity: 0.8;
 }
 .subscribe-privacy a {
   color: inherit;
 }
 
-.subscribe-powered {
-  margin: 0.8rem 0 0;
-  font-size: 0.8rem;
+/* In the narrow side margin: stack the field and button */
+.comic-socials--side .subscribe {
+  /* Fit the margin beside the page (64rem wide whenever the side column
+     shows), leaving a gap at the screen edge */
+  width: min(8rem, calc((100vw - 64rem) / 2 - 2.5rem));
+  margin-top: 0.5rem;
+  text-align: center;
 }
-.subscribe-powered a {
-  color: #787872;
+.comic-socials--side .subscribe-title {
+  font-size: 1rem;
+}
+.comic-socials--side .subscribe-form {
+  flex-direction: column;
 }
 
-@media screen and (max-width: 700px) {
-  .subscribe {
-    padding: 1rem 1.25rem 1.5rem;
-  }
+/* ComicAd unit in the right margin, under Patreon and Ko-fi. Same width as the
+   sign-up on the left; anything wider is scaled down or cropped rather than
+   spilling over the comic. */
+.side-ad {
+  width: min(8rem, calc((100vw - 64rem) / 2 - 2.5rem));
+  margin-top: 0.5rem;
+  overflow: hidden;
+  text-align: center;
+}
+.side-ad img,
+.side-ad iframe {
+  max-width: 100%;
+  height: auto;
 }
