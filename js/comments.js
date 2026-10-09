@@ -87,6 +87,7 @@
           name: form.name.value,
           body: form.body.value,
           website: form.website.value,
+          path: location.pathname,
         }),
       });
       const data = await res.json().catch(() => ({}));
