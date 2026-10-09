@@ -15,7 +15,7 @@ suggest the next page number and show what's already on the site.
     "title": {{ item.data.title | json }},
     "chapter": {{ chapter | default: 1 | plus: 0 }},
     "date": {{ item.date | date: "%Y-%m-%d" | json }},
-    "image": {{ item.data.images[0] | json }},
+    "image": {{ item.data.images[0] | thumbImage | json }},
     "source": {% if item.data.dashboardId %}"dashboard", "id": {{ item.data.dashboardId }}{% else %}"file"{% endif %}
   }{% unless forloop.last %},{% endunless %}
 {%- endfor %}

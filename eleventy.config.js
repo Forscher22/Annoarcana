@@ -107,7 +107,9 @@ const IMAGE_QUALITY = {
 
 module.exports = async function(eleventyConfig) {
 		// Copy `img` and `css` folders to output
-		eleventyConfig.addPassthroughCopy("img");
+		// The full-size comic pages in img/comics are only the masters that the
+		// resized copies are built from, so they aren't published themselves
+		eleventyConfig.addPassthroughCopy("img", { filter: ["**", "!comics/**"] });
 		eleventyConfig.addPassthroughCopy("css");
 		eleventyConfig.addPassthroughCopy("js");
 		eleventyConfig.addPassthroughCopy("robots.txt");
@@ -149,6 +151,20 @@ module.exports = async function(eleventyConfig) {
 			});
 			const { url, width, height } = stats.jpeg[0];
 			return { url, width, height };
+		});
+
+		// A small thumbnail for the Studio's page list (see comic-index.liquid)
+		eleventyConfig.addAsyncFilter("thumbImage", async function(src) {
+			const local = path.join(__dirname, src);
+			if (!src.startsWith("/img/") || !fs.existsSync(local)) return src;
+			const stats = await Image(local, {
+				widths: [120],
+				formats: ["jpeg"],
+				...IMAGE_QUALITY,
+				outputDir: path.join(eleventyConfig.directories.output, "img", "r"),
+				urlPath: "/img/r/",
+			});
+			return stats.jpeg[0].url;
 		});
 
 		// Add each dashboard page as if it were a file in `comic/`, so it gets the
