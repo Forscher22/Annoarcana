@@ -104,6 +104,11 @@ module.exports = async function(eleventyConfig) {
 		eleventyConfig.addPassthroughCopy("robots.txt");
 		// The template's setup guide is for the repo, not for readers
 		eleventyConfig.ignores.add("readme.md");
+		// Saved copies of the old ComicFury pages, kept for reference only.
+		// archive.html would otherwise collide with archive.liquid at /archive/
+		eleventyConfig.ignores.add("archive.html");
+		eleventyConfig.ignores.add("Links.html");
+		eleventyConfig.ignores.add("Supportus.html");
 		eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
 			widths: [100, "auto"], 
 			defaultAttributes: {
