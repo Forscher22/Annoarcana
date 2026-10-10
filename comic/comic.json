@@ -1,5 +1,8 @@
 {
-    "tags": ["comic"],
+    "tags": [
+        "comic"
+    ],
     "layout": "layouts/strip.liquid",
-    "date": "2026-10-02"
+    "date": "2026-10-02",
+    "adInBookmarkRow": true
 }

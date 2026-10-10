@@ -25,7 +25,10 @@ you don't have to copy/paste it onto every page
     <a href="/links/">Links</a>
   </nav>
   <!-- ComicAd banner below the menu on every page, as on ComicFury -->
+  {%- comment %} Comic pages show this banner in the bookmark row instead (comic.liquid) {% endcomment %}
+  {%- unless adInBookmarkRow %}
   <div class="header-ad">
     <script type="text/javascript" src="https://www.comicad.net/r/U5JonroXCj/"></script>
   </div>
+  {%- endunless %}
 </header>
