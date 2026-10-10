@@ -146,6 +146,8 @@ module.exports = async function(eleventyConfig) {
 		eleventyConfig.addPassthroughCopy("css");
 		eleventyConfig.addPassthroughCopy("js");
 		eleventyConfig.addPassthroughCopy("robots.txt");
+		// Declares who may sell ads on the site (Google AdSense)
+		eleventyConfig.addPassthroughCopy("ads.txt");
 		// The template's setup guide is for the repo, not for readers
 		eleventyConfig.ignores.add("readme.md");
 		// Saved copies of the old ComicFury pages, kept for reference only.
