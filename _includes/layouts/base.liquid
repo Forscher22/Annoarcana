@@ -87,7 +87,7 @@
     </head>
   <body>
     {%# We use `render` tags to include other liquid files in our template %}
-    {% render 'header.liquid' %}
+    {% render 'header.liquid', adInBookmarkRow: adInBookmarkRow %}
     {% comment %}
     Since this file is used as a layout, we use the `content` variable to mark
     where the contents of pages that use this layout go!

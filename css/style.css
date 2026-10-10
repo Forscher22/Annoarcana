@@ -393,6 +393,19 @@ footer p {
   margin: -30px auto 0;
   font-size: 1rem;
 }
+/* ComicAd banner in the bookmark row; wraps onto its own line when there
+   isn't room beside the buttons, and never spills past the screen edge */
+.bookmark-ad {
+  max-width: 100%;
+  overflow: hidden;
+  text-align: center;
+  line-height: 0;
+  margin-bottom: 1rem;
+}
+/* Keep the row (buttons + banner) within the comic's width */
+.bookmark:has(.bookmark-ad) {
+  width: var(--pg-width);
+}
 /* "Start from page one" on the home page, next to the bookmark button */
 .start-reading {
   background: var(--link-color-hover);
