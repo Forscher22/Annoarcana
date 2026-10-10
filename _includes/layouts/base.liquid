@@ -72,6 +72,14 @@
     (https://www.11ty.dev/docs/data-global/)
     -->
     <title>{{ pageTitle }}</title>
+    {%- comment %}
+    Google AdSense site code (publisher ID in `adsenseClient` in
+    _data/metadata.json; leave it empty to turn AdSense off). The matching
+    ads.txt is in the site root.
+    {% endcomment %}
+    {%- if metadata.adsenseClient != "" %}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ metadata.adsenseClient }}" crossorigin="anonymous"></script>
+    {%- endif %}
     <link rel="icon" 
       type="image/png" 
       href="/img/favicon.png?v=2">
