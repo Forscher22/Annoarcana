@@ -1,0 +1,40 @@
+---
+# The page that netlify/functions/live-pages.mts fills in to show Studio pages
+# posted since the last deploy, so they're up without rebuilding the site.
+# Each %%NAME%% is swapped for that page's details.
+permalink: /live-page-template/
+eleventyExcludeFromCollections: true
+layout: layouts/base.liquid
+adInBookmarkRow: true
+title: "%%HEADTITLE%%"
+alt: "%%ALT%%"
+images: ["%%IMAGE%%"]
+---
+<div class="comic%%SPREADCLASS%%">
+%%NAV%%
+<div class="bookmark" data-bookmark data-url="%%URL%%" data-title="%%TITLE%%">
+  %%START%%
+  <button type="button" class="bookmark-save">&#9734; Bookmark this page</button>
+  <a class="bookmark-go" hidden></a>
+  <button type="button" class="bookmark-clear" hidden>Remove bookmark</button>
+  <div class="bookmark-ad">
+    <script type="text/javascript" src="https://www.comicad.net/r/U5JonroXCj/"></script>
+  </div>
+</div>
+<script src="/js/bookmark.js" defer></script>
+
+<div class="comic-stage">
+<div id="comicPage" class="paperDiv">
+  %%IMAGES%%
+</div>
+{% render 'comicSocials.liquid', placement: 'side' %}
+</div>
+
+<div class="comic-ad">
+  <script type="text/javascript" src="https://www.comicad.net/r/g8kZ3qcYgO/"></script>
+</div>
+</div>
+{% render 'authorNotes.liquid', title: "%%TITLE%%", dateText: "%%DATE%%", content: "%%NOTES%%", number: 0, pageNotes: pageNotes, url: page.url, base: metadata.base %}
+{% render 'comicSocials.liquid', placement: 'row', spread: false %}
+{% render 'comments.liquid', number: "%%NUMBER%%" %}
+<script src="/js/share.js" defer></script>

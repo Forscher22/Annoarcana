@@ -212,8 +212,10 @@ function renderPages({ pages, buildHookConfigured }, published) {
       pending: true,
       // Dated in the future: the site publishes it on that date by itself
       scheduled: p.postedOn > today(),
-    }));
-  const publishing = pending.filter((p) => !p.scheduled);
+    }))
+    // Pages that are due are shown straight from the database until the next
+    // deploy adds them to the archive (see lib/live-pages.ts)
+    .map((p) => (p.scheduled ? p : { ...p, url: `/comic/${String(p.number).padStart(2, "0")}/` }));
   const scheduled = pending.filter((p) => p.scheduled);
   const all = [...published, ...pending].sort((a, b) => a.number - b.number);
 
@@ -233,11 +235,9 @@ function renderPages({ pages, buildHookConfigured }, published) {
   publishButton.hidden = !buildHookConfigured;
   if (!buildHookConfigured) {
     notice(
-      "Automatic publishing isn't set up yet, so new pages appear after the site's next deploy. " +
-        "To publish right away, add a build hook (see the setup notes).",
+      "New pages go up right away, but the archive and feed only update at the site's next deploy. " +
+        "To update them right away, add a build hook (see the setup notes).",
     );
-  } else if (publishing.length) {
-    notice(`${publishing.length} page${publishing.length > 1 ? "s are" : " is"} on the way to the site. Publishing takes a minute or two.`);
   } else if (scheduled.length) {
     notice(`${scheduled.length} page${scheduled.length > 1 ? "s are" : " is"} scheduled and will go up on ${scheduled.length > 1 ? "their dates" : "its date"} automatically.`);
   } else {
@@ -265,7 +265,7 @@ function renderPages({ pages, buildHookConfigured }, published) {
     $("strong", item).textContent = page.title || `Page ${String(page.number).padStart(2, "0")}`;
     $(".page-sub", item).textContent =
       `Page ${page.number} · ${chapterName(page.chapter)} · ${page.date}` +
-      (page.scheduled ? ` · scheduled for ${page.date}` : page.pending ? " · publishing…" : "");
+      (page.scheduled ? ` · scheduled for ${page.date}` : page.pending ? " · live (joins the archive at the next deploy)" : "");
 
     const actions = $(".page-actions", item);
     if (!page.pending) {
@@ -560,9 +560,11 @@ uploadForm.addEventListener("submit", async (event) => {
     uploadForm.postedOn.value = today();
     await loadPages();
     notice(
-      rebuilding
-        ? `Page ${page.pageNumber} posted! The site updates in a minute or two.`
-        : `Page ${page.pageNumber} saved. It appears on the site after the next deploy.`,
+      page.postedOn > today()
+        ? `Page ${page.pageNumber} scheduled! It goes up on ${page.postedOn} by itself.`
+        : rebuilding
+          ? `Page ${page.pageNumber} posted! It's on the site now; the archive updates in a minute or two.`
+          : `Page ${page.pageNumber} posted! It's on the site now; the archive updates after the next deploy.`,
     );
   } catch (error) {
     setError(uploadForm, error.message);

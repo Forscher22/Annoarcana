@@ -23,6 +23,10 @@ If you want to remove one of the navigation buttons, just remove one of the
   </div>
 </div>
 <script src="/js/bookmark.js" defer></script>
+{%- comment %} The newest page in this build: links on to pages posted in the Studio since {% endcomment %}
+{%- unless next %}
+<script src="/js/live-pages.js" defer></script>
+{%- endunless %}
 
 <div class="comic-stage">
 <div id="comicPage" class="paperDiv">
