@@ -1,9 +1,10 @@
-import type { Config } from "@netlify/functions";
+import { purgeCache, type Config } from "@netlify/functions";
 import { getStore } from "@netlify/blobs";
 import { asc, eq } from "drizzle-orm";
 import { db } from "../../db/index.js";
 import { comicPages, comments } from "../../db/schema.js";
 import { requireAdmin, triggerRebuild } from "../../lib/admin-auth.js";
+import { LIVE_CACHE_TAG } from "../../lib/live-pages.js";
 
 const IMAGE_TYPES: Record<string, string> = {
   "image/png": "png",
@@ -99,6 +100,8 @@ export default async (req: Request) => {
       })
       .returning();
 
+    // The page is up (or gone) right away; the rebuild adds it to the archive
+    await purgeCache({ tags: [LIVE_CACHE_TAG] }).catch(() => {});
     const rebuilding = await triggerRebuild();
     return Response.json({ page, rebuilding }, { status: 201 });
   }
@@ -176,6 +179,8 @@ export default async (req: Request) => {
 
     if (newImage) await store.delete(existing.imageKey);
 
+    // The page is up (or gone) right away; the rebuild adds it to the archive
+    await purgeCache({ tags: [LIVE_CACHE_TAG] }).catch(() => {});
     const rebuilding = await triggerRebuild();
     return Response.json({ page, rebuilding });
   }
@@ -189,6 +194,8 @@ export default async (req: Request) => {
       return Response.json({ error: "That page no longer exists." }, { status: 404 });
     }
     await getStore("comic-pages").delete(page.imageKey);
+    // The page is up (or gone) right away; the rebuild adds it to the archive
+    await purgeCache({ tags: [LIVE_CACHE_TAG] }).catch(() => {});
     const rebuilding = await triggerRebuild();
     return Response.json({ deleted: page.id, rebuilding });
   }

@@ -5,7 +5,7 @@ The author notes box under each comic page. Notes written in the Studio
 {%- assign studioNotes = pageNotes[number] -%}
 <div class="authorNotes paperDiv">
   <h1>{{ title }}</h1>
-  <p class="authorNotes-date">posted on {{ date | utcDate }}</p>
+  <p class="authorNotes-date">posted on {% if dateText %}{{ dateText }}{% else %}{{ date | utcDate }}{% endif %}</p>
   {%- if studioNotes %}
     {{ studioNotes | markdown }}
   {%- elsif content != "" %}
